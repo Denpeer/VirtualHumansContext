@@ -2,9 +2,9 @@ use "tygronenv-1.0.6-jar-with-dependencies.jar" as environment
 	with map = "vh3".
 
 define DUWOAgent as agent {
-	use "DUWOagent//DUWOmain" as main module.
-	use "DUWOagent//DUWOevents" as event module.
-	use "DUWOagent//DUWOinit" as init module.
+	use "DUWOagent//main" as main module.
+	use "DUWOagent//events" as event module.
+	use "DUWOagent//init" as init module.
 }
 
 launchpolicy {

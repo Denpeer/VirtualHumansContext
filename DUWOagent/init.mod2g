@@ -1,6 +1,6 @@
-use dummy as beliefs.
+use "knowledge" as beliefs.
 
-module DUWOinit {
+module init {
 		if true then insert(settings([])).
 		if true then insert(functions([])).
 		if true then insert(stakeholders([])).

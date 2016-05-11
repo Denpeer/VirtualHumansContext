@@ -1,6 +1,6 @@
-use dummy as knowledge.
+use "knowledge" as knowledge.
 
-module DUWOevents {
+module events {
 	%%%%% Percept Processing %%%%%
 	
 	

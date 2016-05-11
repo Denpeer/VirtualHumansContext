@@ -1,4 +1,4 @@
-use dummy as knowledge.
+use "knowledge" as knowledge.
 
 define	building_plan_construction(Id, Level, MultiPolygon) with
    pre{ true }

@@ -1,6 +1,6 @@
-use dummy as knowledge.
-use tygron as actionspec.
-use somegoal as goals.
+use "knowledge" as knowledge.
+use actions as actionspec.
+use "goal" as goals.
 
 exit=nogoals.
 
