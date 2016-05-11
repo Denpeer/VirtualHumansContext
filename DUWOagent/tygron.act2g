@@ -1,0 +1,5 @@
+use dummy as knowledge.
+
+define	building_plan_construction(Id, Level, MultiPolygon) with
+   pre{ true }
+   post{ true }
