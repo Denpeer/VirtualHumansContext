@@ -9,5 +9,5 @@ test tygron with
 	post{buildings(_)}
 	
 	DUWOAgent {
-		
+		%do test_fail.
 	}

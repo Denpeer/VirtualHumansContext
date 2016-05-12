@@ -1,20 +1,21 @@
 language: java
 before_install:
-- export DUWO_MAP=DUWOagent
-- export ENVIRONMENT=environment
-- for f in $DUWO_MAP/*.test2g; do echo "$f"; done
+# set vars
+- export AGENT_PATH=DUWOagent
+- export ENVIRONMENT=$AGENT_PATH/environment
+- export GOAL_PATH=$AGENT_PATH/dependencies
 install:
-# build the connector, testing of the connector is done in the tygron repo CI.
-- for f in $DUWO_MAP/$ENVIRONMENT/*; do echo "$f"; done
-- java -cp $DUWO_MAP/$ENVIRONMENT/tygronenv-*-jar-with-dependencies.jar login.Login $TYGRON_USER $TYGRON_PASS
-# move generated env jar to the same folder as the test file(s)
-#- mv tygron/environment/target/tygronenv-*-jar-with-dependencies.jar .
+#login into connector
+- java -cp $ENVIRONMENT/tygronenv-*-jar-with-dependencies.jar login.Login $TYGRON_USER $TYGRON_PASS
 
-# make app.properties through travis before script start, needed for user validation
 before_script:
-- for f in $DUWO_MAP/*.test2g; do echo "$f"; done
+#see all test files
+- for f in $AGENT_PATH/*.test2g; do echo "$f"; done
 script:
-- for filename in $DUWO_MAP/*.test2g; do echo "$filename"; timeout 10 java -cp com.github.goalhub.runtime.jar-with-dependencies_2.0.2.20160418123535.jar goal.tools.Run $filename -v > result.txt || echo 0; cat result.txt; grep "test failed:" result.txt && $? || echo 0; grep "test passed:" result.txt && echo 0 || $?; rm result.txt; done
+#test the files
+- for filename in $AGENT_PATH/*.test2g; do echo "$filename"; timeout 12 java -cp $GOAL_PATH/com.github.goalhub.runtime.jar-with-dependencies_2.0.2.20160418123535.jar goal.tools.Run $filename -v > $(basename $filename).txt || echo 0; cat $(basename $filename).txt; done
 
+- ls
+- if grep -Fq "test failed" *.txt; then echo "FAILURE HAPPENED"; $?; else echo "No test failed."; fi
 jdk:
 - oraclejdk8
