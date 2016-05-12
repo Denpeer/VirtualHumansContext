@@ -1,4 +1,20 @@
 language: java
+before_install:
+- export DUWO_MAP=DUWOagent
+- export ENVIRONMENT=environment
+- for f in $DUWO_MAP/*.test2g; do echo "$f"; done
+install:
+# build the connector, testing of the connector is done in the tygron repo CI.
+- for f in $DUWO_MAP/$ENVIRONMENT/*; do echo "$f"; done
+- java -cp $DUWO_MAP/$ENVIRONMENT/tygronenv-*-jar-with-dependencies.jar login.Login $TYGRON_USER $TYGRON_PASS
+# move generated env jar to the same folder as the test file(s)
+#- mv tygron/environment/target/tygronenv-*-jar-with-dependencies.jar .
+
+# make app.properties through travis before script start, needed for user validation
+before_script:
+- for f in $DUWO_MAP/*.test2g; do echo "$f"; done
+script:
+- for filename in $DUWO_MAP/*.test2g; do echo "$filename"; timeout 10 java -cp com.github.goalhub.runtime.jar-with-dependencies_2.0.2.20160418123535.jar goal.tools.Run $filename -v > result.txt || echo 0; cat result.txt; grep "test failed:" result.txt && $? || echo 0; grep "test passed:" result.txt && echo 0 || $?; rm result.txt; done
+
 jdk:
 - oraclejdk8
-script: mvn -DTYGRON.USER=$TYGON.USER -D TYGRON.PASS=$TYGRON.PASS test -f ./tygron/pom.xml
