@@ -1,4 +1,23 @@
 language: java
+before_install:
+# set vars
+- export AGENT_PATH=DUWOagent
+- export DEPENDENCIES=dependencies
+- export ENVIRONMENT=$DEPENDENCIES
+
+install:
+#login into connector
+- java -cp $ENVIRONMENT/tygronenv-*-jar-with-dependencies.jar login.Login $TYGRON_USER $TYGRON_PASS
+
+before_script:
+#see all test files
+- for f in $AGENT_PATH/*.test2g; do echo "$f"; done
+script:
+#test the files
+- for filename in $AGENT_PATH/*.test2g; do echo "$filename"; timeout 12 java -cp $DEPENDENCIES/com.github.goalhub.runtime.jar-with-dependencies_2.0.2.20160418123535.jar goal.tools.Run $filename -v > $(basename $filename).txt || echo 0; cat $(basename $filename).txt; done
+
+- ls
+- if grep -Fq "test failed" *.txt; then echo "FAILURE HAPPENED"; $?; else echo "No test failed."; fi
+- if grep -Fq "test passed" *.txt; then echo "test passed..."; else echo "A test failed"; $?; fi
 jdk:
 - oraclejdk8
-script: mvn -DTYGRON.USER=$TYGON.USER -D TYGRON.PASS=$TYGRON.PASS test -f ./tygron/pom.xml
