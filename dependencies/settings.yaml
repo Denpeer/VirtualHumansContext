@@ -1,6 +1,6 @@
 PMPreferences: {
   agentCopyEnvRunState: false,
-  agentsBrowseDir: 'C:\Users\Rico\Documents\School\TU\1\sqte\Test/GOALagents',
+  agentsBrowseDir: '',
   defaultKRInterface: swiprolog,
   middlewareLocal: false,
   rememberLastUsedAgentDir: true,
@@ -74,7 +74,7 @@ LoggingPreferences: {
   eclipseAgentConsoles: true,
   eclipseDebug: false,
   logconsoles: false,
-  logdirectory: 'C:\Users\Rico/GOAL/logs',
+  logdirectory: '',
   logtofile: false,
   overwritelogfiles: false,
   showLogsInConsole: false,
@@ -82,7 +82,7 @@ LoggingPreferences: {
   stackdump: false
 }
 DBExportPreferences: {
-  exportBrowseDir: 'C:\Users\Rico\Documents\School\TU\1\sqte\Test',
+  exportBrowseDir: '',
   exportbeliefs: true,
   exportgoals: true,
   exportmailbox: true,
