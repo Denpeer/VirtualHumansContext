@@ -1,0 +1,11 @@
+use "knowledge" as knowledge.
+
+module events {
+	%%%%% Percept Processing %%%%%
+	
+	
+	if percept(stakeholders(X)), bel(stakeholders(Y))  then  insert( stakeholders(X) ) + delete(stakeholders(Y)).
+	if percept(settings(X)), bel(settings(Y)) then insert(settings(X)) +delete(settings(Y)).
+	if percept(functions(X)), bel(functions(Y)) then insert(functions(X)) + delete(functions(Y)).
+	if percept(buildings(X)), bel(buildings(Y)) then insert(buildings(X))+delete(buildings(Y)).
+}
