@@ -4,7 +4,8 @@ set GOAL_RUNTIME=%DEPENDENCIES%/runtime-2.0.2-SNAPSHOT-jar-with-dependencies.jar
 set GOAL_SETTINGS=%DEPENDENCIES%/settings.yaml
 set GOAL_RUN=goal.tools.eclipse.RunTool
 set RESULTS_PATH=results
-set RESULTS=%RESULTS_PATH%/results.res
+set RESULT_FILE=result.res
+set RESULTS=%RESULTS_PATH%/%RESULT_FILE%
 
 mkdir %RESULTS_PATH%
 del %RESULTS_PATH%\*.res
@@ -51,5 +52,7 @@ echo Number of tests: %counter%  >> %RESULTS%
 echo Tests failed: %failed% >> %RESULTS%
 echo Tests errored: %tsterr% >> %RESULTS%
 echo Tests passed: %passed% >> %RESULTS%
+
+type %RESULTS_PATH%\%RESULT_FILE%
 
 start notepad %RESULTS%
