@@ -1,4 +1,4 @@
-use "../dependencies/tygronenv-1.0.8-jar-with-dependencies.jar" as environment 
+use "../../dependencies/tygronenv-1.0.8-jar-with-dependencies.jar" as environment 
 	with project = "vh3".
 
 define DUWOAgent as agent {
