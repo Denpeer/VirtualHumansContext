@@ -3,4 +3,4 @@
 
 Contextproject 2016 Virtual Humans.
 
-The connector fork can be found at https://github.com/levilime/contextvh.git
+The connector fork can be found at https://github.com/Denpeer/tygron.git
