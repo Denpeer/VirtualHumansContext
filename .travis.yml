@@ -1,7 +1,7 @@
 language: java
 before_install:
 # set vars
-- export AGENT_PATH=DUWOagent
+- export TESTS_PATH=src/tests
 - export DEPENDENCIES=dependencies
 - export ENVIRONMENT=$DEPENDENCIES
 - export GOAL_RUNTIME=$DEPENDENCIES/runtime-2.0.2-SNAPSHOT-jar-with-dependencies.jar
@@ -14,10 +14,10 @@ install:
 
 before_script:
 #see all test files and move them
-- for f in $AGENT_PATH/*.test2g; do echo "$f"; done
+- for f in $TESTS_PATH/*.test2g; do echo "$f"; done
 script:
 #test the files
-- for filename in $AGENT_PATH/*.test2g; do echo "$filename"; timeout 30 java -cp $GOAL_RUNTIME $GOAL_COMMAND $GOAL_SETTINGS $filename > $(basename $filename).txt || echo 0; cat $(basename $filename).txt; done
+- for filename in $TESTS_PATH/*.test2g; do echo "$filename"; timeout 30 java -cp $GOAL_RUNTIME $GOAL_COMMAND $GOAL_SETTINGS $filename > $(basename $filename).txt || echo 0; cat $(basename $filename).txt; done
 
 - ls
 - if grep -Fq "test failed" *.txt; then echo "FAILURE HAPPENED"; $?; else echo "No test failed."; fi

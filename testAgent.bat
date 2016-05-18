@@ -1,4 +1,4 @@
-set AGENT=DUWOagent
+set TEST_FILES=src/tests
 set DEPENDENCIES=dependencies
 set GOAL_RUNTIME=%DEPENDENCIES%/runtime-2.0.2-SNAPSHOT-jar-with-dependencies.jar
 set GOAL_SETTINGS=%DEPENDENCIES%/settings.yaml
@@ -6,9 +6,12 @@ set GOAL_RUN=goal.tools.eclipse.RunTool
 set RESULTS_PATH=results
 set RESULTS=%RESULTS_PATH%/results.res
 
-for %%f in (%agent%/*.test2g) do (
+mkdir %RESULTS_PATH%
+del %RESULTS_PATH%\*.res
+
+for %%f in (%TEST_FILES%/*.test2g) do (
 	echo %%~nf	
-	java -cp %GOAL_RUNTIME% %GOAL_RUN% %GOAL_SETTINGS% %AGENT%/%%f -v > %RESULTS_PATH%/%%f.res
+	java -cp %GOAL_RUNTIME% %GOAL_RUN% %GOAL_SETTINGS% %TEST_FILES%/%%f -v > %RESULTS_PATH%/%%f.res
 )
 
 @echo off
