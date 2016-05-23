@@ -3,14 +3,19 @@ use "knowledge" as knowledge.
 module events {
 	%% When a percept is obtained, update the corresponding belief. %%
 	
+	%% Percepts a list of all stakeholders ([<id>, <name>, <income>, <start_budget>]).
 	if percept(stakeholders(X)), bel(stakeholders(Y))
 			then delete(stakeholders(Y)) + insert(stakeholders(X)).
+	%% Percepts a list of all settings ([<setting>]).
 	if percept(settings(X)), bel(settings(Y))
 			then delete(settings(Y)) + insert(settings(X)).
+	%% Percepts a list of all functions ([<name>, <id>, [<category>]]).
 	if percept(functions(X)), bel(functions(Y))
 			then delete(functions(Y)) + insert(functions(X)).
+	%% Percepts a list of all buildings ([building(<id>, <name>, [<category>], <timeState>)]).
 	if percept(buildings(X)), bel(buildings(Y))
 			then delete(buildings(Y)) + insert(buildings(X)).
-	if percept(indicator(X)), bel(indicator(Y))
-			then delete(indicator(Y)) + insert(indicator(X)).
+	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>]).
+	if percept(indicators(X)), bel(indicators(Y))
+			then delete(indicators(Y)) + insert(indicators(X)).
 }
