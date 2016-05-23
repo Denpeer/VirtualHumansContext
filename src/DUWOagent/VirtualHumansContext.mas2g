@@ -1,5 +1,5 @@
 use "../../dependencies/tygronenv-1.0.8-jar-with-dependencies.jar" as environment 
-	with project = "vh3".
+	with project = "vhproject", stakeholder = "CIVILIAN", domain = "tudelft".
 
 define DUWOAgent as agent {
 	use "main" as main module.
@@ -8,5 +8,5 @@ define DUWOAgent as agent {
 }
 
 launchpolicy {
-	when name=Municipality launch DUWOAgent.
+	when name=DUWO launch DUWOAgent.
 }
