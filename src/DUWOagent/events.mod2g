@@ -18,7 +18,4 @@ module events {
 	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>]).
 	if percept(indicators(X)), bel(indicators(Y))
 			then delete(indicators(Y)) + insert(indicators(X)).
-	%% Percepts a list of all zones ([-todo-]).
-	if percept(zones(X)), bel(zones(Y))
-			then delete(zones(Y)) + insert(zones(X)).
 }
