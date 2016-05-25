@@ -23,8 +23,15 @@ module events {
 	%% Percepts a list of all buildings ([building(<id>, <name>, [<category>], <timeState>)]).
 	if percept(buildings(X)), bel(buildings(Y))
 			then delete(buildings(Y)) + insert(buildings(X)).
-			
-	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>]).
-	if percept(indicators(X)), bel(indicators(Y))
-			then delete(indicators(Y)) + insert(indicators(X)).
+
+	%% Delete all current indicators when we percept new indicators.
+	forall percept(indicators(_)), bel(indicator(ID,CurrentValue,TargetValue))
+		do delete(indicator(ID,CurrentValue,TargetValue)).
+		
+	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>])
+	%% and insert our indicators separately.
+	forall percept(indicators(X)),
+		bel(member(indicator(ID,CurrentValue,TargetValue),X),
+		indicatorWeight(ID,_,_)) % Only insert our indicators.
+			do insert(indicator(ID,CurrentValue,TargetValue)). 					
 }
