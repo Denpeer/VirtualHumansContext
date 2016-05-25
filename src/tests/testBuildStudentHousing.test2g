@@ -7,10 +7,16 @@ use "../DUWOagent/actions" as actionspec.
 timeout = 5.
 
 test buildStudentHousing with
+	pre {
+		goal(goalBuildStudentHousing)
+	}
 	in {
 		done(building_plan_construction(Id,Floors,Poly)) 
 			leadsto bel(planned(Id,Floors,Poly)).
 		eventually bel(planned(Id,Floors,Poly)).  	
+	}
+	post {
+		not(goal(goalBuildStudentHousing))
 	}
 
 
