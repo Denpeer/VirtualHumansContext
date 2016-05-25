@@ -6,4 +6,5 @@ module init {
 		if true then insert(stakeholders([])).
 		if true then insert(buildings([])).
 		if true then insert(indicators([])).
+		if true then insert(zones([])).
 }
