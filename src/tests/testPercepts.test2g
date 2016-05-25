@@ -1,0 +1,28 @@
+use "../DUWOagent/VirtualHumansContext" as mas.
+use "../DUWOagent/knowledge" as knowledge.
+use "../DUWOagent/buildStudentHousing"as module.
+use "../DUWOagent/main"as module.
+use "../DUWOagent/actions" as actionspec.
+use "../DUWOagent/events" as module.
+use "../DUWOagent/knowledge" as knowledge.
+
+timeout=3.
+
+test events with
+	%If possible add a pre to check if percept something
+	pre{
+	}
+	
+	in{ 
+		eventually bel(indicator(_,_,_)). 
+		always bel(indicator(ID,_,_),indicatorWeight(ID,Name,_), 
+			(
+				Name == 'Bouw DUWO'; Name == 'Budget DUWO')).
+			
+	}
+	post{ }
+	
+DUWOAgent {
+	do DUWO.
+	
+}
