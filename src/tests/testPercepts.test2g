@@ -13,12 +13,22 @@ test events with
 	pre{
 	}
 	
-	in{ 
-		eventually bel(indicator(_,_,_)). 
+	in { 		
+		%Check if indicators are at least of these types. 
 		eventually bel(indicator(ID,_,_),indicatorWeight(ID,Name,_), 
-			(
-				Name == 'Bouw DUWO'; Name == 'Budget DUWO')).
-			
+			(Name == 'Ruimtelijke kwaliteit';
+		 	Name == 'Bouw DUWO';
+		 	Name == 'Budget DUWO';
+		 	Name == 'Afstand TUDelft';
+		 	Name == 'Variatie Woonruimte')).
+				
+		%Check if we have all our indicators.  
+		never bel(indicator(ID,_,_),indicatorWeight(ID,Name,_), 
+		 	not( (Name == 'Ruimtelijke kwaliteit';
+		 	Name == 'Bouw DUWO';
+		 	Name == 'Budget DUWO';
+		 	Name == 'Afstand TUDelft';
+		 	Name == 'Variatie Woonruimte'))).
 	}
 	post{ }
 	
