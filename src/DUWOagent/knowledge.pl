@@ -15,6 +15,7 @@ goalBuildStudentHousing :- needStudentHousing.
 
 %Predicates
 % Get indicator
+%indicator names: "Astand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte"
 getIndicator(Name, Weight, CurrentValue, TargetValue) :- 
 	indicatorWeight(ID,Name,Weight), indicator(ID, CurrentValue, TargetValue).
 	

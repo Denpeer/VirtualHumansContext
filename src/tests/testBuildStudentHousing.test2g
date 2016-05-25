@@ -16,6 +16,7 @@ test buildStudentHousing with
 		eventually bel(planned(Id,Floors,Poly)).  	
 	}
 	post {
+		not(bel(needStudentHousing)),
 		not(goal(goalBuildStudentHousing))
 	}
 
