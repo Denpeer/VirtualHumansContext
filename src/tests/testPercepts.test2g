@@ -15,7 +15,7 @@ test events with
 	
 	in{ 
 		eventually bel(indicator(_,_,_)). 
-		always bel(indicator(ID,_,_),indicatorWeight(ID,Name,_), 
+		eventually bel(indicator(ID,_,_),indicatorWeight(ID,Name,_), 
 			(
 				Name == 'Bouw DUWO'; Name == 'Budget DUWO')).
 			
