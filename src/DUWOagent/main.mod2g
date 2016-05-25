@@ -7,21 +7,14 @@ order=linearall.
 exit=nogoals.
 
 module DUWO {
-	% find a function to build a road (always 1 floor)
-	%if bel(functions(FS), member([Name,Id,L],FS), member('STUDENT',L)) 
-	%	then building_plan_construction(Id, 1, square(10,10,200,10)).
-		
-%	if bel(getIndicator('Bouw DUWO', Weight, CurrentValue, TargetValue)) 
-		%then building_plan_construction(34, 2, square(20,20,20,20)).
-		
+	
+	% Adopt goal to build student housing when we need to.
 	if bel(needStudentHousing), not(goal(goalBuildStudentHousing))
 		then adopt(goalBuildStudentHousing).
 	
+	% Build student housing when have it as goal.
 	if goal(goalBuildStudentHousing)
 		then buildStudentHousing.
-		
-	if true then building_plan_construction(1,1,square(1,1,1,1)).
-	
-	%if true then 
+	 
 		
 }
