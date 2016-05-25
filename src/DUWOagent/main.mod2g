@@ -8,9 +8,6 @@ exit=nogoals.
 
 module DUWO {
 	
-	% Adopt goal to build student housing when we need to.
-	if bel(needStudentHousing), not(goal(goalBuildStudentHousing))
-		then adopt(goalBuildStudentHousing).
 	
 	% Build student housing when have it as goal.
 	if goal(goalBuildStudentHousing)

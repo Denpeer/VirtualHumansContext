@@ -7,10 +7,13 @@
 :- dynamic indicatorWeight/3.
 :- dynamic planned/3.
 
+%Goals
 % we have a building if the building list has at least 1 element.
 havebuilding :- buildings([X|Y]).
+% Build houses when certain predicates are true
+goalBuildStudentHousing :- needStudentHousing.
 
-
+%Predicates
 % Get indicator
 getIndicator(Name, Weight, CurrentValue, TargetValue) :- 
 	indicatorWeight(ID,Name,Weight), indicator(ID, CurrentValue, TargetValue).
@@ -20,5 +23,5 @@ needStudentHousing:-
 	getIndicator('Bouw DUWO', Weight, CurrentValue, TargetValue),
 	CurrentValue < TargetValue.
 	
-goalBuildStudentHousing.
+
 	
