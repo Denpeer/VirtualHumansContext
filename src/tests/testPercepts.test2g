@@ -11,6 +11,7 @@ timeout=3.
 test events with
 	%If possible add a pre to check if percept something
 	pre{
+		percept(indicators(_), stakeholders(_))
 	}
 	
 	in { 		
