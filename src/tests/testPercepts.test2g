@@ -1,0 +1,38 @@
+use "../DUWOagent/VirtualHumansContext" as mas.
+use "../DUWOagent/knowledge" as knowledge.
+use "../DUWOagent/buildStudentHousing"as module.
+use "../DUWOagent/main"as module.
+use "../DUWOagent/actions" as actionspec.
+use "../DUWOagent/events" as module.
+use "../DUWOagent/knowledge" as knowledge.
+
+timeout=3.
+
+test events with
+	%If possible add a pre to check if percept something
+	pre{
+	}
+	
+	in { 		
+		%Check if indicators are at least of these types. 
+		eventually bel(indicator(ID,_,_),indicatorWeight(ID,Name,_), 
+			(Name == 'Ruimtelijke kwaliteit';
+		 	Name == 'Bouw DUWO';
+		 	Name == 'Budget DUWO';
+		 	Name == 'Afstand TUDelft';
+		 	Name == 'Variatie Woonruimte')).
+				
+		%Check if we have all our indicators.  
+		never bel(indicator(ID,_,_),indicatorWeight(ID,Name,_), 
+		 	not( (Name == 'Ruimtelijke kwaliteit';
+		 	Name == 'Bouw DUWO';
+		 	Name == 'Budget DUWO';
+		 	Name == 'Afstand TUDelft';
+		 	Name == 'Variatie Woonruimte'))).
+	}
+	post{ }
+	
+DUWOAgent {
+	do DUWO.
+	
+}
