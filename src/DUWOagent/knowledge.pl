@@ -7,8 +7,6 @@
 :- dynamic indicatorWeight/3.
 :- dynamic planned/3.
 
-% we have a building if the building list has at least 1 element.
-havebuilding :- buildings([X|Y]).
 
 
 % Get indicator
