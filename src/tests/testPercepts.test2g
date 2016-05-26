@@ -6,7 +6,7 @@ use "../DUWOagent/actions" as actionspec.
 use "../DUWOagent/events" as module.
 use "../DUWOagent/knowledge" as knowledge.
 
-timeout=3.
+timeout=8.
 
 test events with
 	%If possible add a pre to check if percept something
@@ -32,13 +32,13 @@ test events with
 		 	Name == 'Afstand TUDelft';
 		 	Name == 'Variatie Woonruimte'))).
 		
-		% Check if we at least one function.
+		% Check if we have at least one function.
 		eventually bel(functions([_|_])).
 		
-		% Check if we at least one setting.
+		% Check if we have at least one setting.
 		eventually bel(settings([_|_])).
 
-		% Check if we at least one building.
+		% Check if we have at least one building.
 		eventually bel(buildings([_|_])).
 
 				
