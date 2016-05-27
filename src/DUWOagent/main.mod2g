@@ -22,6 +22,14 @@ module DUWO {
 	% Use the normal module when we have enough budget
 	if not(bel(lowBudget)), not(bel(noBudget))
 		then normalMod.
+		
+	% Use the lowBudget module when our budget is lower than a certain threshold above the target budget
+	if bel(lowBudget), not(bel(noBudget))
+		then lowBudgetMod.
+		
+	% Use the noBudget module when our current budget is beneath our budget target
+	if bel(lowBudget), bel(noBudget)
+		then noBudgetMod.
 	 		
 	% When we don't need to do anything, just skip.
 	if true then skip.
