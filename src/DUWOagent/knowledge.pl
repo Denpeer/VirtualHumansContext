@@ -28,4 +28,6 @@ lowBudget:-
 	
 noBudget:-
 	getIndicator('Budget DUWO', Weight, CurrentValue, TargetValue, ID),
-	CurrentValue < TargetValue.	
+	CurrentValue < TargetValue.
+	
+goalReachBudgetTarget.	

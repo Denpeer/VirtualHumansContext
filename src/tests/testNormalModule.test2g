@@ -5,6 +5,8 @@ use "../DUWOagent/lowBudgetMod"as module.
 use "../DUWOagent/noBudgetMod"as module.
 use "../DUWOagent/main"as module.
 use "../DUWOagent/actions" as actionspec.
+use "../DUWOagent/events" as module.
+
 
 timeout = 5.
 

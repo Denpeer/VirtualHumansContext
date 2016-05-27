@@ -5,6 +5,7 @@ use "../DUWOagent/lowBudgetMod"as module.
 use "../DUWOagent/noBudgetMod"as module.
 use "../DUWOagent/main"as module.
 use "../DUWOagent/actions" as actionspec.
+use "../DUWOagent/events" as module.
 
 timeout = 5.
 
@@ -13,17 +14,20 @@ test testNoBudgetModule with
 		true
 	}
 	in {
-		%simulate a percept that indicates that the budget is beneath our target budget
+		%simulate a percept that indicates that the budget is beneath 120% of our target budget
 		percept(indicators([indicator(7,9,10),indicator(2,0,0)])) 
-		%this should trigger the nobudget predicate aswel as the lowBudget predicate
-				leadsto bel(noBudget),bel(lowBudget).
-			eventually bel(noBudget),bel(lowBudget).
+		%this should trigger the lowbudget predicate
+				leadsto bel(lowBudget,noBudget).
+			eventually bel(lowBudget,noBudget).
+		%check to see if the goal to bring the budget back to the target value has been added
+			eventually goal(goalReachBudgetTarget).
 	}
 	post {
 		not(bel(needStudentHousing)),
-		%percepts from the tygron environment keep sending so the nobudget predicate wil be false again.
+		%percepts from the tygron environment keep sending so the lowbudget predicate wil be false again (as well as lowbudget and the goal).
 		not(bel(lowBudget)),
 		not(bel(noBudget)),
+		not(goal(goalReachBudgetTarget)),
 		not(goal(goalBuildStudentHousing))
 		
 	}
