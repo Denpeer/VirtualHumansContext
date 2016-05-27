@@ -7,9 +7,10 @@ use "../DUWOagent/main"as module.
 use "../DUWOagent/actions" as actionspec.
 use "../DUWOagent/events" as module.
 
+
 timeout = 5.
 
-test buildStudentHousing with
+test testNormalModule with
 	pre {
 		goal(goalBuildStudentHousing)
 	}
@@ -20,7 +21,10 @@ test buildStudentHousing with
 	}
 	post {
 		not(bel(needStudentHousing)),
+		not(bel(lowBudget)),
+		not(bel(noBudget)),
 		not(goal(goalBuildStudentHousing))
+		
 	}
 
 

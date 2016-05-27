@@ -4,13 +4,13 @@ use "knowledge" as knowledge.
 exit=always.
 
 
-% Module to build student housing.
-module buildStudentHousing {
+% Module to build student housing when we have enough budget.
+module normalMod {
 	
-	
+	% Build student housing when have it as goal.
 	if bel(functions(FS), 
 		member([Name,Id,L],FS),
 		member('STUDENT',L)
-		)  
+		), goal(goalBuildStudentHousing)  
 			then building_plan_construction(Id, 1, square(10,10,200,10)).
 }
