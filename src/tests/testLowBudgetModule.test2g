@@ -9,18 +9,24 @@ use "../DUWOagent/events" as module.
 
 timeout = 5.
 
-test buildStudentHousing with
+test testLowBudgetModule with
 	pre {
-		goal(goalBuildStudentHousing)
+		true
 	}
 	in {
-		done(building_plan_construction(Id,Floors,Poly)) 
-			leadsto bel(planned(Id,Floors,Poly)).
-		eventually bel(planned(Id,Floors,Poly)).  	
+		%simulate a percept that indicates that the budget is beneath 120% of our target budget
+		percept(indicators([indicator(7,11,10),indicator(2,0,0)])) 
+		%this should trigger the lowbudget predicate
+				leadsto bel(lowBudget).
+			eventually bel(lowBudget).
 	}
 	post {
 		not(bel(needStudentHousing)),
+		%percepts from the tygron environment keep sending so the lowbudget predicate wil be false again.
+		not(bel(lowBudget)),
+		not(bel(noBudget)),
 		not(goal(goalBuildStudentHousing))
+		
 	}
 
 

@@ -1,16 +1,20 @@
 use "../DUWOagent/VirtualHumansContext" as mas.
 use "../DUWOagent/knowledge" as knowledge.
-use "../DUWOagent/buildStudentHousing"as module.
+use "../DUWOagent/normalMod"as module.
+use "../DUWOagent/lowBudgetMod"as module.
+use "../DUWOagent/noBudgetMod"as module.
 use "../DUWOagent/main"as module.
 use "../DUWOagent/actions" as actionspec.
 use "../DUWOagent/events" as module.
-use "../DUWOagent/knowledge" as knowledge.
 
-timeout=3.
+
+timeout=8.
 
 test events with
 	%If possible add a pre to check if percept something
 	pre{
+		percept(indicators(_), stakeholders(_), settings(_),
+		functions(_),buildings(_))
 	}
 	
 	in { 		
@@ -29,6 +33,17 @@ test events with
 		 	Name == 'Budget DUWO';
 		 	Name == 'Afstand TUDelft';
 		 	Name == 'Variatie Woonruimte'))).
+		
+		% Check if we have at least one function.
+		eventually bel(functions([_|_])).
+		
+		% Check if we have at least one setting.
+		eventually bel(settings([_|_])).
+
+		% Check if we have at least one building.
+		eventually bel(buildings([_|_])).
+
+				
 	}
 	post{ }
 	
