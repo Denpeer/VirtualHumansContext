@@ -10,7 +10,7 @@
 
 % Get indicator
 %indicator names: "Astand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte"
-getIndicator(Name, Weight, CurrentValue, TargetValue, ID) :- 
+getIndicator(ID, Name, Weight, CurrentValue, TargetValue) :- 
 	indicatorWeight(ID,Name,Weight), indicator(ID, CurrentValue, TargetValue).
 	
 % Only build houses when our current value < target value.
