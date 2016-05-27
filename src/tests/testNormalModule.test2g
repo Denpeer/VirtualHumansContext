@@ -1,0 +1,33 @@
+use "../DUWOagent/VirtualHumansContext" as mas.
+use "../DUWOagent/knowledge" as knowledge.
+use "../DUWOagent/normalMod"as module.
+use "../DUWOagent/lowBudgetMod"as module.
+use "../DUWOagent/noBudgetMod"as module.
+use "../DUWOagent/main"as module.
+use "../DUWOagent/actions" as actionspec.
+
+timeout = 5.
+
+test testNormalModule with
+	pre {
+		goal(goalBuildStudentHousing)
+	}
+	in {
+		done(building_plan_construction(Id,Floors,Poly)) 
+			leadsto bel(planned(Id,Floors,Poly)).
+		eventually bel(planned(Id,Floors,Poly)).  	
+	}
+	post {
+		not(bel(needStudentHousing)),
+		not(bel(lowBudget)),
+		not(bel(noBudget)),
+		not(goal(goalBuildStudentHousing))
+		
+	}
+
+
+
+DUWOAgent {
+	do DUWO.
+	
+}

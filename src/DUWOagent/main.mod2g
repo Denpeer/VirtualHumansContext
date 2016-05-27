@@ -9,11 +9,7 @@ order=linearall.
 exit=nogoals.
 
 module DUWO {
-	
-	% -DEBUG- show budget indicator score on console
-	if bel(getIndicator('Budget DUWO', Weight, CurrentValue, TargetValue))
-		then print("budget DUWO indicator, val:") + print(CurrentValue) + print("target:") + print(TargetValue).
-	
+		
 	% Adopt goal to build student housing when we need to.
 	if bel(needStudentHousing), not(goal(goalBuildStudentHousing))
 		then adopt(goalBuildStudentHousing).
