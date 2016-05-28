@@ -42,6 +42,9 @@ test events with
 
 		% Check if we have at least one building.
 		eventually bel(buildings([_|_])).
+
+		% Check if we have at least one building.
+		eventually bel(zones([_|_])).
 	}
 	post{ }
 	
