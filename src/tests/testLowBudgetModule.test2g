@@ -1,0 +1,37 @@
+use "../DUWOagent/VirtualHumansContext" as mas.
+use "../DUWOagent/knowledge" as knowledge.
+use "../DUWOagent/normalMod"as module.
+use "../DUWOagent/lowBudgetMod"as module.
+use "../DUWOagent/noBudgetMod"as module.
+use "../DUWOagent/main"as module.
+use "../DUWOagent/actions" as actionspec.
+use "../DUWOagent/events" as module.
+
+timeout = 5.
+
+test testLowBudgetModule with
+	pre {
+		true
+	}
+	in {
+		%simulate a percept that indicates that the budget is beneath 120% of our target budget
+		percept(indicators([indicator(7,11,10),indicator(2,0,0)])) 
+		%this should trigger the lowbudget predicate
+				leadsto bel(lowBudget).
+			eventually bel(lowBudget).
+	}
+	post {
+		not(bel(needStudentHousing)),
+		%percepts from the tygron environment keep sending so the lowbudget predicate wil be false again.
+		not(bel(lowBudget)),
+		not(bel(noBudget)),
+		not(goal(goalBuildStudentHousing))
+		
+	}
+
+
+
+DUWOAgent {
+	do DUWO.
+	
+}
