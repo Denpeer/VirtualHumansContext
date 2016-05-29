@@ -20,10 +20,10 @@ module events {
 	%% Percepts a list of all functions ([<name>, <id>, [<category>]]).
 	if percept(functions(X)), bel(functions(Y))
 			then delete(functions(Y)) + insert(functions(X)).
-	%% Percepts a list of all buildings ([building(<id>, <name>, [<category>], <timeState>)]).
+	%% Percepts a list of all buildings ([building(<id>, <name>, <ownerID>, <constructionYear>, [<category>], <functionID>, <amountOfFloors>)]).
 	if percept(buildings(X)), bel(buildings(Y))
 			then delete(buildings(Y)) + insert(buildings(X)).
-	%% Percepts a list of all zones ([-todo-]).
+	%% Percepts a list of all zones ([zone(<id>, <name>, <maxFloors>, <size>, [<allowedCategory>])]).
 	if percept(zones(X)), bel(zones(Y))
 			then delete(zones(Y)) + insert(zones(X)).
 	%% Delete all current indicators when we percept new indicators.
