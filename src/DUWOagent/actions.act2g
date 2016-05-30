@@ -8,4 +8,14 @@ define	building_plan_construction(Id, Level, MultiPolygon) with
 % Skip action, does nothing
 define skip as internal with
 	pre { true }
-	post{ true }   
+	post{ true }
+
+%Buy the land definied by the polygon for given price
+define	map_buy_land(MultiPolygon, Price) with
+	pre{ true }
+	post{ true}
+
+%Sell the land definied by the polygon for given price, BuyerId corresponds to the stakeholderID of the buyer
+define	map_sell_land(BuyerId,MultiPolygon, Price) with
+	pre{ true }
+	post{ true}
