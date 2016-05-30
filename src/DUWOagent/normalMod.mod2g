@@ -10,7 +10,8 @@ module normalMod {
 	% Build student housing when have it as goal.
 	if bel(functions(FS), 
 		member([Name,Id,L],FS),
-		member('STUDENT',L)
+		member('STUDENT',L),
+		getPolygon(10,10,200,20,Polygon)
 		), goal(goalBuildStudentHousing)  
-			then building_plan_construction(Id, 1, multipolygon("MULTIPOLYGON(((10 10, 200 10, 200 20, 10 20, 10 10)))")).
+			then building_plan_construction(Id, 1, Polygon).
 }
