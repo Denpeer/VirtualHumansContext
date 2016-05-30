@@ -31,3 +31,11 @@ noBudget:-
 	CurrentValue < TargetValue.
 	
 goalReachBudgetTarget.	
+
+% Get a multipolygon as a sqaure with X, Y, Width and Height as coordinates. 
+getPolygon(X, Y, Width, Height, Square) :-
+	XAndWidth is X+Width,
+	YAndHeight is Y+Height,
+	format(atom(A), "MULTIPOLYGON(((~w ~w, ~w ~w, ~w ~w, ~w ~w, ~w ~w)))",
+	[X,Y,XAndWidth,Y, XAndWidth, YAndHeight,X, YAndHeight, X, Y]),
+	Square = multipolygon(A).
