@@ -1,4 +1,4 @@
-use "knowledge" as knowledge.
+use predicates as knowledge.
 
 % Plan a building action
 define	building_plan_construction(Id, Level, MultiPolygon) with
@@ -9,13 +9,3 @@ define	building_plan_construction(Id, Level, MultiPolygon) with
 define skip as internal with
 	pre { true }
 	post{ true }
-
-%Buy the land definied by the polygon for given price
-define	map_buy_land(MultiPolygon, Price) with
-	pre{ true }
-	post{ true}
-
-%Sell the land definied by the polygon for given price, BuyerId corresponds to the stakeholderID of the buyer
-define	map_sell_land(BuyerId,MultiPolygon, Price) with
-	pre{ true }
-	post{ true}

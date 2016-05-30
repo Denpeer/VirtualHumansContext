@@ -1,10 +1,11 @@
 use "../../dependencies/tygronenv-1.0.9-jar-with-dependencies.jar" as environment 
 	with project = "vhproject_duplicate", stakeholders = ["DUWO"], domain = "tudelft".
 
+
 define DUWOAgent as agent {
-	use "main" as main module.
-	use "events" as event module.
-	use "init" as init module.
+	use DUWO as main module.
+	use events as event module.
+	use agentInit as init module.
 }
 
 launchpolicy {
