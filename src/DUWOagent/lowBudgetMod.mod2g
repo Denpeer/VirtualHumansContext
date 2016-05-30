@@ -1,5 +1,5 @@
-use "actions" as actionspec.
-use "knowledge" as knowledge.
+use actions as actionspec.
+use predicates as knowledge.
 
 exit=always.
 

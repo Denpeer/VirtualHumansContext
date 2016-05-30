@@ -1,4 +1,4 @@
-use "knowledge" as knowledge.
+use predicates as knowledge.
 
 module events {
 	%% When a percept is obtained, update the corresponding belief. %%

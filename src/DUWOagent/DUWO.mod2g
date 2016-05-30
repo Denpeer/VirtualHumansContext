@@ -1,9 +1,9 @@
-use "knowledge" as knowledge.
+use predicates as knowledge.
 use actions as actionspec.
-use "goal" as goals.
-use "normalMod" as module.
-use "lowBudgetMod" as module.
-use "noBudgetMod" as module.
+use DUWOgoals as goals.
+use normalMod as module.
+use lowBudgetMod as module.
+use noBudgetMod as module.
 
 order=linearall.
 exit=nogoals.

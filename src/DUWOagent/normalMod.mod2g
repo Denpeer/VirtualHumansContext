@@ -1,5 +1,5 @@
-use "actions" as actionspec.
-use "knowledge" as knowledge.
+use actions as actionspec.
+use predicates as knowledge.
 
 exit=always.
 
@@ -7,11 +7,15 @@ exit=always.
 % Module to build student housing when we have enough budget.
 module normalMod {
 	
-	% Build student housing when have it as goal.
+
+	
+	% Build student housing when we have it as goal.
 	if bel(functions(FS), 
 		member([Name,Id,L],FS),
 		member('STUDENT',L),
 		getPolygon(10,10,200,20,Polygon)
 		), goal(goalBuildStudentHousing)  
 			then building_plan_construction(Id, 1, Polygon).
+			
+
 }

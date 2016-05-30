@@ -1,4 +1,4 @@
-use "knowledge" as knowledge.
+use predicates as knowledge.
 
 % Plan a building action
 define	building_plan_construction(Id, Level, MultiPolygon) with
@@ -8,4 +8,4 @@ define	building_plan_construction(Id, Level, MultiPolygon) with
 % Skip action, does nothing
 define skip as internal with
 	pre { true }
-	post{ true }   
+	post{ true }
