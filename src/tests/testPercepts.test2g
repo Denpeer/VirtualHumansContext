@@ -7,7 +7,6 @@ use "../DUWOagent/main"as module.
 use "../DUWOagent/actions" as actionspec.
 use "../DUWOagent/events" as module.
 
-
 timeout=8.
 
 test events with
@@ -17,17 +16,17 @@ test events with
 		functions(_),buildings(_))
 	}
 	
-	in { 		
-		%Check if indicators are at least of these types. 
-		eventually bel(indicator(ID,_,_),indicatorWeight(ID,Name,_), 
+	in {
+		%Check if indicators are at least of these types.
+		eventually bel(indicator(ID,_,_),indicatorWeight(ID,Name,_),
 			(Name == 'Ruimtelijke kwaliteit';
 		 	Name == 'Bouw DUWO';
 		 	Name == 'Budget DUWO';
 		 	Name == 'Afstand TUDelft';
 		 	Name == 'Variatie Woonruimte')).
-				
-		%Check if we have all our indicators.  
-		never bel(indicator(ID,_,_),indicatorWeight(ID,Name,_), 
+		
+		%Check if we have all our indicators.
+		never bel(indicator(ID,_,_),indicatorWeight(ID,Name,_),
 		 	not( (Name == 'Ruimtelijke kwaliteit';
 		 	Name == 'Bouw DUWO';
 		 	Name == 'Budget DUWO';
@@ -39,15 +38,18 @@ test events with
 		
 		% Check if we have at least one setting.
 		eventually bel(settings([_|_])).
-
+		
 		% Check if we have at least one building.
 		eventually bel(buildings([_|_])).
-
+		
 		% Check if we have at least one zone.
 		eventually bel(zones([_|_])).
+		
+		% Check if we percepted the my_stakeholder_id percept.
+		eventually bel(self(_)).
 	}
 	post{ }
-	
+
 DUWOAgent {
 	do DUWO.
 }
