@@ -13,25 +13,27 @@ module events {
 	 	member(indicatorLink(_,IndicatorWeigths),IndicatorLink), 
 	 	member(indicatorWeights(ID,Name,Weight), IndicatorWeigths)) 
 			do insert(indicatorWeight(ID,Name,Weight)).		
-			
+	
 	%% Percepts a list of all settings ([<setting>]).
 	if percept(settings(X)), bel(settings(Y))
 			then delete(settings(Y)) + insert(settings(X)).
 	%% Percepts a list of all functions ([<name>, <id>, [<category>]]).
 	if percept(functions(X)), bel(functions(Y))
 			then delete(functions(Y)) + insert(functions(X)).
-	%% Percepts a list of all buildings ([building(<id>, <name>, [<category>], <timeState>)]).
+	%% Percepts a list of all buildings ([building(<id>, <name>, <ownerID>, <constructionYear>, [<category>], <functionID>, <amountOfFloors>)]).
 	if percept(buildings(X)), bel(buildings(Y))
 			then delete(buildings(Y)) + insert(buildings(X)).
-
+	%% Percepts a list of all zones ([zone(<id>, <name>, <maxFloors>, <size>, [<allowedCategory>])]).
+	if percept(zones(X)), bel(zones(Y))
+			then delete(zones(Y)) + insert(zones(X)).
 	%% Delete all current indicators when we percept new indicators.
 	forall percept(indicators(_)), bel(indicator(ID,CurrentValue,TargetValue))
 		do delete(indicator(ID,CurrentValue,TargetValue)).
-		
+	
 	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>])
 	%% and insert our indicators separately.
 	forall percept(indicators(X)),
 		bel(member(indicator(ID,CurrentValue,TargetValue),X),
 		indicatorWeight(ID,_,_)) % Only insert our indicators.
-			do insert(indicator(ID,CurrentValue,TargetValue)). 					
+			do insert(indicator(ID,CurrentValue,TargetValue)).
 }
