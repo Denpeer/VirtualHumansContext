@@ -30,8 +30,7 @@ module DUWO {
 	% Use the noBudget module when our current budget is beneath our budget target
 	if bel(lowBudget), bel(noBudget)
 		then noBudgetMod.
-		
-	 		
+			 		
 	% When we don't need to do anything, just skip.
 	if true then skip.
 }
