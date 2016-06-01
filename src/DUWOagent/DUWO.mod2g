@@ -16,7 +16,7 @@ module DUWO {
 		
 	% Adopt goal to raise budget when our budget is below the target.
 	if bel(noBudget), not(goal(goalReachBudgetTarget))
-		then adopt(goalBuildStudentHousing).
+		then adopt(goalReachBudgetTarget).
 	
 	% Build student housing when have it as goal.
 	% Use the normal module when we have enough budget
