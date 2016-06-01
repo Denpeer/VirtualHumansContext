@@ -1,11 +1,11 @@
 use predicates as knowledge.
 
-% Plan a building action
+% Plan a building action.
 define	building_plan_construction(Id, Level, MultiPolygon) with
    pre{ not(planned(Id, Level, MultiPolygon)) }
    post {planned(Id, Level, MultiPolygon) }
 
-% Skip action, does nothing
+% Skip action, the virtual human will perform no action.
 define skip as internal with
 	pre { true }
 	post{ true }

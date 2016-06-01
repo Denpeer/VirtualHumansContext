@@ -9,7 +9,7 @@
 :- dynamic self/1.
 
 % Get indicator
-%indicator names: "Astand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte"
+% Indicator names: "Afstand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte".
 getIndicator(ID, Name, Weight, CurrentValue, TargetValue) :-
 	indicatorWeight(ID,Name,Weight), indicator(ID, CurrentValue, TargetValue).
 
@@ -20,8 +20,8 @@ needStudentHousing :-
 
 goalBuildStudentHousing.
 
-% Budget predicates that the bot can use to either stop building or build more carefully (raising a value needed per building for example)
-% These predicates expect DUWO to keep its target budget as a minimum (since DUWO can't raise it's budget by other means than selling property)
+% Budget predicates that the virtual human can use to either stop building or build more carefully (raising a value needed per building for example).
+% These predicates expect DUWO to keep its target budget as a minimum (since DUWO can't raise it's budget by other means than selling property).
 lowBudget :-
 	getIndicator(ID,'Budget DUWO', Weight, CurrentValue, TargetValue),
 	CurrentValue < 1.2*TargetValue.
@@ -32,7 +32,7 @@ noBudget :-
 
 goalReachBudgetTarget.
 
-% Get a multipolygon as a sqaure with X, Y, Width and Height as coordinates.
+% Get a multipolygon as a square with X, Y, Width and Height as coordinates.
 getPolygon(X, Y, Width, Height, Square) :-
 	XAndWidth is X+Width,
 	YAndHeight is Y+Height,

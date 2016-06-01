@@ -4,7 +4,7 @@ use predicates as knowledge.
 exit=always.
 
 
-% Module for when the agent has a low budget, the agent will only continue to build student housing in places where this greatly improves the quality indicator
+% Module for when the agent has a low budget, the agent will only continue to build student housing in places where this greatly improves the quality indicator.
 module lowBudgetMod {
 	
 	% Build student housing when have it as goal.

@@ -5,7 +5,7 @@ use predicates as knowledge.
 exit=always.
 
 
-% Module for when the agent is below the target budget, the agent will sell unused land and low-quality housing if this improves the overall indicator score
+% Module for when the agent is below the target budget, the agent will sell unused land and low-quality housing if this improves the overall indicator score.
 module noBudgetMod {
 	
 	% Build student housing when have it as goal.
