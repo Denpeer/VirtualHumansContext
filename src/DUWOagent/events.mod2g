@@ -1,6 +1,7 @@
 use predicates as knowledge.
 
 module events {
+	%%% process percepts %%%
 	%% When a percept is obtained, update the corresponding belief. %%
 	
 	%% Percepts a list of all stakeholders ([<id>, <name>, <income>, <start_budget>]).
@@ -43,4 +44,15 @@ module events {
 		bel(member(indicator(ID,CurrentValue,TargetValue),X),
 		indicatorWeight(ID,_,_)) % Only insert our indicators.
 			do insert(indicator(ID,CurrentValue,TargetValue)).
+	
+	
+	%%% Adopt goals %%%
+			
+	% Adopt goal to build student housing when we need to.
+	if bel(needStudentHousing), not(goal(goalBuildStudentHousing))
+		then adopt(goalBuildStudentHousing).
+		
+	% Adopt goal to raise budget when our budget is below the target.
+	if bel(noBudget), not(goal(goalReachBudgetTarget))
+		then adopt(goalReachBudgetTarget).
 }
