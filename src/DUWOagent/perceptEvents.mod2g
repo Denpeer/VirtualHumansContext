@@ -1,5 +1,7 @@
 use predicates as knowledge.
 
+order=linearall.
+
 module perceptEvents {
 	%%% process percepts %%%
 	%% When a percept is obtained, update the corresponding belief. %%
