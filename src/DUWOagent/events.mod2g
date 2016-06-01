@@ -1,58 +1,14 @@
 use predicates as knowledge.
+use perceptEvents as module.
+use goalEvents as module.
 
 module events {
-	%%% process percepts %%%
-	%% When a percept is obtained, update the corresponding belief. %%
-	
-	%% Percepts a list of all stakeholders ([<id>, <name>, <income>, <start_budget>]).
-	if percept(stakeholders(X)), bel(stakeholders(Y))
-			then delete(stakeholders(Y)) + insert(stakeholders(X)).
-	
-	%% Percepts the ID of the stakeholder the virtual human is.
-	if percept(my_stakeholder_id(X)) then insert(self(X)).
-	
-	%% Percept the indicator weights
-	forall percept(stakeholders(ComleteList)),
-		bel(self(X), member([stakeholder(X,_,_,_)|IndicatorLink],ComleteList),
-	 	member(indicatorLink(_,IndicatorWeigths),IndicatorLink),
-	 	member(indicatorWeights(ID,Name,Weight), IndicatorWeigths))
-			do insert(indicatorWeight(ID,Name,Weight)).
-	
-	%% Percepts a list of all settings ([<setting>]).
-	if percept(settings(X)), bel(settings(Y))
-			then delete(settings(Y)) + insert(settings(X)).
-	
-	%% Percepts a list of all functions ([<name>, <id>, [<category>]]).
-	if percept(functions(X)), bel(functions(Y))
-			then delete(functions(Y)) + insert(functions(X)).
-	
-	%% Percepts a list of all buildings ([building(<id>, <name>, <ownerID>, <constructionYear>, [<category>], <functionID>, <amountOfFloors>)]).
-	if percept(buildings(X)), bel(buildings(Y))
-			then delete(buildings(Y)) + insert(buildings(X)).
-	
-	%% Percepts a list of all zones ([zone(<id>, <name>, <maxFloors>, <size>, [<allowedCategory>])]).
-	if percept(zones(X)), bel(zones(Y))
-			then delete(zones(Y)) + insert(zones(X)).
-	
-	%% Delete all current indicators when we percept new indicators.
-	forall percept(indicators(_)), bel(indicator(ID,CurrentValue,TargetValue))
-		do delete(indicator(ID,CurrentValue,TargetValue)).
-	
-	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>])
-	%% and insert our indicators separately.
-	forall percept(indicators(X)),
-		bel(member(indicator(ID,CurrentValue,TargetValue),X),
-		indicatorWeight(ID,_,_)) % Only insert our indicators.
-			do insert(indicator(ID,CurrentValue,TargetValue)).
 	
 	
-	%%% Adopt goals %%%
-			
-	% Adopt goal to build student housing when we need to.
-	if bel(needStudentHousing), not(goal(goalBuildStudentHousing))
-		then adopt(goalBuildStudentHousing).
-		
-	% Adopt goal to raise budget when our budget is below the target.
-	if bel(noBudget), not(goal(goalReachBudgetTarget))
-		then adopt(goalReachBudgetTarget).
+	% Processing percepts
+	if true then perceptEvents.
+	
+	% Adopting goals
+	if true then goalEvents.
+
 }

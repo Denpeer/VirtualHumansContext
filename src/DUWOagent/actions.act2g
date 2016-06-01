@@ -9,3 +9,8 @@ define	building_plan_construction(Id, Level, MultiPolygon) with
 define skip as internal with
 	pre { true }
 	post{ true }
+	
+% Get polygon with buildable owned land
+define	getLand with
+   pre{ true }
+   post { true }
