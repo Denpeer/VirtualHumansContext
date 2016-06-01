@@ -24,7 +24,4 @@ module DUWO {
 	if bel(lowBudget), bel(noBudget)
 		then noBudgetMod.
 		
-	 		
-	% When we don't need to do anything, just skip.
-	if true then skip.
 }
