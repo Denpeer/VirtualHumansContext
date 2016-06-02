@@ -6,6 +6,8 @@ use "../DUWOagent/noBudgetMod"as module.
 use "../DUWOagent/DUWO"as module.
 use "../DUWOagent/actions" as actionspec.
 use "../DUWOagent/events" as module.
+use "../DUWOagent/goalEvents" as module.
+use "../DUWOagent/perceptEvents" as module.
 
 timeout = 5.
 
