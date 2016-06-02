@@ -3,7 +3,7 @@ use predicates as knowledge.
 
 
 
-order=linear.
+order=linearall.
 exit=always.
 
 
@@ -12,7 +12,7 @@ module normalMod {
 	
 	% if we have the goal to build more studenthousing get area where we can build
 	if goal(goalBuildStudentHousing) then
-			get_relevant_areas(0, build, []) + insert(cleaned).
+			get_relevant_areas(0, build, []).
 		
 	%%Check to see if we can still build student housing on owned land, if so Build student housing.
 	if bel(functions(FS), 
@@ -25,7 +25,8 @@ module normalMod {
 					
 	
 	% If we can't build more houses on our current land, buy new land
-	if bel(getPolygon(10,10,200,20,Polygon)), 
+	if bel(relevant_areas(0,[]),
+	getPolygon(10,10,200,20,Polygon)), 
 		goal(goalBuildStudentHousing)  
 			then map_buy_land(Polygon, 40000).
 			
