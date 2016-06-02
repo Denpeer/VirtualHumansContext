@@ -1,0 +1,16 @@
+use predicates as knowledge.
+
+order=linearall.
+
+module goalEvents {
+	
+	%%% Adopt goals %%%
+			
+	% Adopt goal to build student housing when we need to.
+	if bel(needStudentHousing), not(goal(goalBuildStudentHousing))
+		then adopt(goalBuildStudentHousing).
+		
+	% Adopt goal to raise budget when our budget is below the target.
+	if bel(noBudget), not(goal(goalReachBudgetTarget))
+		then adopt(goalReachBudgetTarget).
+}

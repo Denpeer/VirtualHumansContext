@@ -1,0 +1,54 @@
+use predicates as knowledge.
+
+order=linearall.
+
+module perceptEvents {
+	
+	% When a percept is obtained, update the corresponding belief.
+	
+	% Processes the list of all stakeholders ([<id>, <name>, <income>, <start_budget>]).
+	if percept(stakeholders(X)), bel(stakeholders(Y))
+			then delete(stakeholders(Y)) + insert(stakeholders(X)).
+	
+	% Processes the ID of the stakeholder the virtual human is.
+	if percept(my_stakeholder_id(X)) then insert(self(X)).
+	
+	% Processes the indicator weights.
+	forall percept(stakeholders(CompleteList)),
+		bel(self(X), member([stakeholder(X,_,_,_)|IndicatorLink],CompleteList),
+	 	member(indicatorLink(_,IndicatorWeigths),IndicatorLink),
+	 	member(indicatorWeights(ID,Name,Weight), IndicatorWeigths))
+			do insert(indicatorWeight(ID,Name,Weight)).
+			
+	% Process a list of all stakeholderID's
+	forall percept(stakeholders(ComleteList)),
+			bel(member([stakeholder(ID,Name,_,_)|IndicatorLink],ComleteList))
+			do insert(stakeholder(ID,Name)).
+	
+	% Processes the list of all settings ([<setting>]).
+	if percept(settings(X)), bel(settings(Y))
+			then delete(settings(Y)) + insert(settings(X)).
+	
+	% Processes the list of all functions ([<name>, <id>, [<category>]]).
+	if percept(functions(X)), bel(functions(Y))
+			then delete(functions(Y)) + insert(functions(X)).
+	
+	% Processes the list of all buildings ([building(<id>, <name>, <ownerID>, <constructionYear>, [<category>], <functionID>, <amountOfFloors>)]).
+	if percept(buildings(X)), bel(buildings(Y))
+			then delete(buildings(Y)) + insert(buildings(X)).
+	
+	% Processes the list of all zones ([zone(<id>, <name>, <maxFloors>, <size>, [<allowedCategory>])]).
+	if percept(zones(X)), bel(zones(Y))
+			then delete(zones(Y)) + insert(zones(X)).
+	
+	% Delete all current indicators when we percept new indicators.
+	forall percept(indicators(_)), bel(indicator(ID,CurrentValue,TargetValue))
+		do delete(indicator(ID,CurrentValue,TargetValue)).
+	
+	% Processes the list of all indicators ([<indID>, <currentValue>, <targetValue>])
+	% and insert our indicators separately.
+	forall percept(indicators(X)),
+		bel(member(indicator(ID,CurrentValue,TargetValue),X),
+		indicatorWeight(ID,_,_)) % Only insert our indicators.
+			do insert(indicator(ID,CurrentValue,TargetValue)).
+}
