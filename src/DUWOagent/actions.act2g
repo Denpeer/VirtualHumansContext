@@ -9,6 +9,10 @@ define	building_plan_construction(Id, Level, MultiPolygon) with
 define skip as internal with
 	pre { true }
 	post{ true }
+
+define get_relevant_areas(Id, ActionType, Filters) with
+	pre { true }
+	post{ true }
 	
 %Buy the land defined by the polygon for given price
 define	map_buy_land(MultiPolygon, Price) with
