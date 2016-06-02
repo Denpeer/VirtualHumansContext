@@ -15,9 +15,9 @@ module perceptEvents {
 	
 	%% Percept the indicator weights
 	forall percept(stakeholders(ComleteList)),
-		bel(self(X), member([stakeholder(X,_,_,_)|IndicatorLink],ComleteList),
-	 	member(indicatorLink(_,IndicatorWeigths),IndicatorLink),
-	 	member(indicatorWeights(ID,Name,Weight), IndicatorWeigths))
+			bel(self(X), member([stakeholder(X,_,_,_)|IndicatorLink],ComleteList),
+	 		member(indicatorLink(_,IndicatorWeigths),IndicatorLink),
+	 		member(indicatorWeights(ID,Name,Weight), IndicatorWeigths))
 			do insert(indicatorWeight(ID,Name,Weight)).
 	
 	%% Percepts a list of all settings ([<setting>]).
@@ -38,12 +38,12 @@ module perceptEvents {
 	
 	%% Delete all current indicators when we percept new indicators.
 	forall percept(indicators(_)), bel(indicator(ID,CurrentValue,TargetValue))
-		do delete(indicator(ID,CurrentValue,TargetValue)).
+			do delete(indicator(ID,CurrentValue,TargetValue)).
 	
 	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>])
 	%% and insert our indicators separately.
 	forall percept(indicators(X)),
-		bel(member(indicator(ID,CurrentValue,TargetValue),X),
-		indicatorWeight(ID,_,_)) % Only insert our indicators.
+			bel(member(indicator(ID,CurrentValue,TargetValue),X),
+			indicatorWeight(ID,_,_)) % Only insert our indicators.
 			do insert(indicator(ID,CurrentValue,TargetValue)).
 }
