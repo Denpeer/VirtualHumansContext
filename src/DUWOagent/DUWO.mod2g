@@ -10,14 +10,7 @@ exit=nogoals.
 
 module DUWO {
 	
-	% if true then get_relevant_areas(0, demolish, []).
-	if bel(functions(FS), member(['standaard tuin', Id, _],FS)) then
-			get_relevant_areas(0, demolish, [function(Id)]).
-	
-	forall bel(relevant_areas(0,RA), 
-		member([multipolygon(X)],RA)
-		) 
-		do building_plan_demolish_polygon(X,"SURFACE") + print("Demolish action executed!!").
+	forall bel(ownedBuildings(Bid,Name)) do building_plan_demolish(Bid).
 	
 	% Build student housing when have it as goal.
 	% Use the normal module when we have enough budget

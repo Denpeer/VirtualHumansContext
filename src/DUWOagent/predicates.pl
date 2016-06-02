@@ -9,6 +9,14 @@
 :- dynamic self/1.
 :- dynamic stakeholder/2.
 :- dynamic relevant_areas/2.
+:- dynamic ownedBuildings/2.
+:- dynamic cleaned / 0.
+
+ownedBuildings(Bid,Name) :- 
+		buildings(Y),
+		self(OwnId),
+		member(building(Bid,Name,OwnId,Year,Cat,_,_),Y),
+		not(member('STUDENT',Cat)).
 
 % Get indicator
 %indicator names: "Astand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte"

@@ -28,3 +28,7 @@ define	map_sell_land(BuyerId,MultiPolygon, Price) with
 define building_plan_demolish_polygon(MultiPolygon,Surface_or_Ground) with
 	pre{ true }
 	post{ true }
+	
+define building_plan_demolish(BuildingID) with
+	pre{ true }
+	post{ true }

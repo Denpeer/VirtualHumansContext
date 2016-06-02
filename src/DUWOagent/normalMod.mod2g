@@ -10,18 +10,19 @@ exit=always.
 % Module to build student housing when we have enough budget.
 module normalMod {
 	
-	
-	% Build student housing when we have it as goal.
+	% if we have the goal to build more studenthousing get area where we can build
+	if goal(goalBuildStudentHousing) then
+			get_relevant_areas(0, build, []) + insert(cleaned).
+		
+	%%Check to see if we can still build student housing on owned land, if so Build student housing.
 	if bel(functions(FS), 
 		member([Name,Id,L],FS),
 		member('STUDENT',L),
-		getPolygon(10,10,200,20,Polygon)
+		relevant_areas(0,[[MultiPolygon|Y]|Z])
 		), goal(goalBuildStudentHousing)  
-			then building_plan_construction(Id, 1, Polygon).
+			then building_plan_construction(Id, 1, MultiPolygon).
 			
-						
-	%ToDo: Add check to see if we can still build housing on owned land, for now true
-	if true, goal(goalBuildStudentHousing) then skip.	
+					
 	
 	% If we can't build more houses on our current land, buy new land
 	if bel(getPolygon(10,10,200,20,Polygon)), 
