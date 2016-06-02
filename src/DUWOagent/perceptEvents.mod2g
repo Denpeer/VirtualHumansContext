@@ -19,6 +19,11 @@ module perceptEvents {
 	 		member(indicatorLink(_,IndicatorWeigths),IndicatorLink),
 	 		member(indicatorWeights(ID,Name,Weight), IndicatorWeigths))
 			do insert(indicatorWeight(ID,Name,Weight)).
+			
+	%% Percept a list of all stakeholderID's
+	forall percept(stakeholders(ComleteList)),
+			bel(member([stakeholder(ID,Name,_,_)|IndicatorLink],ComleteList))
+			do insert(stakeholder(ID,Name)).
 	
 	%% Percepts a list of all settings ([<setting>]).
 	if percept(settings(X)), bel(settings(Y))

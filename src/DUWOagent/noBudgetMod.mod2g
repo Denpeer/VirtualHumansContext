@@ -10,11 +10,9 @@ exit=always.
 % Module for when the agent is below the target budget, the agent will sell unused land and low-quality housing if this improves the overall indicator score
 module noBudgetMod {
 	
-	% Build student housing when have it as goal.
-	if bel(functions(FS), 
-		member([Name,Id,L],FS),
-		member('STUDENT',L),
-		getPolygon(10,10,200,20,Polygon)
-		), goal(goalBuildStudentHousing)  
-			then building_plan_construction(Id, 1, Polygon).
+	% Sell our least important piece of land to any stakeholder who will buy it
+	forall bel(stakeholder(BuyerId,_),
+		bel(not(self(BuyerID)))),
+		getPolygon(10,10,200,20,Polygon))  
+			do map_sell_land(BuyerId,Polygon, 40000).	
 }

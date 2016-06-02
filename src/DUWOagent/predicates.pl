@@ -7,6 +7,7 @@
 :- dynamic indicatorWeight/3.
 :- dynamic planned/3.
 :- dynamic self/1.
+:- dynamic stakeholder/2.
 
 % Get indicator
 %indicator names: "Astand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte"
