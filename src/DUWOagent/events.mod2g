@@ -2,6 +2,9 @@ use predicates as knowledge.
 use perceptEvents as module.
 use goalEvents as module.
 
+
+order=linear.
+
 module events {
 	
 	
