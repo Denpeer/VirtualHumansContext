@@ -19,7 +19,8 @@ needStudentHousing :-
 	getIndicator(ID,'Bouw DUWO', Weight, CurrentValue, TargetValue),
 	CurrentValue < TargetValue.
 
-goalBuildStudentHousing.
+goalBuildStudentHousing :-
+	needStudentHousing.
 
 % Budget predicates that the bot can use to either stop building or build more carefully (raising a value needed per building for example)
 % These predicates expect DUWO to keep its target budget as a minimum (since DUWO can't raise it's budget by other means than selling property)
@@ -31,7 +32,9 @@ noBudget :-
 	getIndicator(ID,'Budget DUWO', Weight, CurrentValue, TargetValue),
 	CurrentValue < TargetValue.
 
-goalReachBudgetTarget.
+goalReachBudgetTarget :-
+	not(lowBudget),
+	not(noBudget).
 
 % Get a multipolygon as a sqaure with X, Y, Width and Height as coordinates.
 getPolygon(X, Y, Width, Height, Square) :-

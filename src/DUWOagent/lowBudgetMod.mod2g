@@ -1,6 +1,9 @@
 use actions as actionspec.
 use predicates as knowledge.
 
+
+
+order=linear.
 exit=always.
 
 
