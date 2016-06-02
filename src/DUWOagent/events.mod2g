@@ -3,7 +3,7 @@ use perceptEvents as module.
 use goalEvents as module.
 
 
-order=linear.
+order=linearall.
 
 module events {
 	
