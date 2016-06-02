@@ -12,7 +12,7 @@ module noBudgetMod {
 	
 	% Sell our least important piece of land to any stakeholder who will buy it
 	forall bel(stakeholder(BuyerId,_),
-		bel(not(self(BuyerID)))),
+		not(self(BuyerID)),
 		getPolygon(10,10,200,20,Polygon))  
 			do map_sell_land(BuyerId,Polygon, 40000).	
 }
