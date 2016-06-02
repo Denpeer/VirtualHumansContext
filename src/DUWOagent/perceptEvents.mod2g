@@ -41,14 +41,21 @@ module perceptEvents {
 	if percept(zones(X)), bel(zones(Y)), bel(not(X == Y))
 			then delete(zones(Y)) + insert(zones(X)).
 	
-	%% Delete all current indicators when we percept new indicators.
-	forall percept(indicators(_)), bel(indicator(ID,CurrentValue,TargetValue))
-			do delete(indicator(ID,CurrentValue,TargetValue)).
-	
 	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>])
-	%% and insert our indicators separately.
+	%% and insert our indicators separately when not already present in belief base.
 	forall percept(indicators(X)),
 			bel(member(indicator(ID,CurrentValue,TargetValue),X),
-			indicatorWeight(ID,_,_)) % Only insert our indicators.
+			indicatorWeight(ID,_,_)), % Only insert our indicators.
+			bel(not(indicator(ID,OldValue,TargetValue)))
 			do insert(indicator(ID,CurrentValue,TargetValue)).
+	
+	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>])
+	%% and update our indicators.
+	forall percept(indicators(X)),
+			bel(member(indicator(ID,CurrentValue,TargetValue),X),
+			indicatorWeight(ID,_,_)), % Only insert our indicators.
+			bel(indicator(ID,OldValue,TargetValue)),
+			bel(not(OldValue == CurrentValue))
+			do delete(indicator(ID,OldValue,TargetValue))
+			+ insert(indicator(ID,CurrentValue,TargetValue)).
 }
