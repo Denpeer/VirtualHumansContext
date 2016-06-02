@@ -7,7 +7,7 @@ module perceptEvents {
 	%% When a percept is obtained, update the corresponding belief. %%
 	
 	%% Percepts a list of all stakeholders ([<id>, <name>, <income>, <start_budget>]).
-	if percept(stakeholders(X)), bel(stakeholders(Y))
+	if percept(stakeholders(X)), bel(stakeholders(Y)), bel(not(X == Y))
 			then delete(stakeholders(Y)) + insert(stakeholders(X)).
 	
 	%% Percepts the ID of the stakeholder the virtual human is.
@@ -26,19 +26,19 @@ module perceptEvents {
 			do insert(stakeholder(ID,Name)).
 	
 	%% Percepts a list of all settings ([<setting>]).
-	if percept(settings(X)), bel(settings(Y))
+	if percept(settings(X)), bel(settings(Y)), bel(not(X == Y))
 			then delete(settings(Y)) + insert(settings(X)).
 	
 	%% Percepts a list of all functions ([<name>, <id>, [<category>]]).
-	if percept(functions(X)), bel(functions(Y))
+	if percept(functions(X)), bel(functions(Y)), bel(not(X == Y))
 			then delete(functions(Y)) + insert(functions(X)).
 	
 	%% Percepts a list of all buildings ([building(<id>, <name>, <ownerID>, <constructionYear>, [<category>], <functionID>, <amountOfFloors>)]).
-	if percept(buildings(X)), bel(buildings(Y))
+	if percept(buildings(X)), bel(buildings(Y)), bel(not(X == Y))
 			then delete(buildings(Y)) + insert(buildings(X)).
 	
 	%% Percepts a list of all zones ([zone(<id>, <name>, <maxFloors>, <size>, [<allowedCategory>])]).
-	if percept(zones(X)), bel(zones(Y))
+	if percept(zones(X)), bel(zones(Y)), bel(not(X == Y))
 			then delete(zones(Y)) + insert(zones(X)).
 	
 	%% Delete all current indicators when we percept new indicators.
