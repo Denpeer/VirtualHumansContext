@@ -19,7 +19,8 @@ nonStudentBuilding(Bid,Name) :-
 		buildings(Y),
 		self(OwnId),
 		member(building(Bid,Name,OwnId,Year,Cat,_,_),Y),
-		not(member('STUDENT',Cat)).
+		member('GARDEN', Cat).
+		%not(member('STUDENT',Cat)).
 
 % Get indicator
 %indicator names: "Astand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte"
