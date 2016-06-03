@@ -9,11 +9,12 @@
 :- dynamic self/1.
 :- dynamic stakeholder/2.
 :- dynamic relevant_areas/2.
-:- dynamic cleaned / 0.
 :- dynamic refreshcounter /1.
 :- dynamic goalDemolish/0.
 :- dynamic demolished/1.
 :- dynamic sell_proposal/2.
+:- dynamic buildableStudent/2.
+:- dynamic buildableStudentList/1.
 
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 
@@ -28,6 +29,11 @@ getBuilding(Bid, Type) :-
 		member(building(Bid,Name,OwnId,Year,Cat,_,_),Y),
 		member(Type, Cat).
 
+buildableStudentList([]).
+
+buildableStudent(Id,Name) :- functions(FS), 
+		member([Name,Id,L],FS),
+		member('STUDENT',L).
 
 
 % Get indicator

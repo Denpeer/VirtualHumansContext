@@ -65,9 +65,10 @@ module normalMod {
 	%forall bel(relevant_areas(0, List), member([Poly|Y], List))
 	%	do building_plan_construction(34, 3, Poly).
 	
-	if bel(relevant_areas(0,[[Poly|Y]|Rest])),
-		goal(goalBuildStudentHousing)
-		then building_plan_construction(34,4,Poly) +
+	if bel(relevant_areas(0,[[Poly|Y]|Rest]),
+		buildableStudentList(Idlist),
+		random_member(Id,Idlist))
+		then building_plan_construction(Id,4,Poly) +
 			 delete(relevant_areas(0,[[Poly|Y]|Rest])) +
 			 insert(relevant_areas(0,Rest)).
 
