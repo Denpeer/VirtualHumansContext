@@ -29,6 +29,7 @@ getBuilding(Bid, Type) :-
 		member(building(Bid,Name,OwnId,Year,Cat,_,_),Y),
 		member(Type, Cat).
 
+% create a predicate with the Id's of all buildable houses of type student, so that the agent can dynamically choose what kind of building to build
 buildableStudentList([]).
 
 buildableStudent(Id,Name) :- functions(FS), 
