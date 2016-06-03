@@ -15,9 +15,11 @@ module noBudgetMod {
 			then get_relevant_areas(2, "sell", []).
 	
 	% Sell our least important piece of land to any stakeholder who will buy it.
-	forall bel(stakeholder(BuyerId,_),
+	if bel(stakeholder(BuyerId,_),
 		not(self(BuyerId)),
-		relevant_areas(2,[[MultiPolygon|Y]|Z]),
-		not(Z = []))
-			do insert(sell_proposal(BuyerId, MultiPolygon)) + map_sell_land(BuyerId, MultiPolygon, 400).	
+		relevant_areas(2,MPs),
+		member(MP, MPs),
+		MP = [MultiPolygon|_],
+		not(sell_proposal(_, MultiPolygon)))
+			then insert(sell_proposal(BuyerId, MultiPolygon)) + map_sell_land(BuyerId, MultiPolygon, 400).
 }
