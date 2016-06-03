@@ -12,6 +12,7 @@
 :- dynamic nonStudentBuilding/2.
 :- dynamic cleaned / 0.
 :- dynamic refreshcounter /1.
+:- dynamic sell_proposal/2.
 
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 
