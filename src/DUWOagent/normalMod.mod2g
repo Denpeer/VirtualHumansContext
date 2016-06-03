@@ -58,7 +58,7 @@ module normalMod {
 	
 	
 	%%RICO TEST
-	if bel(relevant_areas(0, []),; not(relevant_areas(0, _List))),
+	if bel(relevant_areas(0, []); not(relevant_areas(0, _List))),
 		goal(goalBuildStudentHousing)
 		then get_relevant_areas(0, build, []).
 		

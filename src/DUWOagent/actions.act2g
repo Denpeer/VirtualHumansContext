@@ -10,6 +10,7 @@ define skip as internal with
 	pre { true }
 	post{ true }
 
+% Gets relevant area's from the tygron environment
 define get_relevant_areas(Id, ActionType, Filters) with
 	pre { true }
 	post{ true }
