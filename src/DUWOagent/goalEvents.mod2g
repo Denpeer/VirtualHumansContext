@@ -6,6 +6,11 @@ module goalEvents {
 	
 	%%% Adopt goals %%%
 			
+	%if percept(relevant_areas(0, [])) 
+	%	then adopt(goala).
+	
+	%if percept(relevant_areas(0, []))		
+			
 	% Adopt goal to build student housing when we need to.
 	if bel(needStudentHousing), not(goal(goalBuildStudentHousing))
 		then adopt(goalBuildStudentHousing).
