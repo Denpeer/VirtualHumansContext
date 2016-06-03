@@ -9,17 +9,25 @@
 :- dynamic self/1.
 :- dynamic stakeholder/2.
 :- dynamic relevant_areas/2.
-:- dynamic nonStudentBuilding/2.
 :- dynamic cleaned / 0.
 :- dynamic refreshcounter /1.
+:- dynamic goalDemolish/0.
+:- dynamic demolished/1.
 
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 
 		buildings(Y),
 		self(OwnId),
 		member(building(Bid,Name,OwnId,Year,Cat,_,_),Y),
-		member('GARDEN', Cat).
-		%not(member('STUDENT',Cat)).
+		not(member('STUDENT',Cat)).
+		
+getBuilding(Bid, Type) :- 
+		buildings(Y),
+		self(OwnId),
+		member(building(Bid,Name,OwnId,Year,Cat,_,_),Y),
+		member(Type, Cat).
+
+
 
 % Get indicator
 %indicator names: "Astand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte"

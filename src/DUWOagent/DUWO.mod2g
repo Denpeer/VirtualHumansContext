@@ -4,6 +4,7 @@ use DUWOgoals as goals.
 use normalMod as module.
 use lowBudgetMod as module.
 use noBudgetMod as module.
+use demolishMod as module.
 
 order=linearall.
 exit=nogoals.
@@ -11,8 +12,10 @@ exit=nogoals.
 module DUWO {
 	
 	% Demolish all unnecessary buildings
-	forall bel(nonStudentBuilding(Bid,Name),not(cleaned)) do building_plan_demolish(Bid).
-	
+	%forall bel(nonStudentBuilding(Bid,Name, 'GARDEN'),not(cleaned)) do building_plan_demolish(Bid).
+	if goal(goalDemolish) 
+		then demolishMod.
+			
 	% Mark the map cleaned when these buildings are gone so the demolishing only happens once.
 	if not(bel(cleaned)) then insert(cleaned).
 	
