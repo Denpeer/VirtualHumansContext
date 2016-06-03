@@ -9,62 +9,16 @@ exit=always.
 
 % Module to build student housing when we have enough budget.
 module normalMod {
-	
-	% if we have the goal to build more studenthousing get area where we can build
-	% this is a time intensive operation so the counter makes sure it doesn't happen every cycle
-	%if bel(refreshcounter(X), X < 0
-	%),
-	%if goal(goalBuildStudentHousing) then
-	%		get_relevant_areas(0, build, []).
-			%+ delete(refreshcounter(X)) 
-			%+ insert(refreshcounter(50)).
-		
-	% Check to see if we can still build student housing on owned land, if so Build student housing.
-	% Also decrement the counter to refresh the relevantarea's
-	%forall bel(
-	%		relevant_areas(0,[[MultiPolygon|Y]|Z]),
-	%	functions(FS), 
-	%	member([Name,Id,L],FS),
-	%	member('STUDENT',L),
-	%	not(Z = []),
-	%	refreshcounter(Count),
-	%	NewCount is Count - 1
-	%	), goal(goalBuildStudentHousing)  
-	%		do building_plan_construction(Id, 1, MultiPolygon)
-	%		+ delete(refreshcounter(Count))
-	%		+ insert(refreshcounter(NewCount))
-	%		+ delete(relevant_areas(0,[[MultiPolygon|Y]|Z]))
-	%		+ insert(relevant_areas(0,Z)).
-	%forall bel(relevant_areas(0, List), member([Poly|Y], List))
-	%	do building_plan_construction(34, 3, Poly).
-		
-	%if bel(relevant_areas(0, List)) 
-	%	then delete(relevant_areas(0,List)).
 
-	% If there is only one relevantarea left, refresh the list to see if there are any new ones available.
-	%if bel(relevant_areas(0,[X|Y]),
-	%	Y = [],
-	%	refreshcounter(Count),
-	%	not(Count < 0))
-	%	then get_relevant_areas(0, build, []).	
-					
 	
-	% If we can't build more houses on our current land, buy new land
-	%if bel(relevant_areas(0,[]),
-	%getPolygon(10,10,200,20,Polygon)), 
-	%	goal(goalBuildStudentHousing)  
-	%		then map_buy_land(Polygon, 40000).
-			
-	
-	
-	%%RICO TEST
+	% When we dont know where to build or we have an empty list
+	% we ask the connector where to build.
 	if bel(relevant_areas(0, []); not(relevant_areas(0, _List))),
 		goal(goalBuildStudentHousing)
 		then get_relevant_areas(0, build, []).
 		
-	%forall bel(relevant_areas(0, List), member([Poly|Y], List))
-	%	do building_plan_construction(34, 3, Poly).
-	
+	% If we know where to build, start building and update the list of multipolys
+	% we also select a random student building to build.
 	if bel(relevant_areas(0,[[Poly|Y]|Rest]),
 		buildableStudentList(Idlist),
 		random_member(Id,Idlist))

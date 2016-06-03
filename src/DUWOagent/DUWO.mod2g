@@ -11,8 +11,7 @@ exit=nogoals.
 
 module DUWO {
 	
-	% Demolish all unnecessary buildings
-	%forall bel(nonStudentBuilding(Bid,Name, 'GARDEN'),not(cleaned)) do building_plan_demolish(Bid).
+	% Demolish when we have this as a goal
 	if goal(goalDemolish) 
 		then demolishMod.
 	
