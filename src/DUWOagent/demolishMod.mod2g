@@ -1,0 +1,16 @@
+use actions as actionspec.
+use predicates as knowledge.
+
+order = linear.
+
+module demolishMod {
+	
+	% First demolish the garden since we don't need this
+	forall bel(getBuilding(ID, 'GARDEN'), not(demolished(ID))) 
+			do building_plan_demolish(ID) + insert(demolished(ID)).
+			
+	% Next up demolish all non student buildings.
+	forall bel(nonStudentBuilding(ID, Name), not(demolished(ID)))
+			do building_plan_demolish(ID) + insert(demolished(ID)).
+
+}

@@ -5,7 +5,16 @@ order=linearall.
 module goalEvents {
 	
 	%%% Adopt goals %%%
+	
+	% If we have as goal to demolish, remove this goal
+	if goal(goalDemolish) 
+		then drop(goalDemolish).
 			
+	% If we receive an empty list
+	% We know that we can build nothing so we adopt a goal to demolish buildings
+	if percept(relevant_areas(0, [])) 
+		then adopt(goalDemolish).
+	
 	% Adopt goal to build student housing when we need to.
 	if bel(needStudentHousing), not(goal(goalBuildStudentHousing))
 		then adopt(goalBuildStudentHousing).

@@ -1,0 +1,18 @@
+use actions as actionspec.
+use predicates as knowledge.
+
+
+
+order=linear.
+exit=always.
+
+
+% Module for when the agent is below the target budget, the agent will sell unused land and low-quality housing if this improves the overall indicator score
+module noBudgetMod {
+	
+	% Sell our least important piece of land to any stakeholder who will buy it
+	forall bel(stakeholder(BuyerId,_),
+		not(self(BuyerID)),
+		getPolygon(10,10,200,20,Polygon))  
+			do map_sell_land(BuyerId,Polygon, 40000).	
+}

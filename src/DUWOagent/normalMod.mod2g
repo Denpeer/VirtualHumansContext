@@ -3,32 +3,27 @@ use predicates as knowledge.
 
 
 
-order=linear.
+order=linearall.
 exit=always.
 
 
 % Module to build student housing when we have enough budget.
 module normalMod {
+
 	
-	
-	% Build student housing when we have it as goal.
-	if bel(functions(FS), 
-		member([Name,Id,L],FS),
-		member('STUDENT',L),
-		getPolygon(10,10,200,20,Polygon)
-		), goal(goalBuildStudentHousing)  
-			then building_plan_construction(Id, 1, Polygon).
-			
-						
-	%ToDo: Add check to see if we can still build housing on owned land, for now true
-	if true, goal(goalBuildStudentHousing) then skip.	
-	
-	% If we can't build more houses on our current land, buy new land
-	if bel(getPolygon(10,10,200,20,Polygon)), 
-		goal(goalBuildStudentHousing)  
-			then map_buy_land(Polygon, 40000).
-			
-			
-			
+	% When we dont know where to build or we have an empty list
+	% we ask the connector where to build.
+	if bel(relevant_areas(0, []); not(relevant_areas(0, _List))),
+		goal(goalBuildStudentHousing)
+		then get_relevant_areas(0, build, []).
+		
+	% If we know where to build, start building and update the list of multipolys
+	% we also select a random student building to build.
+	if bel(relevant_areas(0,[[Poly|Y]|Rest]),
+		buildableStudentList(Idlist),
+		random_member(Id,Idlist))
+		then building_plan_construction(Id,4,Poly) +
+			 delete(relevant_areas(0,[[Poly|Y]|Rest])) +
+			 insert(relevant_areas(0,Rest)).
 
 }

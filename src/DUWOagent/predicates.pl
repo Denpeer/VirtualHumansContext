@@ -8,6 +8,34 @@
 :- dynamic planned/3.
 :- dynamic self/1.
 :- dynamic stakeholder/2.
+:- dynamic relevant_areas/2.
+:- dynamic refreshcounter /1.
+:- dynamic goalDemolish/0.
+:- dynamic demolished/1.
+:- dynamic sell_proposal/2.
+:- dynamic buildableStudent/2.
+:- dynamic buildableStudentList/1.
+
+% A predicate containing a building that doesn't influence our building indicators
+nonStudentBuilding(Bid,Name) :- 
+		buildings(Y),
+		self(OwnId),
+		member(building(Bid,Name,OwnId,Year,Cat,_,_),Y),
+		not(member('STUDENT',Cat)).
+		
+getBuilding(Bid, Type) :- 
+		buildings(Y),
+		self(OwnId),
+		member(building(Bid,Name,OwnId,Year,Cat,_,_),Y),
+		member(Type, Cat).
+
+% create a predicate with the Id's of all buildable houses of type student, so that the agent can dynamically choose what kind of building to build
+buildableStudentList([]).
+
+buildableStudent(Id,Name) :- functions(FS), 
+		member([Name,Id,L],FS),
+		member('STUDENT',L).
+
 
 % Get indicator
 %indicator names: "Astand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte"

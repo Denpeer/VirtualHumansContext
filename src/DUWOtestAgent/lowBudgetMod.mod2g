@@ -1,0 +1,20 @@
+use actions as actionspec.
+use predicates as knowledge.
+
+
+
+order=linear.
+exit=always.
+
+
+% Module for when the agent has a low budget, the agent will only continue to build student housing in places where this greatly improves the quality indicator
+module lowBudgetMod {
+	
+	% Build student housing when have it as goal.
+	if bel(functions(FS), 
+		member([Name,Id,L],FS),
+		member('STUDENT',L),
+		getPolygon(10,10,200,20,Polygon)
+		), goal(goalBuildStudentHousing)  
+			then building_plan_construction(Id, 1, Polygon).
+}

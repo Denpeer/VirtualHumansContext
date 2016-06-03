@@ -9,6 +9,11 @@ define	building_plan_construction(Id, Level, MultiPolygon) with
 define skip as internal with
 	pre { true }
 	post{ true }
+
+% Gets relevant area's from the tygron environment
+define get_relevant_areas(Id, ActionType, Filters) with
+	pre { true }
+	post{ true }
 	
 %Buy the land defined by the polygon for given price
 define	map_buy_land(MultiPolygon, Price) with
@@ -19,3 +24,12 @@ define	map_buy_land(MultiPolygon, Price) with
 define	map_sell_land(BuyerId,MultiPolygon, Price) with
 	pre{ true }
 	post{ true}
+
+%  Demolish buildings in a area defined by a MultiPolygon, also define SURFACE or underground. For our purposes we will only  use SURFACE
+define building_plan_demolish_polygon(MultiPolygon,Surface_or_Ground) with
+	pre{ true }
+	post{ true }
+% Demolishes buildings defined by their BuildingID	
+define building_plan_demolish(BuildingID) with
+	pre{ true }
+	post{ true }
