@@ -58,13 +58,15 @@ module normalMod {
 	
 	
 	%%RICO TEST
-	if bel(relevant_areas(0, []); not(relevant_areas(0, _List))) 
+	if bel(relevant_areas(0, []),; not(relevant_areas(0, _List))),
+		goal(goalBuildStudentHousing)
 		then get_relevant_areas(0, build, []).
 		
 	%forall bel(relevant_areas(0, List), member([Poly|Y], List))
 	%	do building_plan_construction(34, 3, Poly).
 	
-	if bel(relevant_areas(0,[[Poly|Y]|Rest]))
+	if bel(relevant_areas(0,[[Poly|Y]|Rest])),
+		goal(goalBuildStudentHousing)
 		then building_plan_construction(34,4,Poly) +
 			 delete(relevant_areas(0,[[Poly|Y]|Rest])) +
 			 insert(relevant_areas(0,Rest)).

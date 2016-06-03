@@ -10,7 +10,5 @@ module demolishMod {
 			
 	forall bel(nonStudentBuilding(ID, Name), not(demolished(ID)))
 			do building_plan_demolish(ID) + insert(demolished(ID)).
-	
-	if true 
-			then adopt(goalDemolish).
+
 }

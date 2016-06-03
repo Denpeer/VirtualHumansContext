@@ -15,9 +15,6 @@ module DUWO {
 	%forall bel(nonStudentBuilding(Bid,Name, 'GARDEN'),not(cleaned)) do building_plan_demolish(Bid).
 	if goal(goalDemolish) 
 		then demolishMod.
-			
-	% Mark the map cleaned when these buildings are gone so the demolishing only happens once.
-	if not(bel(cleaned)) then insert(cleaned).
 	
 	% Build student housing when have it as goal.
 	% Use the normal module when we have enough budget
