@@ -1,0 +1,16 @@
+use predicates as knowledge.
+use perceptEvents as module.
+use goalEvents as module.
+
+
+order=linearall.
+
+module events {
+	
+	% Processing percepts
+	if true then perceptEvents.
+	
+	% Adopting goals
+	if true then goalEvents.
+
+}
