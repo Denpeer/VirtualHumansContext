@@ -11,10 +11,10 @@ exit=always.
 module lowBudgetMod {
 	
 	% Build student housing when have it as goal.
-	if bel(functions(FS), 
-		member([Name,Id,L],FS),
-		member('STUDENT',L),
+	if bel(functions(FunctionsList), 
+		member([Name,BuildingID,CatergorieList],FunctionsList),
+		member('STUDENT',CatergorieList),
 		getPolygon(10,10,200,20,Polygon)
 		), goal(goalBuildStudentHousing)  
-			then building_plan_construction(Id, 1, Polygon).
+			then building_plan_construction(BuildingID, 1, Polygon).
 }
