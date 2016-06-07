@@ -8,8 +8,8 @@ order=linearall.
 module events {
 	
 	if bel(buildableStudent(X,Y)
-			,buildableStudentList(Z)
-			,not(member(X,Z))) 
+		,buildableStudentList(Z)
+		,not(member(X,Z))) 
 			then delete(buildableStudentList(Z)) 
 			+ insert(buildableStudentList([X|Z])).
 	

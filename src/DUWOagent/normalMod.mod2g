@@ -15,7 +15,7 @@ module normalMod {
 	% we ask the connector where to build.
 	if bel(relevant_areas(0, []); not(relevant_areas(0, _List))),
 		goal(goalBuildStudentHousing)
-		then get_relevant_areas(0, build, []).
+			then get_relevant_areas(0, build, []).
 		
 	% If we know where to build, start building and update the list of multipolys
 	% we also select a random student building to build.

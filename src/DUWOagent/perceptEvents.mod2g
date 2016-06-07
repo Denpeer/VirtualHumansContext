@@ -9,11 +9,11 @@ module perceptEvents {
 	
 	%% Percepts the relevant area's from the get_relevant_area's action
 	if percept(relevant_areas(ID,Areas)), 
-			not(bel(relevant_areas(ID,Y))) 
+		not(bel(relevant_areas(ID,Y))) 
 			then insert(relevant_areas(ID,Areas)).
 	
 	if percept(relevant_areas(ID,Areas)), 
-			bel(relevant_areas(ID,Y)) 
+		bel(relevant_areas(ID,Y)) 
 			then delete(relevant_areas(ID,Y)) 
 			+ insert(relevant_areas(ID,Areas)).
 	
@@ -26,14 +26,14 @@ module perceptEvents {
 	
 	%% Percept the indicator weights
 	forall percept(stakeholders(ComleteList)),
-			bel(self(X), member([stakeholder(X,_,_,_)|IndicatorLink],ComleteList),
-	 		member(indicatorLink(_,IndicatorWeigths),IndicatorLink),
-	 		member(indicatorWeights(ID,Name,Weight), IndicatorWeigths))
+		bel(self(X), member([stakeholder(X,_,_,_)|IndicatorLink],ComleteList),
+	 	member(indicatorLink(_,IndicatorWeigths),IndicatorLink),
+	 	member(indicatorWeights(ID,Name,Weight), IndicatorWeigths))
 			do insert(indicatorWeight(ID,Name,Weight)).
 			
 	%% Percept a list of all stakeholderID's
 	forall percept(stakeholders(ComleteList)),
-			bel(member([stakeholder(ID,Name,_,_)|IndicatorLink],ComleteList))
+		bel(member([stakeholder(ID,Name,_,_)|IndicatorLink],ComleteList))
 			do insert(stakeholder(ID,Name)).
 	
 	%% Percepts a list of all settings ([<setting>]).
@@ -55,18 +55,18 @@ module perceptEvents {
 	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>])
 	%% and insert our indicators separately when not already present in belief base.
 	forall percept(indicators(X)),
-			bel(member(indicator(ID,CurrentValue,TargetValue),X),
-			indicatorWeight(ID,_,_)), % Only insert our indicators.
-			bel(not(indicator(ID,OldValue,TargetValue)))
+		bel(member(indicator(ID,CurrentValue,TargetValue),X),
+		indicatorWeight(ID,_,_)), % Only insert our indicators.
+		bel(not(indicator(ID,OldValue,TargetValue)))
 			do insert(indicator(ID,CurrentValue,TargetValue)).
 	
 	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>])
 	%% and update our indicators.
 	forall percept(indicators(X)),
-			bel(member(indicator(ID,CurrentValue,TargetValue),X),
-			indicatorWeight(ID,_,_)), % Only insert our indicators.
-			bel(indicator(ID,OldValue,TargetValue)),
-			bel(not(OldValue == CurrentValue))
+		bel(member(indicator(ID,CurrentValue,TargetValue),X),
+		indicatorWeight(ID,_,_)), % Only insert our indicators.
+		bel(indicator(ID,OldValue,TargetValue)),
+		bel(not(OldValue == CurrentValue))
 			do delete(indicator(ID,OldValue,TargetValue))
 			+ insert(indicator(ID,CurrentValue,TargetValue)).
 }
