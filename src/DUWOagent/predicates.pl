@@ -18,23 +18,23 @@
 
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 
-		buildings(Y),
-		self(OwnId),
-		member(building(Bid,Name,OwnId,Year,Cat,_,_),Y),
-		not(member('STUDENT',Cat)).
+	buildings(Y),
+	self(OwnId),
+	member(building(Bid,Name,OwnId,Year,Cat,_,_),Y),
+	not(member('STUDENT',Cat)).
 		
 getBuilding(Bid, Type) :- 
-		buildings(Y),
-		self(OwnId),
-		member(building(Bid,Name,OwnId,Year,Cat,_,_),Y),
-		member(Type, Cat).
+	buildings(Y),
+	self(OwnId),
+	member(building(Bid,Name,OwnId,Year,Cat,_,_),Y),
+	member(Type, Cat).
 
 % create a predicate with the Id's of all buildable houses of type student, so that the agent can dynamically choose what kind of building to build
 buildableStudentList([]).
 
 buildableStudent(Id,Name) :- functions(FS), 
-		member([Name,Id,L],FS),
-		member('STUDENT',L).
+	member([Name,Id,L],FS),
+	member('STUDENT',L).
 
 
 % Get indicator
