@@ -17,7 +17,7 @@ module DUWO {
 	
 	% Build student housing when have it as goal.
 	% Use the normal module when we have enough budget
-	if goal(goalBuildStudentHousing)%not(bel(lowBudget)), not(bel(noBudget))
+	if goal(goalBuildStudentHousing)
 		then normalMod.
 	
 	% Use the lowBudget module when our budget is lower than a certain threshold above the target budget
@@ -25,6 +25,6 @@ module DUWO {
 		then lowBudgetMod.
 	
 	% Use the noBudget module when our current budget is beneath our budget target
-	if goal(goalReachBudgetTarget)%bel(lowBudget), bel(noBudget)
+	if goal(goalReachBudgetTarget)
 		then noBudgetMod.
 }
