@@ -12,8 +12,8 @@ module lowBudgetMod {
 	
 	% Build student housing when have it as goal.
 	if bel(functions(FunctionsList), 
-		member([Name,BuildingID,CatergorieList],FunctionsList),
-		member('STUDENT',CatergorieList),
+		member([Name,BuildingID,CategoryList],FunctionsList),
+		member('STUDENT',CategoryList),
 		getPolygon(10,10,200,20,Polygon)
 		), goal(goalBuildStudentHousing)  
 			then building_plan_construction(BuildingID, 1, Polygon).
