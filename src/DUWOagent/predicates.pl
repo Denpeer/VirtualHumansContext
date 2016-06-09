@@ -20,13 +20,13 @@
 nonStudentBuilding(Bid,Name) :- 
 	buildings(Y),
 	self(OwnId),
-	member(building(Bid,Name,OwnId,Year,Cat,_,_),Y),
+	member(building(Bid,Name,OwnId,Year,Cat,_,_,_),Y),
 	not(member('STUDENT',Cat)).
 		
 getBuilding(Bid, Type) :- 
 	buildings(Y),
 	self(OwnId),
-	member(building(Bid,Name,OwnId,Year,Cat,_,_),Y),
+	member(building(Bid,Name,OwnId,Year,Cat,_,_,_),Y),
 	member(Type, Cat).
 
 % create a predicate with the Id's of all buildable houses of type student, so that the agent can dynamically choose what kind of building to build
