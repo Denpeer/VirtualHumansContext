@@ -55,7 +55,7 @@ module perceptEvents {
 	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>])
 	%% and insert our indicators separately when not already present in belief base.
 	forall percept(indicators(X)),
-			bel(member(indicator(ID,CurrentValue,TargetValue),X),
+			bel(member(indicator(ID,CurrentValue,TargetValue,ZoneLink),X),
 			indicatorWeight(ID,_,_)), % Only insert our indicators.
 			bel(not(indicator(ID,OldValue,TargetValue)))
 			do insert(indicator(ID,CurrentValue,TargetValue)).
