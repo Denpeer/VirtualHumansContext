@@ -3,7 +3,7 @@
 :- dynamic functions/1.
 :- dynamic buildings/1.
 :- dynamic zones/1.
-:- dynamic indicator/3.
+:- dynamic indicator/4.
 :- dynamic indicatorWeight/3.
 :- dynamic planned/3.
 :- dynamic self/1.
@@ -38,12 +38,12 @@ buildableStudent(Id,Name) :- functions(FS),
 
 % Get indicator
 %indicator names: "Astand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte"
-getIndicator(ID, Name, Weight, CurrentValue, TargetValue) :-
-	indicatorWeight(ID,Name,Weight), indicator(ID, CurrentValue, TargetValue).
+getIndicator(ID, Name, Weight, CurrentValue, TargetValue, ZoneLink) :-
+	indicatorWeight(ID,Name,Weight), indicator(ID, CurrentValue, TargetValue, ZoneLink).
 
 % Only build houses when our current value < target value.
 needStudentHousing :-
-	getIndicator(ID,'Bouw DUWO', Weight, CurrentValue, TargetValue),
+	getIndicator(ID,'Bouw DUWO', Weight, CurrentValue, TargetValue, ZoneLink),
 	CurrentValue < TargetValue.
 
 goalBuildStudentHousing :-
@@ -52,11 +52,11 @@ goalBuildStudentHousing :-
 % Budget predicates that the bot can use to either stop building or build more carefully (raising a value needed per building for example)
 % These predicates expect DUWO to keep its target budget as a minimum (since DUWO can't raise it's budget by other means than selling property)
 lowBudget :-
-	getIndicator(ID,'Budget DUWO', Weight, CurrentValue, TargetValue),
+	getIndicator(ID,'Budget DUWO', Weight, CurrentValue, TargetValue, ZoneLink),
 	CurrentValue < 1.2*TargetValue.
 
 noBudget :-
-	getIndicator(ID,'Budget DUWO', Weight, CurrentValue, TargetValue),
+	getIndicator(ID,'Budget DUWO', Weight, CurrentValue, TargetValue, ZoneLink),
 	CurrentValue < TargetValue.
 
 goalReachBudgetTarget :-
