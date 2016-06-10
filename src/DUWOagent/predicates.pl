@@ -9,7 +9,6 @@
 :- dynamic self/1.
 :- dynamic stakeholder/2.
 :- dynamic relevant_areas/2.
-:- dynamic refreshcounter /1.
 :- dynamic goalDemolish/0.
 :- dynamic demolished/1.
 :- dynamic sell_proposal/2.
