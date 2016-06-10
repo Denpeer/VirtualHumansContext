@@ -5,6 +5,10 @@ order = linear.
 
 module demolishMod {
 	
+	% First demolish the trees next to the highway
+	if bel(getBuilding(ID, 'NATURE'), not(demolished(ID))) 
+			do building_plan_demolish(ID) + insert(demolished(ID)).
+	
 	% First demolish the garden since we don't need this
 	forall bel(getBuilding(ID, 'GARDEN'), not(demolished(ID))) 
 			do building_plan_demolish(ID) + insert(demolished(ID)).
