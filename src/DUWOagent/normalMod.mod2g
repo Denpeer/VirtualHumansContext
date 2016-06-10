@@ -17,13 +17,49 @@ module normalMod {
 		goal(goalBuildStudentHousing)
 		then get_relevant_areas(0, build, []).
 		
-	% If we know where to build, start building and update the list of multipolys
-	% we also select a random student building to build.
+	% If we know where to build, and we need more luxury student housing,
+	% start building and update the list of multipolys.
+	% We also select a random luxury student building to build.
 	if bel(relevant_areas(0,[[Poly|Y]|Rest]),
-		buildableStudentList(Idlist),
+		amountLuxuryHousing(AmountLuxury),
+		amountMediumHousing(AmountMedium),
+		amountCheapHousing(AmountCheap),
+		AmountLuxury < AmountMedium,
+		AmountLuxury < AmountCheap,
+		luxuryStudentIds(Idlist),
 		random_member(Id,Idlist))
-		then building_plan_construction(Id,4,Poly) +
-			 delete(relevant_areas(0,[[Poly|Y]|Rest])) +
-			 insert(relevant_areas(0,Rest)).
+			then building_plan_construction(Id,4,Poly) +
+			delete(relevant_areas(0,[[Poly|Y]|Rest])) +
+			insert(relevant_areas(0,Rest)).
+	
+	% If we know where to build, and we need more medium student housing,
+	% start building and update the list of multipolys.
+	% We also select a random medium student building to build.
+	if bel(relevant_areas(0,[[Poly|Y]|Rest]),
+		amountLuxuryHousing(AmountLuxury),
+		amountMediumHousing(AmountMedium),
+		amountCheapHousing(AmountCheap),
+		AmountMedium < AmountLuxury,
+		AmountMedium < AmountCheap,
+		mediumStudentIds(Idlist),
+		random_member(Id,Idlist))
+			then building_plan_construction(Id,4,Poly) +
+			delete(relevant_areas(0,[[Poly|Y]|Rest])) +
+			insert(relevant_areas(0,Rest)).
+	
+	% If we know where to build, and we need more cheap student housing,
+	% start building and update the list of multipolys.
+	% We also select a random cheap student building to build.
+	if bel(relevant_areas(0,[[Poly|Y]|Rest]),
+		amountLuxuryHousing(AmountLuxury),
+		amountMediumHousing(AmountMedium),
+		amountCheapHousing(AmountCheap),
+		AmountCheap < AmountLuxury,
+		AmountCheap < AmountMedium,
+		cheapStudentIds(Idlist),
+		random_member(Id,Idlist))
+			then building_plan_construction(Id,4,Poly) +
+			delete(relevant_areas(0,[[Poly|Y]|Rest])) +
+			insert(relevant_areas(0,Rest)).
 
 }

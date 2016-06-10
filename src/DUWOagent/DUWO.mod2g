@@ -13,7 +13,7 @@ module DUWO {
 	
 	if bel(amountCheapHousing(Amount1),
 		amountMediumHousing(Amount2),
-		amountLuxuriousHousing(Amount3))
+		amountLuxuryHousing(Amount3))
 			then insert(test(Amount1,Amount2,Amount3)).
 	
 	% Demolish when we have this as a goal

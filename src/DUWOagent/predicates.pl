@@ -36,6 +36,11 @@ buildableStudent(Id,Name) :- functions(FS),
 		member([Name,Id,L],FS),
 		member('STUDENT',L).
 
+cheapStudentIds([34,35]).
+
+mediumStudentIds([663]).
+
+luxuryStudentIds([42,63,378]).
 
 % Get indicator
 %indicator names: "Astand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte"
@@ -53,7 +58,7 @@ amountMediumHousing(Amount) :-
 	member(HousingType, ZoneLink),
 	HousingType == [1,_,Amount,_].
 
-amountLuxuriousHousing(Amount) :-
+amountLuxuryHousing(Amount) :-
 	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
 	member(HousingType, ZoneLink),
 	HousingType == [2,_,Amount,_].
