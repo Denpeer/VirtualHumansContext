@@ -25,6 +25,6 @@ module DUWO {
 			then lowBudgetMod.
 	
 	% Use the noBudget module when our current budget is beneath our budget target
-	if goal(goalReachBudgetTarget)
+	if bel(lowBudget), bel(noBudget)
 			then noBudgetMod.
 }
