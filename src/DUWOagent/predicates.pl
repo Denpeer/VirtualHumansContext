@@ -14,6 +14,7 @@
 :- dynamic sell_proposal/2.
 :- dynamic buildableStudent/2.
 :- dynamic buildableStudentList/1.
+:- dynamic test/3.
 
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 
@@ -40,6 +41,22 @@ buildableStudent(Id,Name) :- functions(FS),
 %indicator names: "Astand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte"
 getIndicator(ID, Name, Weight, CurrentValue, TargetValue, ZoneLink) :-
 	indicatorWeight(ID,Name,Weight), indicator(ID, CurrentValue, TargetValue, ZoneLink).
+
+
+amountCheapHousing(Amount) :-
+	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
+	member(HousingType, ZoneLink),
+	HousingType == [0,_,Amount,_].
+
+amountMediumHousing(Amount) :-
+	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
+	member(HousingType, ZoneLink),
+	HousingType == [1,_,Amount,_].
+
+amountLuxuriousHousing(Amount) :-
+	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
+	member(HousingType, ZoneLink),
+	HousingType == [2,_,Amount,_].
 
 % Only build houses when our current value < target value.
 needStudentHousing :-
