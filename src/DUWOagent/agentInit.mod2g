@@ -1,9 +1,10 @@
 use predicates as beliefs.
 
 module agentInit {
-		if true then insert(settings([])).
-		if true then insert(functions([])).
-		if true then insert(stakeholders([])).
-		if true then insert(buildings([])).
-		if true then insert(zones([])).
+	if true
+	then insert(settings([]))
+		+ insert(functions([]))
+		+ insert(stakeholders([]))
+		+ insert(buildings([]))
+		+ insert(zones([])).
 }

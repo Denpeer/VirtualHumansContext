@@ -24,7 +24,8 @@ module perceptEvents {
 		+ insert(stakeholders(NewStakeholders)).
 	
 	%% Percepts the ID of the stakeholder the virtual human is.
-	if percept(my_stakeholder_id(MyID)) then insert(self(MyID)).
+	if percept(my_stakeholder_id(MyID))
+	then insert(self(MyID)).
 	
 	%% Percept the indicator weights
 	forall percept(stakeholders(ComleteList)),
@@ -32,27 +33,37 @@ module perceptEvents {
 	 	member(indicatorLink(_,IndicatorWeigths),IndicatorLink),
 	 	member(indicatorWeights(ID,Name,Weight), IndicatorWeigths))
 	do insert(indicatorWeight(ID,Name,Weight)).
-			
+	
 	%% Percept a list of all stakeholderID's
 	forall percept(stakeholders(ComleteList)),
 		bel(member([stakeholder(ID,Name,_,_)|IndicatorLink],ComleteList))
 	do insert(stakeholder(ID,Name)).
 	
 	%% Percepts a list of all settings ([<setting>]).
-	if percept(settings(NewSettings)), bel(settings(OldSettings))
-	then delete(settings(OldSettings)) + insert(settings(NewSettings)).
+	if percept(settings(NewSettings)),
+		bel(settings(OldSettings))
+	then delete(settings(OldSettings))
+		+ insert(settings(NewSettings)).
 	
 	%% Percepts a list of all functions ([<name>, <id>, [<category>]]).
-	if percept(functions(NewFunctions)), bel(functions(OldFunctions))
-	then delete(functions(OldFunctions)) + insert(functions(NewFunctions)).
+	if percept(functions(NewFunctions)),
+		bel(functions(OldFunctions))
+	then delete(functions(OldFunctions))
+		+ insert(functions(NewFunctions)).
 	
 	%% Percepts a list of all buildings ([building(<id>, <name>, <ownerID>, <constructionYear>, [<category>], <functionID>, <amountOfFloors>)]).
-	if percept(buildings(NewBuildings)), bel(buildings(OldBuildings)), bel(not(NewBuildings == OldBuildings))
-	then delete(buildings(OldBuildings)) + insert(buildings(NewBuildings)).
+	if percept(buildings(NewBuildings)),
+		bel(buildings(OldBuildings)),
+		bel(not(NewBuildings == OldBuildings))
+	then delete(buildings(OldBuildings))
+		+ insert(buildings(NewBuildings)).
 	
 	%% Percepts a list of all zones ([zone(<id>, <name>, <maxFloors>, <size>, [<allowedCategory>])]).
-	if percept(zones(NewZones)), bel(zones(OldZones)), bel(not(NewZones == OldZones))
-	then delete(zones(OldZones)) + insert(zones(NewZones)).
+	if percept(zones(NewZones)),
+		bel(zones(OldZones)),
+		bel(not(NewZones == OldZones))
+	then delete(zones(OldZones))
+		+ insert(zones(NewZones)).
 	
 	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>])
 	%% and insert our indicators separately when not already present in belief base.
