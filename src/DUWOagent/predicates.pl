@@ -27,7 +27,7 @@ nonStudentBuilding(Bid,Name) :-
 	not(member('STUDENT',Cat)).
 		
 getBuilding(Bid, Type) :- 
-	buildings(Y),
+	buildings(Buildings),
 	self(OwnId),
 	member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_),Buildings),
 	member(Type, Cat).
