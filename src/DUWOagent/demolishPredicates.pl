@@ -17,8 +17,8 @@ getAreaOwnBuilding(BuildingID, Category, Area):-
 % Create a list with the id and area of all buildings
 % In the form of:
 % [[BuildingIdD,Area1],[BuildingID2,Area2], ...]
-allBuildings(Category, List):-
-	findall([BuildingID,Area],getAreaOwnBuilding(BuildingID, Category, Area),List). 
+allBuildings(Category, AllBuildings):-
+	findall([BuildingID,Area],getAreaOwnBuilding(BuildingID, Category, Area),AllBuildings). 
  
 % Find the maximum area.
 maxArea([[BuildingID,Area]],BuildingID, Area).
