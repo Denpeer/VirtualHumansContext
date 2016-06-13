@@ -5,7 +5,7 @@
 :- dynamic self/1.
 :- dynamic buildings/1.
  
- % Get a buildings id and area by catergory.
+ % Get a buildings id and area by category.
 getAreaOwnBuilding(BuildingID, Category, Area):- 
 	self(OwnID),
 	buildings(AllBuildings),
