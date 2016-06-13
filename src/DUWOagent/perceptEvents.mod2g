@@ -21,8 +21,8 @@ module perceptEvents {
 	%% Percepts a list of all stakeholders ([<id>, <name>, <income>, <start_budget>]).
 	if percept(stakeholders(NewStakeholders), stakeholders(OldStakeholders), 
 		not(NewStakeholders == OldStakeholders))
-	then 
-		delete(stakeholders(OldStakeholders)) + insert(stakeholders(NewStakeholders)).
+	then delete(stakeholders(OldStakeholders)) 
+		+ insert(stakeholders(NewStakeholders)).
 	
 	%% Percepts the ID of the stakeholder the virtual human is.
 	if percept(my_stakeholder_id(MyID)) then insert(self(MyID)).
