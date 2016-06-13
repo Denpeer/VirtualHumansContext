@@ -11,22 +11,25 @@
 :- dynamic relevant_areas/2.
 :- dynamic refreshcounter /1.
 :- dynamic goalDemolish/0.
-:- dynamic demolished/1.
 :- dynamic sell_proposal/2.
 :- dynamic buildableStudent/2.
 :- dynamic buildableStudentList/1.
+:- dynamic demolished/1.
+
+
+
 
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 
-	buildings(Y),
+	buildings(Buildings),
 	self(OwnId),
-	member(building(Bid,Name,OwnId,Year,Cat,_,_,_),Y),
+	member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_),Buildings),
 	not(member('STUDENT',Cat)).
 		
 getBuilding(Bid, Type) :- 
 	buildings(Y),
 	self(OwnId),
-	member(building(Bid,Name,OwnId,Year,Cat,_,_,_),Y),
+	member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_),Buildings),
 	member(Type, Cat).
 
 % create a predicate with the Id's of all buildable houses of type student, so that the agent can dynamically choose what kind of building to build
@@ -48,7 +51,7 @@ needStudentHousing :-
 	CurrentValue < TargetValue.
 
 goalBuildStudentHousing :-
-	needStudentHousing.
+	not(needStudentHousing).
 
 % Budget predicates that the bot can use to either stop building or build more carefully (raising a value needed per building for example)
 % These predicates expect DUWO to keep its target budget as a minimum (since DUWO can't raise it's budget by other means than selling property)
@@ -71,3 +74,31 @@ getPolygon(X, Y, Width, Height, Square) :-
 	format(atom(A), "MULTIPOLYGON(((~w ~w, ~w ~w, ~w ~w, ~w ~w, ~w ~w)))",
 	[X,Y,XAndWidth,Y, XAndWidth, YAndHeight,X, YAndHeight, X, Y]),
 	Square = multipolygon(A).
+	
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PREDICATES USED FOR DEMOLISING %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+ % Get a buildings id and area by category.
+getAreaOwnBuilding(BuildingID, Category, Area):- 
+	self(OwnID),
+	buildings(AllBuildings),
+	member(building(BuildingID,_Name,OwnID,_Year,Cat,_,_,_Poly,Area),AllBuildings),
+	member(Category, Cat).
+
+% Create a list with the id and area of all buildings
+% In the form of:
+% [[BuildingIdD,Area1],[BuildingID2,Area2], ...]
+allBuildings(Category, AllBuildings):-
+	findall([BuildingID,Area],getAreaOwnBuilding(BuildingID, Category, Area),AllBuildings). 
+ 
+% Find the maximum area.
+maxArea([[BuildingID,Area]],BuildingID, Area).
+maxArea([[_BuildingID,Area]|RestList], BuildingIDFromMax, Max):-
+	maxArea(RestList, BuildingIDFromMax, Max),
+	Max >= Area,!.
+maxArea([[BuildingID,Area]|RestList],BuildingID,Area):-
+	maxArea(RestList, _, Max),
+	Area > Max,!. 	
