@@ -19,6 +19,7 @@ module events {
 	% Adopting goals
 	if true then goalEvents.
 	
+	% Process requests
 	if true then MunicipalityProtocol.
 
 }
