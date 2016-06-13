@@ -43,26 +43,29 @@ buildableStudent(Id,Name) :- functions(FS),
 getIndicator(ID, Name, Weight, CurrentValue, TargetValue, ZoneLink) :-
 	indicatorWeight(ID,Name,Weight), indicator(ID, CurrentValue, TargetValue, ZoneLink).
 
-
-amountHousingList(AmountCheap, AmountMedium, AmountLuxury) :-
+% Gets all of the amounts at once, splitted in cheap, medium and luxury.
+amountHousingAll(AmountCheap, AmountMedium, AmountLuxury) :-
 	amountCheapHousing(AmountCheap),
 	amountMediumHousing(AmountMedium),
 	amountLuxuryHousing(AmountLuxury).
 
 % Gets the amount of housing.
 % KindOfHousing tells which kind of housing type,
-% 0 = cheap housing, 1= medium, 2 = luxury
+% 0 = cheap housing, 1 = medium, 2 = luxury
 amountHousing(KindOfHousing, Amount) :-
 	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
 	member(HousingType, ZoneLink),
 	HousingType = zone_link(KindOfHousing,ID,Amount,_).
 
+% Gets the amount of cheap housing.
 amountCheapHousing(Amount) :-
 	amountHousing(0, Amount).
 
+% Gets the amount of medium housing.
 amountMediumHousing(Amount) :-
 	amountHousing(1, Amount).
 
+% Gets the amount of luxury housing.
 amountLuxuryHousing(Amount) :-
 	amountHousing(2, Amount).
 

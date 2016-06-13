@@ -21,7 +21,7 @@ module normalMod {
 	% start building and update the list of multipolys.
 	% We also select a random luxury student building to build.
 	if bel(relevant_areas(0,[[Poly|Y]|Rest]),
-		amountHousingList(AmountCheap, AmountMedium, AmountLuxury),
+		amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
 		AmountLuxury < AmountMedium,
 		AmountLuxury < AmountCheap,
 		luxuryHousingIds(Idlist),
@@ -34,7 +34,7 @@ module normalMod {
 	% start building and update the list of multipolys.
 	% We also select a random medium student building to build.
 	if bel(relevant_areas(0,[[Poly|Y]|Rest]),
-		amountHousingList(AmountCheap, AmountMedium, AmountLuxury),
+		amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
 		AmountMedium < AmountCheap,
 		mediumHousingIds(Idlist),
 		random_member(Id,Idlist))
@@ -46,7 +46,7 @@ module normalMod {
 	% start building and update the list of multipolys.
 	% We also select a random cheap student building to build.
 	if bel(relevant_areas(0,[[Poly|Y]|Rest]),
-		amountHousingList(AmountCheap, AmountMedium, AmountLuxury),
+		amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
 		AmountCheap < AmountLuxury,
 		AmountCheap < AmountMedium,
 		cheapHousingIds(Idlist),
