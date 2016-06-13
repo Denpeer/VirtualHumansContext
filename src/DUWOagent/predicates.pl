@@ -15,6 +15,7 @@
 :- dynamic buildableStudent/2.
 :- dynamic buildableStudentList/1.
 :- dynamic demolished/1.
+:- dynamic sell_denied/2.
 
 
 

@@ -8,22 +8,21 @@ exit=always.
 
 
 define sell_building(Category, BuyerID, MultiPolygon)
-	as bel(getAreaOwnBuilding(_, Category, MultiPolygon, Area), Area > 10
+	as bel(not(sell_proposal(_,_)) % We are not already selling something
+		, getAreaOwnBuilding(_, Category, MultiPolygon, Area), Area > 10
 		, stakeholder(BuyerID, _)
 		, not(self(BuyerID))
-		, not(sell_proposal(_, MultiPolygon))).
+		, not(sell_denied(BuyerID, MultiPolygon))).
 	
 
 % Module for when the agent is below the target budget, the agent will sell unused land and low-quality housing if this improves the overall indicator score
 module noBudgetMod {
 	
 	if sell_building('NATURE', BuyerID, MultiPolygon)
-	then insert(sell_proposal(BuyerID, MultiPolygon)) +
-		map_sell_land(BuyerID, MultiPolygon, 400).
+	then map_sell_land(BuyerID, MultiPolygon, 400).
 	
 	if sell_building('GARDEN', BuyerID, MultiPolygon)
-	then insert(sell_proposal(BuyerID, MultiPolygon)) +
-		map_sell_land(BuyerID, MultiPolygon, 200).
+	then map_sell_land(BuyerID, MultiPolygon, 200).
 	
 
 	if true then exit-module.

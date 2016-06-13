@@ -1,0 +1,22 @@
+use predicates as knowledge.
+use actions as actionspec.
+
+module requestEvents {
+	
+	%Accepted
+	if bel(sell_proposal(BuyerID, MultiPolygon), self(MyID)) ,
+		percept(requests(AllRequests)),
+		bel(member(request('INTERACTION','SELL_LAND',_,_,[MyID], _ , Price , 
+			MultiPolygon, _, [answer(0,'OK')]), AllRequests),
+			Price \= 'NO_PRICE')
+	then delete(sell_proposal(BuyerID, MultiPolygon)).
+	
+	%Denied
+	if bel(sell_proposal(BuyerID, MultiPolygon), self(MyID)) ,
+		percept(requests(AllRequests)),
+		bel(member(request('INTERACTION','SELL_LAND',_,_,[MyID], _ , Price , 
+			MultiPolygon, _, [answer(0,'OK')]), AllRequests),
+			Price = 'NO_PRICE')
+	then delete(sell_proposal(BuyerID, MultiPolygon)) + insert(sell_denied(BuyerID, MultiPolygon)).
+
+}
