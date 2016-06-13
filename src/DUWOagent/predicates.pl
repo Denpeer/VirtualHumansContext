@@ -86,7 +86,7 @@ getPolygon(X, Y, Width, Height, Square) :-
 getAreaOwnBuilding(BuildingID, Category, Area):- 
 	self(OwnID),
 	buildings(AllBuildings),
-	member(building(BuildingID,_Name,OwnID,_Year,Cat,_,_,_Poly,Area),AllBuildings),
+	member(building(BuildingID,_Name,OwnID,_Year,Category,_,_,_Poly,Area),AllBuildings),
 	member(Category, Cat).
 
 % Create a list with the id and area of all buildings
