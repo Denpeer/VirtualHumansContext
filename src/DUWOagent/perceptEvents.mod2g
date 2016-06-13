@@ -6,17 +6,16 @@ module perceptEvents {
 	%%% process percepts %%%
 	%% When a percept is obtained, update the corresponding belief. %%
 	
-	
-	%% Percepts the relevant area's from the get_relevant_area's action
-	if percept(relevant_areas(ID,Areas)), 
-		not(bel(relevant_areas(ID,Polygons))) 
-	then insert(relevant_areas(ID,Areas)).
-			
 	% Update relevant areas when we receive new info of this ID.
 	if percept(relevant_areas(ID,NewPolygons)), 
 		bel(relevant_areas(ID,OldPolygons)) 
 	then delete(relevant_areas(ID,OldPolygons)) 
 		+ insert(relevant_areas(ID,NewPolygons)).
+	
+	%% Percepts the relevant area's from the get_relevant_area's action
+	if percept(relevant_areas(ID,Areas)), 
+		not(bel(relevant_areas(ID,Polygons))) 
+	then insert(relevant_areas(ID,Areas)).
 	
 	%% Percepts a list of all stakeholders ([<id>, <name>, <income>, <start_budget>]).
 	if percept(stakeholders(NewStakeholders), stakeholders(OldStakeholders), 
