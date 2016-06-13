@@ -11,10 +11,8 @@ exit=nogoals.
 
 module DUWO {
 	
-	if bel(amountCheapHousing(Amount1),
-		amountMediumHousing(Amount2),
-		amountLuxuryHousing(Amount3))
-			then insert(test(Amount1,Amount2,Amount3)).
+	if bel(amountCheapHousing(Amount))
+			then insert(test(Amount)).
 	
 	% Demolish when we have this as a goal
 	if goal(goalDemolish) 
