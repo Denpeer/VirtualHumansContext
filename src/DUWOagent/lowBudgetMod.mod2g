@@ -16,5 +16,5 @@ module lowBudgetMod {
 		member('STUDENT',CategoryList),
 		getPolygon(10,10,200,20,Polygon)
 		), goal(goalBuildStudentHousing)  
-			then building_plan_construction(BuildingID, 1, Polygon).
+	then building_plan_construction(BuildingID, 1, Polygon).
 }
