@@ -1,5 +1,3 @@
-[predicates].
- 
 :- dynamic getAreaOwnBuilding/2.
 :- dynamic maxArea/3.
 :- dynamic buildingAreas/2.
