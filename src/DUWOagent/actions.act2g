@@ -31,8 +31,8 @@ define building_plan_demolish_polygon(MultiPolygon,Surface_or_Ground) with
 	post{ }
 % Demolishes buildings defined by their BuildingID	
 define building_plan_demolish(BuildingID) with
-	pre { true }
-	post{ true }
+	pre { }
+	post{ }
 	
 % Answer a popup with a date
 define popup_answer_with_date(MessageID, AnswerID, Date) with
