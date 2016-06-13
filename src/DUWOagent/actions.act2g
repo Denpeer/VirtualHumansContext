@@ -2,8 +2,8 @@ use predicates as knowledge.
 
 % Plan a building action
 define	building_plan_construction(Id, Level, MultiPolygon) with
-   pre { not(planned(Id, Level, MultiPolygon)) }
-   post{ planned(Id, Level, MultiPolygon) }
+	pre { not(planned(Id, Level, MultiPolygon)) }
+	post{ planned(Id, Level, MultiPolygon) }
 
 % Skip action, does nothing
 define skip as internal with
