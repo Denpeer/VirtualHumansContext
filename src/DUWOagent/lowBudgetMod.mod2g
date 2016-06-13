@@ -14,12 +14,10 @@ module lowBudgetMod {
 	% start building and update the list of multipolys.
 	% We also select a random cheap student building to build.
 	if bel(relevant_areas(0,[[Poly|Y]|Rest]),
-		amountLuxuryHousing(AmountLuxury),
-		amountMediumHousing(AmountMedium),
-		amountCheapHousing(AmountCheap),
+		amountHousingList(AmountCheap, AmountMedium, AmountLuxury),
 		AmountCheap < AmountLuxury,
 		AmountCheap < AmountMedium,
-		cheapStudentIds(Idlist),
+		cheapHousingIds(Idlist),
 		random_member(Id,Idlist))
 			then building_plan_construction(Id,4,Poly) +
 			delete(relevant_areas(0,[[Poly|Y]|Rest])) +

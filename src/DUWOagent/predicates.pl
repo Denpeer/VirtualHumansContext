@@ -14,8 +14,9 @@
 :- dynamic sell_proposal/2.
 :- dynamic buildableStudent/2.
 :- dynamic buildableStudentList/1.
-:- dynamic test/3.
-:- dynamic test/1.
+:- dynamic cheapHousingIds/1.
+:- dynamic mediumHousingIds/1.
+:- dynamic luxuryHousingIds/1.
 
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 
@@ -37,32 +38,33 @@ buildableStudent(Id,Name) :- functions(FS),
 		member([Name,Id,L],FS),
 		member('STUDENT',L).
 
-cheapStudentIds([34,35]).
-
-mediumStudentIds([663]).
-
-luxuryStudentIds([42,63,378]).
-
 % Get indicator
 %indicator names: "Astand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte"
 getIndicator(ID, Name, Weight, CurrentValue, TargetValue, ZoneLink) :-
 	indicatorWeight(ID,Name,Weight), indicator(ID, CurrentValue, TargetValue, ZoneLink).
 
 
-amountCheapHousing(Amount) :-
+amountHousingList(AmountCheap, AmountMedium, AmountLuxury) :-
+	amountCheapHousing(AmountCheap),
+	amountMediumHousing(AmountMedium),
+	amountLuxuryHousing(AmountLuxury).
+
+% Gets the amount of housing.
+% KindOfHousing tells which kind of housing type,
+% 0 = cheap housing, 1= medium, 2 = luxury
+amountHousing(KindOfHousing, Amount) :-
 	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
 	member(HousingType, ZoneLink),
-	HousingType = zone_link(0,ID,Amount,_).
+	HousingType = zone_link(KindOfHousing,ID,Amount,_).
+
+amountCheapHousing(Amount) :-
+	amountHousing(0, Amount).
 
 amountMediumHousing(Amount) :-
-	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
-	member(HousingType, ZoneLink),
-	HousingType = zone_link(1,ID,Amount,_).
+	amountHousing(1, Amount).
 
 amountLuxuryHousing(Amount) :-
-	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
-	member(HousingType, ZoneLink),
-	HousingType = zone_link(2,ID,Amount,_).
+	amountHousing(2, Amount).
 
 % Only build houses when our current value < target value.
 needStudentHousing :-

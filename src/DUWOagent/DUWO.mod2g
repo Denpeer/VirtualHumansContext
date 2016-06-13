@@ -11,9 +11,6 @@ exit=nogoals.
 
 module DUWO {
 	
-	if bel(amountCheapHousing(Amount))
-			then insert(test(Amount)).
-	
 	% Demolish when we have this as a goal
 	if goal(goalDemolish) 
 		then demolishMod.
