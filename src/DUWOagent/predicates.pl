@@ -14,6 +14,8 @@
 :- dynamic sell_proposal/2.
 :- dynamic buildableStudent/2.
 :- dynamic buildableStudentList/1.
+:- dynamic demolished/1.
+
 
 
 
@@ -74,3 +76,29 @@ getPolygon(X, Y, Width, Height, Square) :-
 	Square = multipolygon(A).
 	
 	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PREDICATES USED FOR DEMOLISING %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+ % Get a buildings id and area by category.
+getAreaOwnBuilding(BuildingID, Category, Area):- 
+	self(OwnID),
+	buildings(AllBuildings),
+	member(building(BuildingID,_Name,OwnID,_Year,Cat,_,_,_Poly,Area),AllBuildings),
+	member(Category, Cat).
+
+% Create a list with the id and area of all buildings
+% In the form of:
+% [[BuildingIdD,Area1],[BuildingID2,Area2], ...]
+allBuildings(Category, AllBuildings):-
+	findall([BuildingID,Area],getAreaOwnBuilding(BuildingID, Category, Area),AllBuildings). 
+ 
+% Find the maximum area.
+maxArea([[BuildingID,Area]],BuildingID, Area).
+maxArea([[_BuildingID,Area]|RestList], BuildingIDFromMax, Max):-
+	maxArea(RestList, BuildingIDFromMax, Max),
+	Max >= Area,!.
+maxArea([[BuildingID,Area]|RestList],BuildingID,Area):-
+	maxArea(RestList, _, Max),
+	Area > Max,!. 	

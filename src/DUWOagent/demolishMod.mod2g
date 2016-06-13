@@ -1,5 +1,5 @@
 use actions as actionspec.
-use demolishPredicates as knowledge.
+use predicates as knowledge.
 
 order = linear.
 
