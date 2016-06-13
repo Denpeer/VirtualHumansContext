@@ -1,0 +1,16 @@
+use actions as actionspec.
+use predicates as knowledge.
+
+order = linearall.
+
+module MunicipalityProtocol {
+	% For every building planned, a requested is received to ask a permit from the Municipality
+	% Confirm that you want to ask a permit and enter a date in milliseconds (arbitrary for the simulation)
+	forall percept(requests(List)), bel(member(request("INTERACTION_WITH_DATE", "PERMIT", ID, _, _, _, _, _, _, _),List))
+		do popup_answer_with_date(ID, 0, 0).
+	
+	% For every answer back from the Municipality about a build permit
+	% Accept the answer so the decision propogates visually in the plan fase
+	forall percept(requests(List)), bel(member(request("INFORMATION", "PERMIT", ID,  _, _, _, _, _, _, _),List))
+		do popup_answer(ID, 0).
+}
