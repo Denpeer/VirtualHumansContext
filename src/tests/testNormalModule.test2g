@@ -7,7 +7,7 @@ use "../DUWOagent/perceptEvents" as module.
 use "../DUWOagent/DUWO" as module.
 
 
-timeout = 55.
+timeout = 120.
 
 test normalMod with
 	pre {
