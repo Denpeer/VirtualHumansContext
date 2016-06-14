@@ -1,10 +1,15 @@
-use "../DUWOAgent/DUWOagent" as mas.
-use "../DUWOAgent/predicates" as knowledge.
-use "../DUWOAgent/DUWO"as module.
-use "../DUWOAgent/actions" as actionspec.
-use "../DUWOAgent/events" as module.
+use "../DUWOtestAgent/DUWOagent" as mas.
+use "../DUWOtestAgent/predicates" as knowledge.
+use "../DUWOtestAgent/normalMod"as module.
+use "../DUWOtestAgent/lowBudgetMod"as module.
+use "../DUWOtestAgent/noBudgetMod"as module.
+use "../DUWOtestAgent/DUWO"as module.
+use "../DUWOtestAgent/actions" as actionspec.
+use "../DUWOtestAgent/events" as module.
+use "../DUWOtestAgent/goalEvents" as module.
+use "../DUWOtestAgent/perceptEvents" as module.
 
-timeout=20.
+timeout=8.
 
 test events with
 	%If possible add a pre to check if percept something
@@ -19,6 +24,7 @@ test events with
 			(Name == 'Ruimtelijke kwaliteit';
 		 	Name == 'Bouw DUWO';
 		 	Name == 'Budget DUWO';
+		 	Name == 'Afstand TUDelft';
 		 	Name == 'Variatie Woonruimte')).
 		
 		%Check if we have all our indicators.
@@ -26,6 +32,7 @@ test events with
 		 	not( (Name == 'Ruimtelijke kwaliteit';
 		 	Name == 'Bouw DUWO';
 		 	Name == 'Budget DUWO';
+		 	Name == 'Afstand TUDelft';
 		 	Name == 'Variatie Woonruimte'))).
 		
 		% Check if we have at least one function.
@@ -46,5 +53,5 @@ test events with
 	post{ }
 
 DUWOAgent {
-	do events.
+	do DUWO.
 }
