@@ -19,7 +19,6 @@
 
 
 
-
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 
 	buildings(Buildings),

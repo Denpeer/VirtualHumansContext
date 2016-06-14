@@ -43,3 +43,7 @@ define popup_answer_with_date(MessageID, AnswerID, Date) with
 define popup_answer(MessageID, AnswerID) with
 	pre { }
 	post{ }
+	
+define sleep(Time) with
+	pre { }
+	post{ }

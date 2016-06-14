@@ -1,22 +1,24 @@
 use predicates as knowledge.
 use actions as actionspec.
 
+order = linearall.
+
 module requestEvents {
 	
-	%Accepted
-	if bel(sell_proposal(BuyerID, MultiPolygon), self(MyID)) ,
+	% A sell proposal has been accepted
+	if bel(sell_proposal(BuyerID, MultiPolygonX), self(MyID)) ,
 		percept(requests(AllRequests)),
 		bel(member(request('INTERACTION','SELL_LAND',_,_,[MyID], _ , Price , 
 			MultiPolygon, _, [answer(0,'OK')]), AllRequests),
 			Price \= 'NO_PRICE')
-	then delete(sell_proposal(BuyerID, MultiPolygon)).
+	then delete(sell_proposal(BuyerID, MultiPolygonX)).
 	
-	%Denied
-	if bel(sell_proposal(BuyerID, MultiPolygon), self(MyID)) ,
+	% A sell proposal has been denied
+	if bel(sell_proposal(BuyerID, MultiPolygonX), self(MyID)) ,
 		percept(requests(AllRequests)),
 		bel(member(request('INTERACTION','SELL_LAND',_,_,[MyID], _ , Price , 
 			MultiPolygon, _, [answer(0,'OK')]), AllRequests),
 			Price = 'NO_PRICE')
-	then delete(sell_proposal(BuyerID, MultiPolygon)) + insert(sell_denied(BuyerID, MultiPolygon)).
+	then delete(sell_proposal(BuyerID, MultiPolygonX)) + insert(sell_denied(BuyerID, MultiPolygon)).
 
 }
