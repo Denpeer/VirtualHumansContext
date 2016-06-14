@@ -15,7 +15,7 @@ test normalMod with
 	}
 	in {
 
-		% THIS IS COMMENTED BECAUSE IT TAKES WAY TOO LONG ON TRAVIS
+		% THESE TESTS ARE COMMENTED BECAUSE IT TAKES WAY TOO LONG ON TRAVIS,
 		% LOCALLY THIS WILL PASS WITH A TIMEOUT OF ~30 SECONDS, TRAVIS NEEDS
 		% MORE THAN 2 MINUTES....
 		% Eventually we percept some new relevant areas
@@ -23,7 +23,7 @@ test normalMod with
 		
 		% We have planned a building after we received a percept
 		% with info where to build
-		percept(relevant_areas(ID,NewPolygons)) leadsto bel(planned(_,_,_)).
+		%percept(relevant_areas(ID,NewPolygons)) leadsto bel(planned(_,_,_)).
 	}
 	post {
 		
