@@ -19,6 +19,6 @@ module requestEvents {
 		bel(member(request('INTERACTION','SELL_LAND',_,_,[MyID], _ , Price , 
 			MultiPolygon, _, [answer(0,'OK')]), AllRequests),
 			Price = 'NO_PRICE')
-	then delete(sell_proposal(BuyerID, MultiPolygonX)) + insert(sell_denied(BuyerID, MultiPolygon)).
+	then delete(sell_proposal(BuyerID, MultiPolygonX)) + insert(sell_denied(BuyerID, MultiPolygonX)).
 
 }
