@@ -53,5 +53,5 @@ test events with
 	post{ }
 
 DUWOAgent {
-	do DUWO.
+	do events.
 }

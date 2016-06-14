@@ -1,7 +1,8 @@
 use "../DUWOagent/demolishMod"as module.
 use "../DUWOagent/DUWOagent" as mas.
 use "../DUWOagent/predicates" as knowledge.
-timeout =20.
+use "../DUWOagent/actions" as actionspec.
+timeout =15.
 
 test demolishMod with
 	pre{ }
@@ -15,6 +16,8 @@ test demolishMod with
 			findall([Area2], (member(building(_,_,OwnId,_,Cat,_,_,_,Area2), AllBuildings), Area2 >Area), List),
 			% Nog bigger area has been found
 			List = []).
+			
+		done(building_plan_demolish(BuilingID)) leadsto bel(demolished(BuildingID)).
 		
 	}
 	post{ }

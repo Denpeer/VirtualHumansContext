@@ -1,37 +1,34 @@
-use "../DUWOtestAgent/DUWOagent" as mas.
-use "../DUWOtestAgent/predicates" as knowledge.
-use "../DUWOtestAgent/normalMod"as module.
-use "../DUWOtestAgent/lowBudgetMod"as module.
-use "../DUWOtestAgent/noBudgetMod"as module.
-use "../DUWOtestAgent/DUWO"as module.
-use "../DUWOtestAgent/actions" as actionspec.
-use "../DUWOtestAgent/events" as module.
-use "../DUWOtestAgent/goalEvents" as module.
-use "../DUWOtestAgent/perceptEvents" as module.
+use "../DUWOagent/normalMod"as module.
+use "../DUWOagent/demolishMod"as module.
+use "../DUWOagent/DUWOagent" as mas.
+use "../DUWOagent/predicates" as knowledge.
+use "../DUWOagent/actions" as actionspec.
+use "../DUWOagent/perceptEvents" as module.
+use "../DUWOagent/DUWO" as module.
 
 
-timeout = 5.
+timeout = 25.
 
-test testNormalModule with
+test normalMod with
 	pre {
-		goal(goalBuildStudentHousing)
+		bel(demolished(_))	
 	}
 	in {
-		done(building_plan_construction(Id,Floors,Poly)) 
-			leadsto bel(planned(Id,Floors,Poly)).
-		eventually bel(planned(Id,Floors,Poly)).  	
+		
+		% Eventually we percept some new relevant areas
+		eventually percept(relevant_areas(ID,NewPolygons)), bel(NewPolygons \= []).
+		% We have planned a building after we received a percept
+		% with info where to build
+		percept(relevant_areas(ID,NewPolygons)) leadsto bel(planned(_,_,_)).
 	}
 	post {
-		not(bel(needStudentHousing)),
-		not(bel(lowBudget)),
-		not(bel(noBudget)),
-		not(goal(goalBuildStudentHousing))
 		
 	}
-
-
-
+	
 DUWOAgent {
-	do DUWO.
+	do demolishMod + DUWO. 
 	
 }
+
+
+	
