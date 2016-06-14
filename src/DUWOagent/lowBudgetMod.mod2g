@@ -19,7 +19,7 @@ module lowBudgetMod {
 		AmountCheap < AmountMedium,
 		cheapHousingIds(Idlist),
 		random_member(Id,Idlist))
-			then building_plan_construction(Id,4,Poly) +
-			delete(relevant_areas(0,[[Poly|Y]|Rest])) +
-			insert(relevant_areas(0,Rest)).
+	then building_plan_construction(Id,4,Poly)
+		+ delete(relevant_areas(0,[[Poly|Y]|Rest]))
+		+ insert(relevant_areas(0,Rest)).
 }
