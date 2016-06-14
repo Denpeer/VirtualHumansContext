@@ -6,67 +6,80 @@ module perceptEvents {
 	%%% process percepts %%%
 	%% When a percept is obtained, update the corresponding belief. %%
 	
+	% Update relevant areas when we receive new info of this ID.
+	if percept(relevant_areas(ID,NewPolygons)), 
+		bel(relevant_areas(ID,OldPolygons)) 
+	then delete(relevant_areas(ID,OldPolygons)) 
+		+ insert(relevant_areas(ID,NewPolygons)).
 	
 	%% Percepts the relevant area's from the get_relevant_area's action
 	if percept(relevant_areas(ID,Areas)), 
-			not(bel(relevant_areas(ID,Y))) 
-			then insert(relevant_areas(ID,Areas)).
-	
-	if percept(relevant_areas(ID,Areas)), 
-			bel(relevant_areas(ID,Y)) 
-			then delete(relevant_areas(ID,Y)) 
-			+ insert(relevant_areas(ID,Areas)).
+		not(bel(relevant_areas(ID,Polygons))) 
+	then insert(relevant_areas(ID,Areas)).
 	
 	%% Percepts a list of all stakeholders ([<id>, <name>, <income>, <start_budget>]).
-	if percept(stakeholders(X)), bel(stakeholders(Y)), bel(not(X == Y))
-			then delete(stakeholders(Y)) + insert(stakeholders(X)).
+	if percept(stakeholders(NewStakeholders), stakeholders(OldStakeholders), 
+		not(NewStakeholders == OldStakeholders))
+	then delete(stakeholders(OldStakeholders)) 
+		+ insert(stakeholders(NewStakeholders)).
 	
 	%% Percepts the ID of the stakeholder the virtual human is.
-	if percept(my_stakeholder_id(X)) then insert(self(X)).
+	if percept(my_stakeholder_id(MyID))
+	then insert(self(MyID)).
 	
 	%% Percept the indicator weights
 	forall percept(stakeholders(ComleteList)),
-			bel(self(X), member([stakeholder(X,_,_,_)|IndicatorLink],ComleteList),
-	 		member(indicatorLink(_,IndicatorWeigths),IndicatorLink),
-	 		member(indicatorWeights(ID,Name,Weight), IndicatorWeigths))
-			do insert(indicatorWeight(ID,Name,Weight)).
-			
+		bel(self(MyID), member([stakeholder(MyID,_,_,_)|IndicatorLink],ComleteList),
+	 	member(indicatorLink(_,IndicatorWeigths),IndicatorLink),
+	 	member(indicatorWeights(ID,Name,Weight), IndicatorWeigths))
+	do insert(indicatorWeight(ID,Name,Weight)).
+	
 	%% Percept a list of all stakeholderID's
 	forall percept(stakeholders(ComleteList)),
-			bel(member([stakeholder(ID,Name,_,_)|IndicatorLink],ComleteList))
-			do insert(stakeholder(ID,Name)).
+		bel(member([stakeholder(ID,Name,_,_)|IndicatorLink],ComleteList))
+	do insert(stakeholder(ID,Name)).
 	
 	%% Percepts a list of all settings ([<setting>]).
-	if percept(settings(X)), bel(settings(Y))
-			then delete(settings(Y)) + insert(settings(X)).
+	if percept(settings(NewSettings)),
+		bel(settings(OldSettings))
+	then delete(settings(OldSettings))
+		+ insert(settings(NewSettings)).
 	
 	%% Percepts a list of all functions ([<name>, <id>, [<category>]]).
-	if percept(functions(X)), bel(functions(Y))
-			then delete(functions(Y)) + insert(functions(X)).
+	if percept(functions(NewFunctions)),
+		bel(functions(OldFunctions))
+	then delete(functions(OldFunctions))
+		+ insert(functions(NewFunctions)).
 	
 	%% Percepts a list of all buildings ([building(<id>, <name>, <ownerID>, <constructionYear>, [<category>], <functionID>, <amountOfFloors>)]).
-	if percept(buildings(X)), bel(buildings(Y)), bel(not(X == Y))
-			then delete(buildings(Y)) + insert(buildings(X)).
+	if percept(buildings(NewBuildings)),
+		bel(buildings(OldBuildings)),
+		bel(not(NewBuildings == OldBuildings))
+	then delete(buildings(OldBuildings))
+		+ insert(buildings(NewBuildings)).
 	
 	%% Percepts a list of all zones ([zone(<id>, <name>, <maxFloors>, <size>, [<allowedCategory>])]).
-	if percept(zones(X)), bel(zones(Y)), bel(not(X == Y))
-			then delete(zones(Y)) + insert(zones(X)).
+	if percept(zones(NewZones)),
+		bel(zones(OldZones)),
+		bel(not(NewZones == OldZones))
+	then delete(zones(OldZones))
+		+ insert(zones(NewZones)).
 	
 	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>])
 	%% and insert our indicators separately when not already present in belief base.
-	forall percept(indicators(X)),
-			bel(member(indicator(ID,CurrentValue,TargetValue,ZoneLink),X),
-			indicatorWeight(ID,_,_)), % Only insert our indicators.
-			bel(not(indicator(ID,OldValue,TargetValue,_)))
-			do insert(indicator(ID,CurrentValue,TargetValue,ZoneLink)).
+	forall percept(indicators(IndicatorsList)),
+		bel(member(indicator(ID,CurrentValue,TargetValue,ZoneLink),IndicatorsList),
+		indicatorWeight(ID,_,_)), % Only insert our indicators.
+		bel(not(indicator(ID,OldValue,TargetValue,_)))
+	do insert(indicator(ID,CurrentValue,TargetValue,ZoneLink)).
 	
 	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>])
 	%% and update our indicators when needed.
-	forall percept(indicators(X)),
-			bel(member(indicator(ID,CurrentValue,TargetValue,CurrentZoneLink),X),
-			indicatorWeight(ID,_,_)), % Only insert our indicators.
-			bel(indicator(ID,OldValue,TargetValue,OldZoneLink)),
-			bel(not(OldValue == CurrentValue); not(OldZoneLink == CurrentZoneLink))
-			do delete(indicator(ID,OldValue,TargetValue,OldZoneLink))
-			+ insert(indicator(ID,CurrentValue,TargetValue,CurrentZoneLink)).
+	forall percept(indicators(AllIndicators)),
+		bel(member(indicator(ID,CurrentValue,TargetValue,CurrentZoneLink),AllIndicators),
+		indicatorWeight(ID,_,_)), % Only insert our indicators.
+		bel(indicator(ID,OldValue,TargetValue,OldZoneLink)),
+		bel(not(OldValue == CurrentValue); not(OldZoneLink == CurrentZoneLink))
+	do delete(indicator(ID,OldValue,TargetValue,OldZoneLink))
+		+ insert(indicator(ID,CurrentValue,TargetValue,CurrentZoneLink)).
 }

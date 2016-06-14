@@ -6,7 +6,9 @@ order = linear.
 module demolishMod {
 	
 	% Try to demolish the biggest garden first.
-	if bel(allBuildings('GARDEN', List), maxArea(List, BuildingID, Area),
+	if bel(allBuildings('GARDEN', List),
+		maxArea(List, BuildingID, Area),
 		not(demolished(BuildingID)))
-			then building_plan_demolish(BuildingID) + insert(demolished(BuildingID)).
+	then building_plan_demolish(BuildingID)
+		+ insert(demolished(BuildingID)).
 }

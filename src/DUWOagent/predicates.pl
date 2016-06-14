@@ -21,23 +21,24 @@
 
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 
-		buildings(Y),
-		self(OwnId),
-		member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_),Y),
-		not(member('STUDENT',Cat)).
-		
+	buildings(Buildings),
+	self(OwnId),
+	member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_),Buildings),
+	not(member('STUDENT',Cat)).
+
 getBuilding(Bid, Type) :- 
-		buildings(Y),
-		self(OwnId),
-		member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_),Y),
-		member(Type, Cat).
+	buildings(Buildings),
+	self(OwnId),
+	member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_),Buildings),
+	member(Type, Cat).
 
 % create a predicate with the Id's of all buildable houses of type student, so that the agent can dynamically choose what kind of building to build
 buildableStudentList([]).
 
-buildableStudent(Id,Name) :- functions(FS), 
-		member([Name,Id,L],FS),
-		member('STUDENT',L).
+buildableStudent(BuildingID,Name) :- 
+	functions(AllFunctions), 
+	member([Name,BuildingID,Catergory],AllFunctions),
+	member('STUDENT',Catergory).
 
 % Get indicator
 %indicator names: "Astand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte"
@@ -110,8 +111,8 @@ getPolygon(X, Y, Width, Height, Square) :-
 getAreaOwnBuilding(BuildingID, Category, Area):- 
 	self(OwnID),
 	buildings(AllBuildings),
-	member(building(BuildingID,_Name,OwnID,_Year,Cat,_,_,_Poly,Area),AllBuildings),
-	member(Category, Cat).
+	member(building(BuildingID,_Name,OwnID,_Year,Categories,_,_,_Poly,Area),AllBuildings),
+	member(Category, Categories).
 
 % Create a list with the id and area of all buildings
 % In the form of:
