@@ -7,11 +7,12 @@ use "../DUWOagent/perceptEvents" as module.
 use "../DUWOagent/DUWO" as module.
 
 
-timeout = 30.
+timeout = 20.
 
 test normalMod with
 	pre {
-		bel(demolished(_))	
+		true
+		%bel(demolished(_))	
 	}
 	in {
 
@@ -24,9 +25,11 @@ test normalMod with
 		% We have planned a building after we received a percept
 		% with info where to build
 		%percept(relevant_areas(ID,NewPolygons)) leadsto bel(planned(_,_,_)).
+		
+		
 	}
 	post {
-		
+		true
 	}
 	
 DUWOAgent {
