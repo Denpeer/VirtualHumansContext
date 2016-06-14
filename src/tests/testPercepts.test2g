@@ -1,6 +1,8 @@
 use "../DUWOAgent/DUWOagent" as mas.
 use "../DUWOAgent/predicates" as knowledge.
 use "../DUWOAgent/events" as module.
+use "../DUWOAgent/DUWO" as module.
+
 
 timeout=20.
 
@@ -40,13 +42,10 @@ test events with
 		
 		% Check if we percepted the my_stakeholder_id percept.
 		eventually bel(self(_)).
-		
-		% Check if we processed the stakeholder percept.
-		eventually bel(stakeholder(_,_)).
-		
+				
 	}
 	post{ }
 
 DUWOAgent {
-	do events.
+	do DUWO.
 }
