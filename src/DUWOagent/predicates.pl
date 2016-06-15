@@ -16,6 +16,9 @@
 :- dynamic cheapHousingIds/1.
 :- dynamic mediumHousingIds/1.
 :- dynamic luxuryHousingIds/1.
+:- dynamic goalBuildCheapHousing/0.
+:- dynamic goalBuildMediumHousing/0.
+:- dynamic goalBuildLuxuryHousing/0.
 :- dynamic demolished/1.
 
 
@@ -71,13 +74,37 @@ amountMediumHousing(Amount) :-
 amountLuxuryHousing(Amount) :-
 	amountHousing(2, Amount).
 
+needCheapHousing :-
+	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
+	not(CurrentValue == TargetValue),
+	amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
+	AmountCheap < AmountMedium,
+	AmountCheap < AmountLuxury.
+
+needMediumHousing :-
+	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
+	not(CurrentValue == TargetValue),
+	amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
+	AmountMedium < AmountCheap,
+	AmountMedium < AmountLuxury.
+
+needLuxuryHousing :-
+	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
+	not(CurrentValue == TargetValue),
+	amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
+	AmountLuxury < AmountCheap,
+	AmountLuxury < AmountMedium.
+
 % Only build houses when our current value < target value.
 needStudentHousing :-
 	getIndicator(ID,'Bouw DUWO', Weight, CurrentValue, TargetValue, ZoneLink),
 	CurrentValue < TargetValue.
 
 goalBuildStudentHousing :-
-	not(needStudentHousing).
+	not(needStudentHousing),
+	not(needCheapHousing),
+	not(needMediumHousing),
+	not(needLuxuryHousing).
 
 % Budget predicates that the bot can use to either stop building or build more carefully (raising a value needed per building for example)
 % These predicates expect DUWO to keep its target budget as a minimum (since DUWO can't raise it's budget by other means than selling property)

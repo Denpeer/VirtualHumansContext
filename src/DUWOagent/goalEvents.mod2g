@@ -19,6 +19,24 @@ module goalEvents {
 	if bel(needStudentHousing), not(goal(goalBuildStudentHousing))
 	then adopt(goalBuildStudentHousing).
 
+	if bel(needCheapHousing), not(goal(goalBuildCheapHousing))
+	then adopt(goalBuildCheapHousing).
+	
+	if bel(needMediumHousing), not(goal(goalBuildMediumHousing))
+	then adopt(goalBuildMediumHousing).
+	
+	if bel(needLuxuryHousing), not(goal(goalBuildLuxuryHousing))
+	then adopt(goalBuildLuxuryHousing).
+	
+	if not(bel(needCheapHousing)), goal(goalBuildCheapHousing)
+	then drop(goalBuildCheapHousing).
+	
+	if not(bel(needMediumHousing)), goal(goalBuildMediumHousing)
+	then drop(goalBuildMediumHousing).
+	
+	if not(bel(needLuxuryHousing)), goal(goalBuildLuxuryHousing)
+	then drop(goalBuildLuxuryHousing).
+	
 	% Adopt goal to raise budget when our budget is below the target.
 	if bel(noBudget), not(goal(goalReachBudgetTarget))
 	then adopt(goalReachBudgetTarget).
