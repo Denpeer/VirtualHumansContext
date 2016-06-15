@@ -33,3 +33,13 @@ define building_plan_demolish_polygon(MultiPolygon,Surface_or_Ground) with
 define building_plan_demolish(BuildingID) with
 	pre { }
 	post{ }
+	
+% Answer a popup with a date
+define popup_answer_with_date(MessageID, AnswerID, Date) with
+	pre { }
+	post{ }
+
+% Answer a popup
+define popup_answer(MessageID, AnswerID) with
+	pre { }
+	post{ }
