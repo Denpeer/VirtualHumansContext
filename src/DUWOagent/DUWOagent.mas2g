@@ -1,5 +1,5 @@
 use "../../dependencies/contextvh-1.0.1-jar-with-dependencies.jar" as environment 
-	with project = "vhproject_duplicate", stakeholders = ["DUWO"].
+	with project = "vhproject_highbud", stakeholders = ["DUWO"].
 
 
 define DUWOAgent as agent {

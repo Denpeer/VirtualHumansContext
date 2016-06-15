@@ -6,5 +6,6 @@ module agentInit {
 		+ insert(functions([]))
 		+ insert(stakeholders([]))
 		+ insert(buildings([]))
-		+ insert(zones([])).
+		+ insert(zones([]))
+		+ insert(filtered_percepts([])).
 }

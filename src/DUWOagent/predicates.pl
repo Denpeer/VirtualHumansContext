@@ -9,7 +9,7 @@
 :- dynamic self/1.
 :- dynamic stakeholder/2.
 :- dynamic relevant_areas/2.
-:- dynamic refreshcounter /1.
+:- dynamic filtered_percepts/1.
 :- dynamic goalDemolish/0.
 :- dynamic sell_proposal/2.
 :- dynamic buildableStudent/2.

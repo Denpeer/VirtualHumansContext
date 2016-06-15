@@ -6,6 +6,12 @@ module perceptEvents {
 	%%% process percepts %%%
 	%% When a percept is obtained, update the corresponding belief. %%
 	
+	%% Percepts a list of all percepts that the connector currently doesn't send ([<perceptname>]).
+	if percept(filtered_percepts(NewFilteredPercepts)),
+		bel(filtered_percepts(OldFilteredPercepts))
+	then delete(filtered_percepts(OldFilteredPercepts))
+		+ insert(filtered_percepts(NewFilteredPercepts)).
+
 	% Update relevant areas when we receive new info of this ID.
 	if percept(relevant_areas(ID,NewPolygons)), 
 		bel(relevant_areas(ID,OldPolygons)) 
@@ -82,4 +88,6 @@ module perceptEvents {
 		bel(not(OldValue == CurrentValue))
 	do delete(indicator(ID,OldValue,TargetValue))
 		+ insert(indicator(ID,CurrentValue,TargetValue)).
+		
+
 }
