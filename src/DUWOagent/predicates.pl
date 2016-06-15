@@ -74,6 +74,8 @@ amountMediumHousing(Amount) :-
 amountLuxuryHousing(Amount) :-
 	amountHousing(2, Amount).
 
+% Only build cheap student houses when the amount of cheap housing is lower than medium or luxury,
+% and the variety indicator has not been reached.
 needCheapHousing :-
 	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
 	not(CurrentValue == TargetValue),
@@ -81,6 +83,8 @@ needCheapHousing :-
 	AmountCheap < AmountMedium,
 	AmountCheap < AmountLuxury.
 
+% Only build medium student houses when the amount of medium housing is lower than cheap or luxury.
+% and the variety indicator has not been reached.
 needMediumHousing :-
 	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
 	not(CurrentValue == TargetValue),
@@ -88,6 +92,8 @@ needMediumHousing :-
 	AmountMedium < AmountCheap,
 	AmountMedium < AmountLuxury.
 
+% Only build luxury student houses when the amount of luxury housing is lower than cheap or medium.
+% and the variety indicator has not been reached.
 needLuxuryHousing :-
 	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
 	not(CurrentValue == TargetValue),
@@ -95,7 +101,8 @@ needLuxuryHousing :-
 	AmountLuxury < AmountCheap,
 	AmountLuxury < AmountMedium.
 
-% Only build houses when our current value < target value.
+% Only build houses when our current amount of housing is lower than the target amount of housing,
+% And we don't need to improve the variety indicator.
 needStudentHousing :-
 	getIndicator(ID,'Bouw DUWO', Weight, CurrentValue, TargetValue, ZoneLink),
 	CurrentValue < TargetValue.
