@@ -23,4 +23,7 @@ module noBudgetMod {
 		not(sell_proposal(_, MultiPolygon)))
 	then insert(sell_proposal(BuyerId, MultiPolygon))
 		+ map_sell_land(BuyerId, MultiPolygon, 400).
+	
+	if bel(relevant_areas(2,MultiPolygons))
+	then delete(relevant_areas(2,MultiPolygons)).
 }

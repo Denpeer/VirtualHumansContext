@@ -3,7 +3,7 @@ use predicates as knowledge.
 
 
 
-order=linearall.
+order=linear.
 exit=always.
 
 
@@ -20,8 +20,8 @@ module normalMod {
 	% If we know where to build, and we need more luxury student housing,
 	% start building and update the list of multipolys.
 	% We also select a random luxury student building to build.
-	if bel(relevant_areas(0,[[Poly|Area]|Rest]),
-		needLuxuryHousing,
+	if goal(goalBuildLuxuryHousing),
+		bel(relevant_areas(0,[[Poly|Area]|Rest]),
 		luxuryHousingIds(Idlist),
 		random_member(Id,Idlist))
 	then building_plan_construction(Id,4,Poly)
@@ -31,8 +31,8 @@ module normalMod {
 	% If we know where to build, and we need more medium student housing,
 	% start building and update the list of multipolys.
 	% We also select a random medium student building to build.
-	if bel(relevant_areas(0,[[Poly|Area]|Rest]),
-		needMediumHousing,
+	if goal(goalBuildMediumHousing),
+		bel(relevant_areas(0,[[Poly|Area]|Rest]),
 		mediumHousingIds(Idlist),
 		random_member(Id,Idlist))
 	then building_plan_construction(Id,4,Poly)
@@ -42,11 +42,14 @@ module normalMod {
 	% If we know where to build, and we need more cheap student housing,
 	% start building and update the list of multipolys.
 	% We also select a random cheap student building to build.
-	if bel(relevant_areas(0,[[Poly|Area]|Rest]),
-		needCheapHousing,
+	if goal(goalBuildCheapHousing),
+	bel(relevant_areas(0,[[Poly|Area]|Rest]),
 		cheapHousingIds(Idlist),
 		random_member(Id,Idlist))
 	then building_plan_construction(Id,4,Poly)
 		+ delete(relevant_areas(0,[[Poly|Area]|Rest]))
 		+ insert(relevant_areas(0,Rest)).
+	
+	if bel(relevant_areas(0, MultiPolygons))
+	then delete(relevant_areas(0, MultiPolygons)).
 }

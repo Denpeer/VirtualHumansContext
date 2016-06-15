@@ -77,7 +77,6 @@ amountLuxuryHousing(Amount) :-
 % Only build cheap student houses when the amount of cheap housing is lower than medium or luxury,
 % and the variety indicator has not been reached.
 needCheapHousing :-
-	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
 	not(CurrentValue == TargetValue),
 	amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
 	AmountCheap < AmountMedium,
@@ -86,7 +85,6 @@ needCheapHousing :-
 % Only build medium student houses when the amount of medium housing is lower than cheap or luxury.
 % and the variety indicator has not been reached.
 needMediumHousing :-
-	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
 	not(CurrentValue == TargetValue),
 	amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
 	AmountMedium < AmountCheap,
@@ -95,7 +93,6 @@ needMediumHousing :-
 % Only build luxury student houses when the amount of luxury housing is lower than cheap or medium.
 % and the variety indicator has not been reached.
 needLuxuryHousing :-
-	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
 	not(CurrentValue == TargetValue),
 	amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
 	AmountLuxury < AmountCheap,

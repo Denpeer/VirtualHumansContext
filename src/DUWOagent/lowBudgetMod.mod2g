@@ -19,4 +19,7 @@ module lowBudgetMod {
 	then building_plan_construction(Id,4,Poly)
 		+ delete(relevant_areas(0,[[Poly|Area]|Rest]))
 		+ insert(relevant_areas(0,Rest)).
+	
+	if bel(relevant_areas(0, MultiPolygons))
+	then delete(relevant_areas(0, MultiPolygons)).
 }
