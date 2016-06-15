@@ -75,7 +75,6 @@ amountLuxuryHousing(Amount) :-
 	amountHousing(2, Amount).
 
 % Only build cheap student houses when the amount of cheap housing is lower than medium or luxury,
-% and the variety indicator has not been reached.
 needCheapHousing :-
 	not(CurrentValue == TargetValue),
 	amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
@@ -83,7 +82,6 @@ needCheapHousing :-
 	AmountCheap < AmountLuxury.
 
 % Only build medium student houses when the amount of medium housing is lower than cheap or luxury.
-% and the variety indicator has not been reached.
 needMediumHousing :-
 	not(CurrentValue == TargetValue),
 	amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
@@ -91,24 +89,19 @@ needMediumHousing :-
 	AmountMedium < AmountLuxury.
 
 % Only build luxury student houses when the amount of luxury housing is lower than cheap or medium.
-% and the variety indicator has not been reached.
 needLuxuryHousing :-
 	not(CurrentValue == TargetValue),
 	amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
 	AmountLuxury < AmountCheap,
 	AmountLuxury < AmountMedium.
 
-% Only build houses when our current amount of housing is lower than the target amount of housing,
-% And we don't need to improve the variety indicator.
+% Only build houses when our current amount of housing is lower than the target amount of housing.
 needStudentHousing :-
 	getIndicator(ID,'Bouw DUWO', Weight, CurrentValue, TargetValue, ZoneLink),
 	CurrentValue < TargetValue.
 
 goalBuildStudentHousing :-
-	not(needStudentHousing),
-	not(needCheapHousing),
-	not(needMediumHousing),
-	not(needLuxuryHousing).
+	not(needStudentHousing).
 
 % Budget predicates that the bot can use to either stop building or build more carefully (raising a value needed per building for example)
 % These predicates expect DUWO to keep its target budget as a minimum (since DUWO can't raise it's budget by other means than selling property)
