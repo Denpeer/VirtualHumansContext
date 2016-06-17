@@ -1,6 +1,6 @@
 use predicates as beliefs.
 
-module agentInit {
+moduleagentInit {
 
 	if true
 	then insert(settings([]))
@@ -8,8 +8,8 @@ module agentInit {
 		+ insert(stakeholders([]))
 		+ insert(buildings([]))
 		+ insert(zones([]))
+		+ insert(filtered_percepts([]))
 		+ insert(cheapHousingIds([34,35]))
 		+ insert(mediumHousingIds([663]))
 		+ insert(luxuryHousingIds([42,63,378])).
-
 }
