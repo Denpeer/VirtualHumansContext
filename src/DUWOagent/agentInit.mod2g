@@ -1,10 +1,15 @@
 use predicates as beliefs.
 
 module agentInit {
+
 	if true
 	then insert(settings([]))
 		+ insert(functions([]))
 		+ insert(stakeholders([]))
 		+ insert(buildings([]))
-		+ insert(zones([])).
+		+ insert(zones([]))
+		+ insert(cheapHousingIds([34,35]))
+		+ insert(mediumHousingIds([663]))
+		+ insert(luxuryHousingIds([42,63,378])).
+
 }
