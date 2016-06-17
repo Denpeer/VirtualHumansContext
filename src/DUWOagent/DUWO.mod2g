@@ -6,10 +6,14 @@ use lowBudgetMod as module.
 use noBudgetMod as module.
 use demolishMod as module.
 
-order=linearall.
-exit=never.
+order=linear.
+exit=nogoals.
 
 module DUWO {
+	
+	% Use the noBudget module when our current budget is beneath our budget target
+	if bel(lowBudget), bel(noBudget)
+	then noBudgetMod.
 	
 	% Demolish when we have this as a goal
 	if goal(goalDemolish) 
@@ -24,7 +28,5 @@ module DUWO {
 	if bel(lowBudget), not(bel(noBudget))
 	then lowBudgetMod.
 	
-	% Use the noBudget module when our current budget is beneath our budget target
-	if bel(lowBudget), bel(noBudget)
-	then noBudgetMod.
+
 }

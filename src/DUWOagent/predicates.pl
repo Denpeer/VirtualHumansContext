@@ -21,7 +21,7 @@
 :- dynamic goalBuildMediumHousing/0.
 :- dynamic goalBuildLuxuryHousing/0.
 :- dynamic demolished/1.
-
+:- dynamic sell_denied/2.
 
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 
@@ -133,17 +133,17 @@ getPolygon(X, Y, Width, Height, Square) :-
 
 
  % Get a buildings id and area by category.
-getAreaOwnBuilding(BuildingID, Category, Area):- 
+getAreaOwnBuilding(BuildingID, Category, Poly, Area):- 
 	self(OwnID),
 	buildings(AllBuildings),
-	member(building(BuildingID,_Name,OwnID,_Year,Categories,_,_,_Poly,Area),AllBuildings),
+	member(building(BuildingID,_Name,OwnID,_Year,Categories,_,_,Poly,Area),AllBuildings),
 	member(Category, Categories).
 
 % Create a list with the id and area of all buildings
 % In the form of:
 % [[BuildingIdD,Area1],[BuildingID2,Area2], ...]
 allBuildings(Category, AllBuildings):-
-	findall([BuildingID,Area],getAreaOwnBuilding(BuildingID, Category, Area),AllBuildings). 
+	findall([BuildingID,Area],getAreaOwnBuilding(BuildingID, Category, _, Area),AllBuildings). 
  
 % Find the maximum area.
 maxArea([[BuildingID,Area]],BuildingID, Area).
