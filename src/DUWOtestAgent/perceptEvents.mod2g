@@ -58,11 +58,11 @@ module perceptEvents {
 		+ insert(functions(NewFunctions)).
 	
 	%% Percepts a list of all buildings ([building(<id>, <name>, <ownerID>, <constructionYear>, [<category>], <functionID>, <amountOfFloors>)]).
-	%if percept(buildings(NewBuildings)),
-	%	bel(buildings(OldBuildings)),
-	%	bel(not(NewBuildings == OldBuildings))
-	%then delete(buildings(OldBuildings))
-	%	+ insert(buildings(NewBuildings)).
+	if percept(buildings(NewBuildings)),
+		bel(buildings(OldBuildings)),
+		bel(not(NewBuildings == OldBuildings))
+	then delete(buildings(OldBuildings))
+		+ insert(buildings(NewBuildings)).
 	
 	%% Percepts a list of all zones ([zone(<id>, <name>, <maxFloors>, <size>, [<allowedCategory>])]).
 	if percept(zones(NewZones)),

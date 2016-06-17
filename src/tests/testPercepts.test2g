@@ -7,7 +7,7 @@ use "../DUWOtestAgent/perceptEvents" as module.
 use "../DUWOtestAgent/DUWO" as module.
 use "../DUWOtestAgent/events" as module.
 
-timeout=20.
+timeout=90.
 
 test events with
 	%If possible add a pre to check if percept something
