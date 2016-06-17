@@ -1,7 +1,8 @@
 use predicates as knowledge.
 use perceptEvents as module.
 use goalEvents as module.
-
+use MunicipalityProtocol as module.
+use requestEvents as module.
 
 order=linearall.
 
@@ -19,5 +20,10 @@ module events {
 	
 	% Adopting goals
 	if true then goalEvents.
+	
+	% Process requests
+	if true then MunicipalityProtocol.
+	
+	if true then requestEvents.
 
 }
