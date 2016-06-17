@@ -2,20 +2,49 @@ use predicates as knowledge.
 
 % Plan a building action
 define	building_plan_construction(Id, Level, MultiPolygon) with
-   pre{ not(planned(Id, Level, MultiPolygon)) }
-   post {planned(Id, Level, MultiPolygon) }
+	pre { not(planned(Id, Level, MultiPolygon)) }
+	post{ planned(Id, Level, MultiPolygon) }
 
 % Skip action, does nothing
 define skip as internal with
-	pre { true }
-	post{ true }
+	pre { }
+	post{ }
+
+% Gets relevant area's from the tygron environment
+define get_relevant_areas(Id, ActionType, Filters) with
+	pre { }
+	post{ }
 	
 %Buy the land defined by the polygon for given price
 define	map_buy_land(MultiPolygon, Price) with
-	pre{ true }
-	post{ true}
+	pre { }
+	post{ }
 
 %Sell the land defined by the polygon for given price, BuyerId corresponds to the stakeholderID of the buyer
-define	map_sell_land(BuyerId,MultiPolygon, Price) with
-	pre{ true }
-	post{ true}
+define	map_sell_land(BuyerID,MultiPolygon, Price) with
+	pre { not(sell_proposal(_,_)) }
+	post{ sell_proposal(BuyerID, MultiPolygon) }
+
+%  Demolish buildings in a area defined by a MultiPolygon, also define SURFACE or underground. For our purposes we will only  use SURFACE
+define building_plan_demolish_polygon(MultiPolygon,Surface_or_Ground) with
+	pre { }
+	post{ }
+% Demolishes buildings defined by their BuildingID	
+define building_plan_demolish(BuildingID) with
+	pre { }
+	post{ }
+
+% Requests the tygron connector to stop sending specific percepts (percepts in the list will not be recieved again)	
+define filter_percepts(BuildingID) with
+	pre { }
+	post{ }
+	
+% Answer a popup with a date
+define popup_answer_with_date(MessageID, AnswerID, Date) with
+	pre { }
+	post{ }
+
+% Answer a popup
+define popup_answer(MessageID, AnswerID) with
+	pre { }
+	post{ }

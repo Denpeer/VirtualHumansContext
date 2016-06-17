@@ -5,12 +5,45 @@ order=linearall.
 module goalEvents {
 	
 	%%% Adopt goals %%%
+	
+	% If we have as goal to demolish, remove this goal
+	if goal(goalDemolish) 
+	then drop(goalDemolish).
 			
+	% If we receive an empty list
+	% We know that we can build nothing so we adopt a goal to demolish buildings
+	if percept(relevant_areas(0, [])) 
+	then adopt(goalDemolish).
+
 	% Adopt goal to build student housing when we need to.
 	if bel(needStudentHousing), not(goal(goalBuildStudentHousing))
-		then adopt(goalBuildStudentHousing).
-		
+	then adopt(goalBuildStudentHousing).
+	
+	% Adopt goal to build more cheap housing when we need to.
+	if bel(needCheapHousing), not(goal(goalBuildCheapHousing))
+	then adopt(goalBuildCheapHousing).
+	
+	% Adopt goal to build more medium housing when we need to.
+	if bel(needMediumHousing), not(goal(goalBuildMediumHousing))
+	then adopt(goalBuildMediumHousing).
+	
+	% Adopt goal to build more luxury housing when we need to.
+	if bel(needLuxuryHousing), not(goal(goalBuildLuxuryHousing))
+	then adopt(goalBuildLuxuryHousing).
+	
+	% Drop goal to build more cheap housing when it isn't relevant anymore.
+	if not(bel(needCheapHousing)), goal(goalBuildCheapHousing)
+	then drop(goalBuildCheapHousing).
+	
+	% Drop goal to build more medium housing when it isn't relevant anymore.
+	if not(bel(needMediumHousing)), goal(goalBuildMediumHousing)
+	then drop(goalBuildMediumHousing).
+	
+	% Drop goal to build more luxury housing when it isn't relevant anymore.
+	if not(bel(needLuxuryHousing)), goal(goalBuildLuxuryHousing)
+	then drop(goalBuildLuxuryHousing).
+	
 	% Adopt goal to raise budget when our budget is below the target.
 	if bel(noBudget), not(goal(goalReachBudgetTarget))
-		then adopt(goalReachBudgetTarget).
+	then adopt(goalReachBudgetTarget).
 }
