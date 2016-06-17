@@ -1,0 +1,29 @@
+use "../DUWOtestAgent/normalMod"as module.
+use "../DUWOtestAgent/demolishMod"as module.
+use "../DUWOtestAgent/DUWOagent" as mas.
+use "../DUWOtestAgent/predicates" as knowledge.
+use "../DUWOtestAgent/actions" as actionspec.
+use "../DUWOtestAgent/perceptEvents" as module.
+use "../DUWOtestAgent/DUWO" as module.
+
+timeout = 30.
+
+test normalMod with
+	pre{ }
+	in{
+		% Eventually we need to ask the connector 
+		% if we have room to build on.
+		eventually done(get_relevant_areas(0, build, [])).
+		
+		% Eventually bel that we have no room to build on.
+		eventually bel(relevant_areas(ID, [])).
+		
+		% Eventually believe that we demolished something.
+		eventually bel(demolished(_)).
+	}
+	post{ }
+	
+DUWOAgent {
+	do DUWO. 
+	
+}

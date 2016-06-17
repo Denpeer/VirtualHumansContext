@@ -4,23 +4,30 @@ use DUWOgoals as goals.
 use normalMod as module.
 use lowBudgetMod as module.
 use noBudgetMod as module.
+use demolishMod as module.
 
 order=linearall.
 exit=nogoals.
 
 module DUWO {
-		
-			
+	if true then filter_percepts(['buildings']).
+	
+	% Use the noBudget module when our current budget is beneath our budget target
+	if bel(lowBudget), bel(noBudget)
+	then noBudgetMod.
+	
+	% Demolish when we have this as a goal
+	if goal(goalDemolish) 
+	then demolishMod.
+	
 	% Build student housing when have it as goal.
 	% Use the normal module when we have enough budget
 	if not(bel(lowBudget)), not(bel(noBudget))
-		then normalMod.
-		
+	then normalMod.
+	
 	% Use the lowBudget module when our budget is lower than a certain threshold above the target budget
 	if bel(lowBudget), not(bel(noBudget))
-		then lowBudgetMod.
-		
-	% Use the noBudget module when our current budget is beneath our budget target
-	if bel(lowBudget), bel(noBudget)
-		then noBudgetMod.
+	then lowBudgetMod.
+	
+
 }

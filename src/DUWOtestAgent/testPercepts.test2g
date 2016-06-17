@@ -1,15 +1,13 @@
+use "../DUWOtestAgent/normalMod"as module.
+use "../DUWOtestAgent/demolishMod"as module.
 use "../DUWOtestAgent/DUWOagent" as mas.
 use "../DUWOtestAgent/predicates" as knowledge.
-use "../DUWOtestAgent/normalMod"as module.
-use "../DUWOtestAgent/lowBudgetMod"as module.
-use "../DUWOtestAgent/noBudgetMod"as module.
-use "../DUWOtestAgent/DUWO"as module.
 use "../DUWOtestAgent/actions" as actionspec.
-use "../DUWOtestAgent/events" as module.
-use "../DUWOtestAgent/goalEvents" as module.
 use "../DUWOtestAgent/perceptEvents" as module.
+use "../DUWOtestAgent/DUWO" as module.
+use "../DUWOtestAgent/events" as module.
 
-timeout=8.
+timeout=90.
 
 test events with
 	%If possible add a pre to check if percept something
@@ -20,7 +18,7 @@ test events with
 	
 	in {
 		%Check if indicators are at least of these types.
-		eventually bel(indicator(ID,_,_),indicatorWeight(ID,Name,_),
+		eventually bel(indicator(ID,_,_,_),indicatorWeight(ID,Name,_),
 			(Name == 'Ruimtelijke kwaliteit';
 		 	Name == 'Bouw DUWO';
 		 	Name == 'Budget DUWO';
@@ -28,7 +26,7 @@ test events with
 		 	Name == 'Variatie Woonruimte')).
 		
 		%Check if we have all our indicators.
-		never bel(indicator(ID,_,_),indicatorWeight(ID,Name,_),
+		never bel(indicator(ID,_,_,_),indicatorWeight(ID,Name,_),
 		 	not( (Name == 'Ruimtelijke kwaliteit';
 		 	Name == 'Bouw DUWO';
 		 	Name == 'Budget DUWO';
@@ -53,5 +51,5 @@ test events with
 	post{ }
 
 DUWOAgent {
-	do DUWO.
+	do events.
 }

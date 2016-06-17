@@ -10,14 +10,14 @@ before_install:
 
 install:
 #login into connector
-- java -cp $ENVIRONMENT/tygronenv-*-jar-with-dependencies.jar login.Login $TYGRON_USER $TYGRON_PASS
+- java -cp $ENVIRONMENT/contextvh-*-jar-with-dependencies.jar login.Login $TYGRON_USER $TYGRON_PASS
 
 before_script:
 #see all test files and move them
 - for f in $TESTS_PATH/*.test2g; do echo "$f"; done
 script:
 #test the files
-- for filename in $TESTS_PATH/*.test2g; do echo "$filename"; timeout 30 java -cp $GOAL_RUNTIME $GOAL_COMMAND $GOAL_SETTINGS $filename > $(basename $filename).txt || echo 0; cat $(basename $filename).txt; done
+- for filename in $TESTS_PATH/*.test2g; do echo "$filename"; timeout 99 java -cp $GOAL_RUNTIME $GOAL_COMMAND $GOAL_SETTINGS $filename > $(basename $filename).txt || echo 0; cat $(basename $filename).txt; done
 
 - ls
 - if grep -Fq "test failed" *.txt; then echo "FAILURE HAPPENED"; $?; else echo "No test failed."; fi

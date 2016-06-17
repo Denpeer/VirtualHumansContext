@@ -1,6 +1,6 @@
 use actions as actionspec.
 use predicates as knowledge.
-
+use noBudgetMod as module.
 
 
 order=linear.
@@ -10,11 +10,25 @@ exit=always.
 % Module for when the agent has a low budget, the agent will only continue to build student housing in places where this greatly improves the quality indicator
 module lowBudgetMod {
 	
-	% Build student housing when have it as goal.
-	if bel(functions(FS), 
-		member([Name,Id,L],FS),
-		member('STUDENT',L),
-		getPolygon(10,10,200,20,Polygon)
-		), goal(goalBuildStudentHousing)  
-			then building_plan_construction(Id, 1, Polygon).
+	
+	% When we dont know where to build or we have an empty list
+	% we ask the connector where to build.
+	if bel(relevant_areas(0, []); not(relevant_areas(0, _List))),
+		goal(goalBuildStudentHousing)
+	then get_relevant_areas(0, build, []).
+	
+	% If we know where to build, and we need more cheap student housing,
+	% start building and update the list of multipolys.
+	% We also select a random cheap student building to build.
+	if goal(goalBuildCheapHousing),
+		bel(relevant_areas(0,[[Poly|Area]|Rest]),
+		cheapHousingIds(Idlist),
+		random_member(Id,Idlist))
+	then building_plan_construction(Id,4,Poly)
+		+ delete(relevant_areas(0,[[Poly|Area]|Rest]))
+		+ insert(relevant_areas(0,Rest)).
+	
+	% If we don't need to build cheap student housing, then run noBudgetMod.
+	if true
+	then noBudgetMod.
 }
