@@ -11,9 +11,6 @@ exit=never.
 
 module DUWO {
 	
-	if true 
-	then filter_percepts(["indicators"]).
-	
 	% Demolish when we have this as a goal
 	if goal(goalDemolish) 
 	then demolishMod.
