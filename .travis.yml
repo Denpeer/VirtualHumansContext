@@ -10,7 +10,7 @@ before_install:
 
 install:
 #login into connector
-- java -cp $ENVIRONMENT/tygronenv-*-jar-with-dependencies.jar login.Login $TYGRON_USER $TYGRON_PASS
+- java -cp $ENVIRONMENT/contextvh-*-jar-with-dependencies.jar login.Login $TYGRON_USER $TYGRON_PASS
 
 before_script:
 #see all test files and move them
