@@ -1,6 +1,6 @@
 use predicates as beliefs.
 
-moduleagentInit {
+module agentInit {
 
 	if true
 	then insert(settings([]))

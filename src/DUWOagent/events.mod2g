@@ -9,9 +9,9 @@ order=linearall.
 module events {
 	
 	%Should be removed soon, temporary demo code.
-	if bel(buildableStudent(X,Y),
-		buildableStudentList(Z),
-		not(member(X,Z))) 
+	if bel(buildableStudent(X,Y)
+		, buildableStudentList(Z)
+		, not(member(X,Z))) 
 	then delete(buildableStudentList(Z)) 
 		+ insert(buildableStudentList([X|Z])).
 	
