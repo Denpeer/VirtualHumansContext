@@ -7,7 +7,7 @@ use noBudgetMod as module.
 use demolishMod as module.
 
 order=linearall.
-exit=nogoals.
+exit=never.
 
 module DUWO {
 	
