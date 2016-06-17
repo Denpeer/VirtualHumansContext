@@ -1,0 +1,22 @@
+use "../DUWOtestAgent/noBudgetMod"as module.
+use "../DUWOtestAgent/DUWOagent" as mas.
+use "../DUWOtestAgent/predicates" as knowledge.
+use "../DUWOtestAgent/actions" as actionspec.
+timeout =15.
+
+
+
+test noBudgetMod with
+	pre{ }
+	in{
+		%Check if we have selled something
+		eventually bel(sell_proposal(BuyerID,_),
+			self(MyID), % Check if we cant sell to our self
+			BuyerID \= MyID,
+			BuyerID \= 1). % Check if we dont sell to the non playable stakeholder. 
+		 }
+	post{ }
+	
+DUWOAgent {
+	do noBudgetMod.
+}
