@@ -69,17 +69,17 @@ module perceptEvents {
 	%% and insert our indicators separately when not already present in belief base.
 	forall percept(indicators(IndicatorsList)),
 		bel(member(indicator(ID,CurrentValue,TargetValue,ZoneLink),IndicatorsList),
-		indicatorWeight(ID,_,_), % Only insert our indicators.
-		not(indicator(ID,OldValue,TargetValue)))
-	do insert(indicator(ID,CurrentValue,TargetValue)).
+		indicatorWeight(ID,_,_)), % Only insert our indicators.
+		bel(not(indicator(ID,OldValue,TargetValue,_)))
+	do insert(indicator(ID,CurrentValue,TargetValue,ZoneLink)).
 	
 	%% Percepts a list of all indicators ([<indID>, <currentValue>, <targetValue>])
-	%% and update our indicators.
+	%% and update our indicators when needed.
 	forall percept(indicators(AllIndicators)),
-		bel(member(indicator(ID,CurrentValue,TargetValue,ZoneLink),AllIndicators),
-		indicatorWeight(ID,_,_), % Only insert our indicators.
-		indicator(ID,OldValue,OldTargetValue),
-		OldValue \= CurrentValue)
-	do delete(indicator(ID,OldValue,OldTargetValue))
-		+ insert(indicator(ID,CurrentValue,TargetValue)).
+		bel(member(indicator(ID,CurrentValue,TargetValue,CurrentZoneLink),AllIndicators),
+		indicatorWeight(ID,_,_)), % Only insert our indicators.
+		bel(indicator(ID,OldValue,TargetValue,OldZoneLink)),
+		bel(not(OldValue == CurrentValue); not(OldZoneLink == CurrentZoneLink))
+	do delete(indicator(ID,OldValue,TargetValue,OldZoneLink))
+		+ insert(indicator(ID,CurrentValue,TargetValue,CurrentZoneLink)).
 }

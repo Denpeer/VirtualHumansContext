@@ -3,21 +3,24 @@
 :- dynamic functions/1.
 :- dynamic buildings/1.
 :- dynamic zones/1.
-:- dynamic indicator/3.
+:- dynamic indicator/4.
 :- dynamic indicatorWeight/3.
 :- dynamic planned/3.
 :- dynamic self/1.
 :- dynamic stakeholder/2.
 :- dynamic relevant_areas/2.
-:- dynamic refreshcounter /1.
 :- dynamic goalDemolish/0.
 :- dynamic sell_proposal/2.
 :- dynamic buildableStudent/2.
 :- dynamic buildableStudentList/1.
+:- dynamic cheapHousingIds/1.
+:- dynamic mediumHousingIds/1.
+:- dynamic luxuryHousingIds/1.
+:- dynamic goalBuildCheapHousing/0.
+:- dynamic goalBuildMediumHousing/0.
+:- dynamic goalBuildLuxuryHousing/0.
 :- dynamic demolished/1.
 :- dynamic sell_denied/2.
-
-
 
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 
@@ -40,15 +43,61 @@ buildableStudent(BuildingID,Name) :-
 	member([Name,BuildingID,Catergory],AllFunctions),
 	member('STUDENT',Catergory).
 
-
 % Get indicator
 %indicator names: "Astand TUDelft", "Bouw DUWO", "Budget DUWO", "Ruimtelijke kwaliteit", "Variatie Woonruimte"
-getIndicator(ID, Name, Weight, CurrentValue, TargetValue) :-
-	indicatorWeight(ID,Name,Weight), indicator(ID, CurrentValue, TargetValue).
+getIndicator(ID, Name, Weight, CurrentValue, TargetValue, ZoneLink) :-
+	indicatorWeight(ID,Name,Weight), indicator(ID, CurrentValue, TargetValue, ZoneLink).
 
-% Only build houses when our current value < target value.
+% Gets all of the amounts at once, splitted in cheap, medium and luxury.
+amountHousingAll(AmountCheap, AmountMedium, AmountLuxury) :-
+	amountCheapHousing(AmountCheap),
+	amountMediumHousing(AmountMedium),
+	amountLuxuryHousing(AmountLuxury).
+
+% Gets the amount of housing.
+% KindOfHousing tells which kind of housing type,
+% 0 = cheap housing, 1 = medium, 2 = luxury
+amountHousing(KindOfHousing, Amount) :-
+	getIndicator(ID,'Variatie Woonruimte', Weight, CurrentValue, TargetValue, ZoneLink),
+	member(HousingType, ZoneLink),
+	HousingType = zone_link(KindOfHousing,ID,Amount,_).
+
+% Gets the amount of cheap housing.
+amountCheapHousing(Amount) :-
+	amountHousing(0, Amount).
+
+% Gets the amount of medium housing.
+amountMediumHousing(Amount) :-
+	amountHousing(1, Amount).
+
+% Gets the amount of luxury housing.
+amountLuxuryHousing(Amount) :-
+	amountHousing(2, Amount).
+
+% Only build cheap student houses when the amount of cheap housing is lower than medium or luxury,
+needCheapHousing :-
+	not(CurrentValue == TargetValue),
+	amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
+	AmountCheap < AmountMedium,
+	AmountCheap < AmountLuxury.
+
+% Only build medium student houses when the amount of medium housing is lower than cheap or luxury.
+needMediumHousing :-
+	not(CurrentValue == TargetValue),
+	amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
+	AmountMedium < AmountCheap,
+	AmountMedium < AmountLuxury.
+
+% Only build luxury student houses when the amount of luxury housing is lower than cheap or medium.
+needLuxuryHousing :-
+	not(CurrentValue == TargetValue),
+	amountHousingAll(AmountCheap, AmountMedium, AmountLuxury),
+	AmountLuxury < AmountCheap,
+	AmountLuxury < AmountMedium.
+
+% Only build houses when our current amount of housing is lower than the target amount of housing.
 needStudentHousing :-
-	getIndicator(ID,'Bouw DUWO', Weight, CurrentValue, TargetValue),
+	getIndicator(ID,'Bouw DUWO', Weight, CurrentValue, TargetValue, ZoneLink),
 	CurrentValue < TargetValue.
 
 goalBuildStudentHousing :-
@@ -57,11 +106,11 @@ goalBuildStudentHousing :-
 % Budget predicates that the bot can use to either stop building or build more carefully (raising a value needed per building for example)
 % These predicates expect DUWO to keep its target budget as a minimum (since DUWO can't raise it's budget by other means than selling property)
 lowBudget :-
-	getIndicator(ID,'Budget DUWO', Weight, CurrentValue, TargetValue),
+	getIndicator(ID,'Budget DUWO', Weight, CurrentValue, TargetValue, ZoneLink),
 	CurrentValue < 1.2*TargetValue.
 
 noBudget :-
-	getIndicator(ID,'Budget DUWO', Weight, CurrentValue, TargetValue),
+	getIndicator(ID,'Budget DUWO', Weight, CurrentValue, TargetValue, ZoneLink),
 	CurrentValue < TargetValue.
 
 goalReachBudgetTarget :-

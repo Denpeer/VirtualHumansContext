@@ -20,11 +20,9 @@ define sell_building(Category, BuyerID, MultiPolygon)
 module noBudgetMod {
 	
 	if sell_building('NATURE', BuyerID, MultiPolygon)
-	then sleep(2) + map_sell_land(BuyerID, MultiPolygon, 400).
+	then map_sell_land(BuyerID, MultiPolygon, 400).
 	
 	if sell_building('GARDEN', BuyerID, MultiPolygon)
-	then sleep(2) + map_sell_land(BuyerID, MultiPolygon, 200).
+	then map_sell_land(BuyerID, MultiPolygon, 200).
 	
-
-	if true then sleep(2).
 }
