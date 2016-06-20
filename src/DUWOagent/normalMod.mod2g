@@ -30,6 +30,7 @@ module normalMod {
 		, random_member(Floors, FloorsList))		
 	then building_plan_construction(440,1,APoly)
 		+ building_plan_construction(Id,Floors,Poly)
+		+ building_plan_construction(Id,Floors,Poly)
 		+ delete(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest] ))
 		+ insert(relevant_areas(0,Rest, ARest)).
 	
@@ -45,6 +46,7 @@ module normalMod {
 		, random_member(Floors, FloorsList))
 	then building_plan_construction(440,1,APoly)
 		+ building_plan_construction(Id,Floors,Poly)
+		+ building_plan_construction(Id,Floors,Poly)
 		+ delete(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest] ))
 		+ insert(relevant_areas(0,Rest, ARest)).
 	
@@ -59,7 +61,8 @@ module normalMod {
 		, getFloors(Area2,FloorsList)
 		, random_member(Floors, FloorsList))
 	then building_plan_construction(440,1,APoly)
-		+ building_plan_construction(Id,4,Poly)
+		+ building_plan_construction(Id,Floors,Poly)
+		+ building_plan_construction(Id,Floors,Poly)
 		+ delete(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest] ))
 		+ insert(relevant_areas(0,Rest, ARest)).
 	
