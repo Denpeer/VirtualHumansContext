@@ -11,5 +11,6 @@ module agentInit {
 		+ insert(filtered_percepts([]))
 		+ insert(cheapHousingIds([34,35]))
 		+ insert(mediumHousingIds([663]))
-		+ insert(luxuryHousingIds([42,63,378])).
+		+ insert(luxuryHousingIds([42,63,378]))
+		+ insert(requests([])).
 }

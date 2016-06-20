@@ -5,17 +5,20 @@ use normalMod as module.
 use lowBudgetMod as module.
 use noBudgetMod as module.
 use demolishMod as module.
+use requestMod as module.
 
 order=linear.
 exit=nogoals.
 
 module DUWO {
 	
+	if bel(buy_request(_,_,_,_) ; sell_request(_,_,_,_))
+	then requestMod.
 	% Use the noBudget module when our current budget is beneath our budget target
 	if bel(lowBudget)
 		, bel(noBudget)
 	then noBudgetMod.
-	
+		
 	% Demolish when we have this as a goal
 	if goal(goalDemolish) 
 	then demolishMod.
@@ -29,7 +32,6 @@ module DUWO {
 	% Use the lowBudget module when our budget is lower than a certain threshold above the target budget
 	if bel(lowBudget)
 		, not(bel(noBudget))
-	then lowBudgetMod.
-	
+	then lowBudgetMod.	
 
 }

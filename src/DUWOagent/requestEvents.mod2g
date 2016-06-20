@@ -5,21 +5,41 @@ order = linearall.
 
 module requestEvents {
 	
-	% A sell proposal has been accepted
-	if bel(sell_proposal(BuyerID, MultiPolygonX), self(MyID))
-		, percept(requests(AllRequests))
-		, bel(member(request('INTERACTION','SELL_LAND',_,_,[MyID], _ , Price
-			, MultiPolygon, _, [answer(0,'OK')]), AllRequests)
-		, Price \= 'NO_PRICE')
-	then delete(sell_proposal(BuyerID, MultiPolygonX)).
+	% Incoming sell request.
+	forall bel(self(MyID)
+		, requests(AllRequests)
+		, member(request('INTERACTION','SELL_LAND',RequestID,_,[MyID], _ , Price
+			, MultiPolygon, Area, [answer(0,'Ja'),answer(1,'Nee')]), AllRequests))
+	do insert(sell_request(RequestID, MultiPolygon, Area, Price)).
 	
-	% A sell proposal has been denied
-	if bel(sell_proposal(BuyerID, MultiPolygonX), self(MyID))
-		, percept(requests(AllRequests))
-		, bel(member(request('INTERACTION','SELL_LAND',_,_,[MyID], _ , Price
+	% Incoming buy request.
+	forall bel(self(MyID)
+		, requests(AllRequests)
+		, member(request('INTERACTION','BUY_LAND',RequestID,_,[MyID], _ , Price
+			, MultiPolygon, Area, [answer(0,'Ja'),answer(1,'Nee'),answer(2,'Gratis geven')]), AllRequests))
+	do insert(buy_request(RequestID, MultiPolygon, Area, Price)).
+	
+	% A sell proposal has been accepted.
+	if bel(sell_proposal(BuyerID, MultiPolygon)
+		, self(MyID)
+		, requests(AllRequests)
+		, member(request('INTERACTION','SELL_LAND',_,_,[MyID], _ , Price
 			, MultiPolygon, _, [answer(0,'OK')]), AllRequests)
-		, Price = 'NO_PRICE')
-	then delete(sell_proposal(BuyerID, MultiPolygonX))
-		+ insert(sell_denied(BuyerID, MultiPolygonX)).
-
+		, not(Price == 'NO_PRICE'))
+	then delete(sell_proposal(BuyerID, MultiPolygon))
+		+ insert(sell_accepted(BuyerID, MultiPolygon)).
+	
+	% A sell proposal has been denied.
+	if bel(sell_proposal(BuyerID, MultiPolygon)
+		, self(MyID)
+		, requests(AllRequests)
+		, member(request('INTERACTION','SELL_LAND',_,_,[MyID], _ , 'NO_PRICE'
+			, MultiPolygon, _, [answer(0,'OK')]), AllRequests))
+	then delete(sell_proposal(BuyerID, MultiPolygon))
+		+ insert(sell_denied(BuyerID, MultiPolygon)).
+	
+	% Process all requests that can only be answered  with 'OK'.
+	forall bel(request(_,_,RequestID,_,_,_,_,_,_,[answer(0,'OK')]))
+	do popup_answer(RequestID, 0).
+	
 }

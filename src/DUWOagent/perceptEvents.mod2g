@@ -90,4 +90,20 @@ module perceptEvents {
 		, bel(not(OldValue == CurrentValue); not(OldZoneLink == CurrentZoneLink))
 	do delete(indicator(ID,OldValue,TargetValue,OldZoneLink))
 		+ insert(indicator(ID,CurrentValue,TargetValue,CurrentZoneLink)).
+	
+	
+	%% If list of all requests is empty, insert requests
+	if percept(requests(PerceptRequests))
+		, bel(PerceptRequests \= []
+		, requests([]))
+	then delete(requests([]))
+	+ insert(requests(PerceptRequests)).
+	
+	%% Update requests.
+	if percept(requests(PerceptRequests))
+		, bel(requests(BelieveRequests)
+		, not(PerceptRequests == BelieveRequests))
+	then delete(requests(BelieveRequests)) 
+	+ insert(requests(PerceptRequests)).
+	
 }

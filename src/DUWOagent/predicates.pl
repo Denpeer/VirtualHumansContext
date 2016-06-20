@@ -22,6 +22,11 @@
 :- dynamic goalBuildLuxuryHousing/0.
 :- dynamic demolished/1.
 :- dynamic sell_denied/2.
+:- dynamic sell_accepted/2.
+:- dynamic sell_request/4.
+:- dynamic buy_request/4.
+:- dynamic requests/1.
+:- dynamic request/10.
 
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 
