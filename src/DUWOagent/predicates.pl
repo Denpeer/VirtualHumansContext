@@ -28,6 +28,7 @@
 :- dynamic buy_request/4.
 :- dynamic requests/1.
 :- dynamic request/10.
+:- dynamic gardensBuilt/0.
 
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 

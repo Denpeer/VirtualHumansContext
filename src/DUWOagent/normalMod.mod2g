@@ -17,55 +17,57 @@ module normalMod {
 		, goal(goalBuildStudentHousing)
 	then get_relevant_areas(0, build, []).
 
+	% If there are gardens to build, build these first.
+	if bel(relevant_areas(0, Buildings, [[GardenMP|GardenArea]|GardenRest]))
+	then building_plan_construction(440,1,GardenMP)
+		+ delete(relevant_areas(0, Buildings, [[GardenMP|GardenArea]|GardenRest]))
+		+ insert(relevant_areas(0, Buildings, GardenRest)).
 
 	% If we know where to build, and we need more luxury student housing,
 	% start building and update the list of multipolys.
 	% We also select a random luxury student building to build.
 	if goal(goalBuildLuxuryHousing)
-		, bel(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest])
+		, bel(relevant_areas(0,[[Poly|Area]|Rest], GardenList)
 		, luxuryHousingIds(Idlist)
 		, random_member(Id,Idlist)
 		, Area = [Area2]
 		, getFloors(Area2,FloorsList)
-		, random_member(Floors, FloorsList))		
-	then building_plan_construction(440,1,APoly)
-		+ building_plan_construction(Id,Floors,Poly)
-		+ building_plan_construction(Id,Floors,Poly)
-		+ delete(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest] ))
-		+ insert(relevant_areas(0,Rest, ARest)).
-	
+		, random_member(Floors, FloorsList)
+		, GardenList = [])
+	then building_plan_construction(Id,Floors,Poly)
+		+ delete(relevant_areas(0,[[Poly|Area]|Rest], GardenList ))
+		+ insert(relevant_areas(0,Rest, GardenList)).
+
 	% If we know where to build, and we need more medium student housing,
 	% start building and update the list of multipolys.
 	% We also select a random medium student building to build.
 	if goal(goalBuildMediumHousing)
-		, bel(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest])
+		, bel(relevant_areas(0,[[Poly|Area]|Rest], GardenList)
 		, mediumHousingIds(Idlist)
 		, random_member(Id,Idlist)
 		, Area = [Area2]
 		, getFloors(Area2,FloorsList)
-		, random_member(Floors, FloorsList))
-	then building_plan_construction(440,1,APoly)
-		+ building_plan_construction(Id,Floors,Poly)
-		+ building_plan_construction(Id,Floors,Poly)
-		+ delete(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest] ))
-		+ insert(relevant_areas(0,Rest, ARest)).
-	
+		, random_member(Floors, FloorsList)
+		, GardenList = [])
+	then building_plan_construction(Id,Floors,Poly)
+		+ delete(relevant_areas(0,[[Poly|Area]|Rest], GardenList ))
+		+ insert(relevant_areas(0,Rest, GardenList)).
+
 	% If we know where to build, and we need more cheap student housing,
 	% start building and update the list of multipolys.
 	% We also select a random cheap student building to build.
 	if goal(goalBuildCheapHousing)
-		, bel(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest])
+		, bel(relevant_areas(0,[[Poly|Area]|Rest], GardenList)
 		, cheapHousingIds(Idlist)
 		, random_member(Id,Idlist)
 		, Area = [Area2]
 		, getFloors(Area2,FloorsList)
-		, random_member(Floors, FloorsList))
-	then building_plan_construction(440,1,APoly)
-		+ building_plan_construction(Id,Floors,Poly)
-		+ building_plan_construction(Id,Floors,Poly)
-		+ delete(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest] ))
-		+ insert(relevant_areas(0,Rest, ARest)).
-	
+		, random_member(Floors, FloorsList)
+		, GardenList = [])
+	then building_plan_construction(Id,Floors,Poly)
+		+ delete(relevant_areas(0,[[Poly|Area]|Rest], GardenList ))
+		+ insert(relevant_areas(0,Rest, GardenList)).
+
 	if bel(relevant_areas(0, MultiPolygons, List))
 	then delete(relevant_areas(0, MultiPolygons, List)).
 }
