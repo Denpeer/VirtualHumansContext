@@ -28,13 +28,13 @@
 nonStudentBuilding(Bid,Name) :- 
 	buildings(Buildings)
 	, self(OwnId)
-	, member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_),Buildings)
+	, member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_,_),Buildings)
 	, not(member('STUDENT',Cat)).
 
 getBuilding(Bid, Type) :- 
 	buildings(Buildings)
 	, self(OwnId)
-	, member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_),Buildings)
+	, member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_,_),Buildings)
 	, member(Type, Cat).
 
 % create a predicate with the Id's of all buildable houses of type student, so that the agent can dynamically choose what kind of building to build
@@ -135,17 +135,17 @@ getPolygon(X, Y, Width, Height, Square) :-
 
 
  % Get a buildings id and area by category.
-getAreaOwnBuilding(BuildingID, Category, Poly, Area):- 
+getAreaOwnBuilding(BuildingID, Category, Poly, Area, TS):- 
 	self(OwnID)
 	, buildings(AllBuildings)
-	, member(building(BuildingID,_Name,OwnID,_Year,Categories,_,_,Poly,Area),AllBuildings)
+	, member(building(BuildingID,_Name,OwnID,_Year,Categories,_,_,Poly,Area, TS),AllBuildings)
 	, member(Category, Categories).
 
 % Create a list with the id and area of all buildings
 % In the form of:
 % [[BuildingIdD,Area1],[BuildingID2,Area2], ...]
 allBuildings(Category, AllBuildings):-
-	findall([BuildingID,Area], getAreaOwnBuilding(BuildingID, Category, _, Area),AllBuildings). 
+	findall([BuildingID,Area], getAreaOwnBuilding(BuildingID, Category, _, Area, _),AllBuildings). 
  
 % Find the maximum area.
 maxArea([[BuildingID,Area]],BuildingID, Area).

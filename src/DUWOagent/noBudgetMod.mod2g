@@ -7,24 +7,23 @@ order=linear.
 exit=always.
 
 
-define sell_building(Category, BuyerID, MultiPolygon)
+define sell_building(Category, BuyerID, MultiPolygon, TS)
 	as not(bel(sell_proposal(_,_))) % We are not already selling something
-		, bel(getAreaOwnBuilding(_, Category, MultiPolygon, Area), Area > 500
+		, bel(getAreaOwnBuilding(_, Category, MultiPolygon, Area, TS), Area > 500
+		, TS \= 'PENDING_CONSTRUCTION'
 		, stakeholder(BuyerID, _)
 		, not(self(BuyerID)) % We cant sell to ourself.
 		, not(sell_denied(BuyerID, MultiPolygon))
-		, not(planned(_,1,MultiPolygon)))
-		, not(bel(sold(MultiPolygon)))
-		, bel(BuyerID \= 1). %Exclude ID 1 since this one is not used
+		, BuyerID \= 1). %Exclude ID 1 since this one is not used
 	
 
 % Module for when the agent is below the target budget, the agent will sell unused land and low-quality housing if this improves the overall indicator score
 module noBudgetMod {
 	
-	if sell_building('NATURE', BuyerID, MultiPolygon)
-	then map_sell_land(BuyerID, MultiPolygon, 400).
+	if sell_building('NATURE', BuyerID, MultiPolygon, TS)
+	then map_sell_land(BuyerID, MultiPolygon, 400) + print(TS).
 	
-	if sell_building('GARDEN', BuyerID, MultiPolygon)
-	then map_sell_land(BuyerID, MultiPolygon, 200).
+	if sell_building('GARDEN', BuyerID, MultiPolygon, TS)
+	then map_sell_land(BuyerID, MultiPolygon, 200) + print(TS).
 	
 }
