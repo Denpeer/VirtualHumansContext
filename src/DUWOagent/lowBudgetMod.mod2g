@@ -18,7 +18,8 @@ module lowBudgetMod {
 	then get_relevant_areas(0, build, []).
 
 	% If there are gardens to build, build these first.
-	if bel(relevant_areas(0, Buildings, [[GardenMP|GardenArea]|GardenRest]))
+	if goal(goalBuildCheapHousing)
+		, bel(relevant_areas(0, Buildings, [[GardenMP|GardenArea]|GardenRest]))
 	then building_plan_construction(440,1,GardenMP)
 		+ delete(relevant_areas(0, Buildings, [[GardenMP|GardenArea]|GardenRest]))
 		+ insert(relevant_areas(0, Buildings, GardenRest)).
