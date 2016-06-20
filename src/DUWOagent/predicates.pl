@@ -8,7 +8,7 @@
 :- dynamic planned/3.
 :- dynamic self/1.
 :- dynamic stakeholder/2.
-:- dynamic relevant_areas/2.
+:- dynamic relevant_areas/3.
 :- dynamic filtered_percepts/1.
 :- dynamic goalDemolish/0.
 :- dynamic sell_proposal/2.
@@ -22,6 +22,7 @@
 :- dynamic goalBuildLuxuryHousing/0.
 :- dynamic demolished/1.
 :- dynamic sell_denied/2.
+:- dynamic sold/1.
 
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 
@@ -154,3 +155,17 @@ maxArea([[_BuildingID,Area]|RestList], BuildingIDFromMax, Max):-
 maxArea([[BuildingID,Area]|RestList],BuildingID,Area):-
 	maxArea(RestList, _, Max)
 	, Area > Max,!.
+
+getFloors(Area, [9,10,11]):-
+	Area < 200.
+getFloors(Area, [7,8,9]):-
+	Area >= 200, Area < 400.
+getFloors(Area, [5,6,7]):-
+	Area >= 400, Area < 600.
+getFloors(Area, [3,4,5,6,7]):-
+	Area >= 600, Area < 800.
+getFloors(Area, [3,4,5]):-
+	Area >=	800, Area < 1000.
+getFloors(Area, [2,3,4]):-
+	Area >= 1000.
+	

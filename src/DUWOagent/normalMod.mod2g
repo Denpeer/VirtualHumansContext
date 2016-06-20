@@ -13,43 +13,56 @@ module normalMod {
 	
 	% When we dont know where to build or we have an empty list
 	% we ask the connector where to build.
-	if bel(relevant_areas(0, []); not(relevant_areas(0, _List)))
+	if bel(relevant_areas(0, [], []); not(relevant_areas(0, _List, _)))
 		, goal(goalBuildStudentHousing)
 	then get_relevant_areas(0, build, []).
-	
+
+
 	% If we know where to build, and we need more luxury student housing,
 	% start building and update the list of multipolys.
 	% We also select a random luxury student building to build.
 	if goal(goalBuildLuxuryHousing)
-		, bel(relevant_areas(0,[[Poly|Area]|Rest])
+		, bel(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest])
 		, luxuryHousingIds(Idlist)
-		, random_member(Id,Idlist))
-	then building_plan_construction(Id,4,Poly)
-		+ delete(relevant_areas(0,[[Poly|Area]|Rest]))
-		+ insert(relevant_areas(0,Rest)).
+		, random_member(Id,Idlist)
+		, Area = [Area2]
+		, getFloors(Area2,FloorsList)
+		, random_member(Floors, FloorsList))		
+	then building_plan_construction(440,1,APoly)
+		+ building_plan_construction(Id,Floors,Poly)
+		+ delete(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest] ))
+		+ insert(relevant_areas(0,Rest, ARest)).
 	
 	% If we know where to build, and we need more medium student housing,
 	% start building and update the list of multipolys.
 	% We also select a random medium student building to build.
 	if goal(goalBuildMediumHousing)
-		, bel(relevant_areas(0,[[Poly|Area]|Rest])
+		, bel(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest])
 		, mediumHousingIds(Idlist)
-		, random_member(Id,Idlist))
-	then building_plan_construction(Id,4,Poly)
-		+ delete(relevant_areas(0,[[Poly|Area]|Rest]))
-		+ insert(relevant_areas(0,Rest)).
+		, random_member(Id,Idlist)
+		, Area = [Area2]
+		, getFloors(Area2,FloorsList)
+		, random_member(Floors, FloorsList))
+	then building_plan_construction(440,1,APoly)
+		+ building_plan_construction(Id,Floors,Poly)
+		+ delete(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest] ))
+		+ insert(relevant_areas(0,Rest, ARest)).
 	
 	% If we know where to build, and we need more cheap student housing,
 	% start building and update the list of multipolys.
 	% We also select a random cheap student building to build.
 	if goal(goalBuildCheapHousing)
-		, bel(relevant_areas(0,[[Poly|Area]|Rest])
+		, bel(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest])
 		, cheapHousingIds(Idlist)
-		, random_member(Id,Idlist))
-	then building_plan_construction(Id,4,Poly)
-		+ delete(relevant_areas(0,[[Poly|Area]|Rest]))
-		+ insert(relevant_areas(0,Rest)).
+		, random_member(Id,Idlist)
+		, Area = [Area2]
+		, getFloors(Area2,FloorsList)
+		, random_member(Floors, FloorsList))
+	then building_plan_construction(440,1,APoly)
+		+ building_plan_construction(Id,4,Poly)
+		+ delete(relevant_areas(0,[[Poly|Area]|Rest], [[APoly|AArea]|ARest] ))
+		+ insert(relevant_areas(0,Rest, ARest)).
 	
-	if bel(relevant_areas(0, MultiPolygons))
-	then delete(relevant_areas(0, MultiPolygons)).
+	if bel(relevant_areas(0, MultiPolygons, List))
+	then delete(relevant_areas(0, MultiPolygons, List)).
 }

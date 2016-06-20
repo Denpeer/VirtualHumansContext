@@ -11,7 +11,8 @@ module requestEvents {
 		, bel(member(request('INTERACTION','SELL_LAND',_,_,[MyID], _ , Price
 			, MultiPolygon, _, [answer(0,'OK')]), AllRequests)
 		, Price \= 'NO_PRICE')
-	then delete(sell_proposal(BuyerID, MultiPolygonX)).
+	then insert(sold(MultiPolygonX))
+	+ delete(sell_proposal(BuyerID, MultiPolygonX)).
 	
 	% A sell proposal has been denied
 	if bel(sell_proposal(BuyerID, MultiPolygonX), self(MyID))
