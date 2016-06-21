@@ -23,7 +23,7 @@ module requestMod {
 	+ popup_answer(RequestID, 1).
 	
 	% Accept well-priced incoming buy land requests, when low on money.
-	forall bel(lowBudget ; noBudget
+	forall bel((lowBudget ; noBudget)
 		, buy_request(RequestID, MultiPolygon, Area, Price)
 		, PricePerM2 is Price / Area
 		, PricePerM2 >= 350)
