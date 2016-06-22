@@ -13,15 +13,15 @@ module perceptEvents {
 		+ insert(filtered_percepts(NewFilteredPercepts)).
 
 	% Update relevant areas when we receive new info of this ID.
-	if percept(relevant_areas(ID,NewPolygons))
-		, bel(relevant_areas(ID,OldPolygons))
-	then delete(relevant_areas(ID,OldPolygons))
-		+ insert(relevant_areas(ID,NewPolygons)).
+	if percept(relevant_areas(ID,NewPolygons, List))
+		, bel(relevant_areas(ID,OldPolygons, ListBel))
+	then delete(relevant_areas(ID,OldPolygons, ListBel))
+		+ insert(relevant_areas(ID,NewPolygons, List)).
 	
 	%% Percepts the relevant area's from the get_relevant_area's action
-	if percept(relevant_areas(ID,Areas))
-		, not(bel(relevant_areas(ID,Polygons)))
-	then insert(relevant_areas(ID,Areas)).
+	if percept(relevant_areas(ID,Areas, ListPercept))
+		, not(bel(relevant_areas(ID,Polygons, _)))
+	then insert(relevant_areas(ID,Areas, ListPercept)).
 	
 	%% Percepts a list of all stakeholders ([<id>, <name>, <income>, <start_budget>]).
 	if percept(stakeholders(NewStakeholders))
@@ -90,4 +90,20 @@ module perceptEvents {
 		, bel(not(OldValue == CurrentValue); not(OldZoneLink == CurrentZoneLink))
 	do delete(indicator(ID,OldValue,TargetValue,OldZoneLink))
 		+ insert(indicator(ID,CurrentValue,TargetValue,CurrentZoneLink)).
+	
+	
+	%% If list of all requests is empty, insert requests
+	if percept(requests(PerceptRequests))
+		, bel(PerceptRequests \= []
+		, requests([]))
+	then delete(requests([]))
+	+ insert(requests(PerceptRequests)).
+	
+	%% Update requests.
+	if percept(requests(PerceptRequests))
+		, bel(requests(BelieveRequests)
+		, not(PerceptRequests == BelieveRequests))
+	then delete(requests(BelieveRequests)) 
+	+ insert(requests(PerceptRequests)).
+	
 }

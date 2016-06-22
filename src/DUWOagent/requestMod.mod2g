@@ -1,0 +1,38 @@
+use actions as actionspec.
+use predicates as knowledge.
+
+
+
+order=linearall.
+exit=always.
+
+
+% Module to accept or reject incoming buy and sell requests.
+module requestMod {
+	
+	% Accept cheap incoming sell land requests.
+	forall bel(sell_request(RequestID, MultiPolygon, Area, Price)
+		, PricePerM2 is Price / Area
+		, PricePerM2 =< 50)
+	do delete(sell_request(RequestID, MultiPolygon, Area, Price))
+	+ popup_answer(RequestID, 0).
+	
+	% Decline all other incoming sell land requests.
+	forall bel(sell_request(RequestID, MultiPolygon, Area, Price))
+	do delete(sell_request(RequestID, MultiPolygon, Area, Price))
+	+ popup_answer(RequestID, 1).
+	
+	% Accept well-priced incoming buy land requests, when low on money.
+	forall bel((lowBudget ; noBudget)
+		, buy_request(RequestID, MultiPolygon, Area, Price)
+		, PricePerM2 is Price / Area
+		, PricePerM2 >= 350)
+	do delete(buy_request(RequestID, MultiPolygon, Area, Price))
+	+ popup_answer(RequestID, 0).
+	
+	% Decline all other incoming buy land requests.
+	forall bel(buy_request(RequestID, MultiPolygon, Area, Price))
+	do delete(buy_request(RequestID, MultiPolygon, Area, Price))
+	+ popup_answer(RequestID, 1).
+	
+}

@@ -1,7 +1,7 @@
-use "../DUWOtestAgent/noBudgetMod"as module.
-use "../DUWOtestAgent/DUWOagent" as mas.
-use "../DUWOtestAgent/predicates" as knowledge.
-use "../DUWOtestAgent/actions" as actionspec.
+use "../DUWOagent/noBudgetMod"as module.
+use "../DUWOagent/DUWOagent" as mas.
+use "../DUWOagent/predicates" as knowledge.
+use "../DUWOagent/actions" as actionspec.
 timeout =15.
 
 

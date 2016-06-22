@@ -8,7 +8,7 @@
 :- dynamic planned/3.
 :- dynamic self/1.
 :- dynamic stakeholder/2.
-:- dynamic relevant_areas/2.
+:- dynamic relevant_areas/3.
 :- dynamic filtered_percepts/1.
 :- dynamic goalDemolish/0.
 :- dynamic sell_proposal/2.
@@ -22,18 +22,25 @@
 :- dynamic goalBuildLuxuryHousing/0.
 :- dynamic demolished/1.
 :- dynamic sell_denied/2.
+:- dynamic sold/1.
+:- dynamic sell_accepted/2.
+:- dynamic sell_request/4.
+:- dynamic buy_request/4.
+:- dynamic requests/1.
+:- dynamic request/10.
+:- dynamic gardensBuilt/0.
 
 % A predicate containing a building that doesn't influence our building indicators
 nonStudentBuilding(Bid,Name) :- 
 	buildings(Buildings)
 	, self(OwnId)
-	, member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_),Buildings)
+	, member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_,_),Buildings)
 	, not(member('STUDENT',Cat)).
 
 getBuilding(Bid, Type) :- 
 	buildings(Buildings)
 	, self(OwnId)
-	, member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_),Buildings)
+	, member(building(Bid,Name,OwnId,Year,Cat,_,_,_,_,_),Buildings)
 	, member(Type, Cat).
 
 % create a predicate with the Id's of all buildable houses of type student, so that the agent can dynamically choose what kind of building to build
@@ -134,17 +141,17 @@ getPolygon(X, Y, Width, Height, Square) :-
 
 
  % Get a buildings id and area by category.
-getAreaOwnBuilding(BuildingID, Category, Poly, Area):- 
+getAreaOwnBuilding(BuildingID, Category, Poly, Area, TS):- 
 	self(OwnID)
 	, buildings(AllBuildings)
-	, member(building(BuildingID,_Name,OwnID,_Year,Categories,_,_,Poly,Area),AllBuildings)
+	, member(building(BuildingID,_Name,OwnID,_Year,Categories,_,_,Poly,Area, TS),AllBuildings)
 	, member(Category, Categories).
 
 % Create a list with the id and area of all buildings
 % In the form of:
 % [[BuildingIdD,Area1],[BuildingID2,Area2], ...]
 allBuildings(Category, AllBuildings):-
-	findall([BuildingID,Area], getAreaOwnBuilding(BuildingID, Category, _, Area),AllBuildings). 
+	findall([BuildingID,Area], getAreaOwnBuilding(BuildingID, Category, _, Area, _),AllBuildings). 
  
 % Find the maximum area.
 maxArea([[BuildingID,Area]],BuildingID, Area).
@@ -154,3 +161,18 @@ maxArea([[_BuildingID,Area]|RestList], BuildingIDFromMax, Max):-
 maxArea([[BuildingID,Area]|RestList],BuildingID,Area):-
 	maxArea(RestList, _, Max)
 	, Area > Max,!.
+
+% Gets the appropriate amount of floors for the desired area of a building.
+getFloors(Area, [9,10,11]):-
+	Area < 200.
+getFloors(Area, [7,8,9]):-
+	Area >= 200, Area < 400.
+getFloors(Area, [5,6,7]):-
+	Area >= 400, Area < 600.
+getFloors(Area, [3,4,5,6,7]):-
+	Area >= 600, Area < 800.
+getFloors(Area, [3,4,5]):-
+	Area >=	800, Area < 1000.
+getFloors(Area, [2,3,4]):-
+	Area >= 1000.
+	
