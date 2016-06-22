@@ -12,19 +12,17 @@ timeout = 20.
 test normalMod with
 	pre {
 		true
-		%bel(demolished(_))	
+		bel(demolished(_))	
 	}
 	in {
 
-		% THESE TESTS ARE COMMENTED BECAUSE IT TAKES WAY TOO LONG ON TRAVIS,
-		% LOCALLY THIS WILL PASS WITH A TIMEOUT OF ~30 SECONDS, TRAVIS NEEDS
-		% MORE THAN 2 MINUTES....
+
 		% Eventually we percept some new relevant areas
-		%eventually percept(relevant_areas(ID,NewPolygons)), bel(NewPolygons \= []).
+		eventually percept(relevant_areas(ID,NewPolygons,_)), bel(NewPolygons \= []).
 		
 		% We have planned a building after we received a percept
 		% with info where to build
-		%percept(relevant_areas(ID,NewPolygons)) leadsto bel(planned(_,_,_)).
+		percept(relevant_areas(ID,NewPolygons,[])) leadsto bel(planned(_,_,_)).
 		
 		
 	}
