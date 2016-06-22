@@ -30,12 +30,7 @@ test normalMod with
 		true
 	}
 	
-DUWOAgent {
-	% First demolish something so checking if we have space to build on
-	% does not take even longer.
-	do demolishMod + DUWO. 
-	
-}
+
 
 
 	
