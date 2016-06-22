@@ -11,9 +11,9 @@ test demolishMod with
 		eventually bel(demolished(Y), 
 			buildings(AllBuildings),
 			% Get the area of the demolish building
-			member(building(Y,Name,OwnId,Year,Cat,_,_,_,Area), AllBuildings),
+			member(building(Y,Name,OwnId,Year,Cat,_,_,_,Area,_), AllBuildings),
 			% Search for a bigger area
-			findall([Area2], (member(building(_,_,OwnId,_,Cat,_,_,_,Area2), AllBuildings), Area2 >Area), List),
+			findall([Area2], (member(building(_,_,OwnId,_,Cat,_,_,_,Area2,_), AllBuildings), Area2 >Area), List),
 			% Nog bigger area has been found
 			List = []).
 			
