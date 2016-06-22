@@ -9,8 +9,8 @@ exit=always.
 
 define sell_building(Category, BuyerID, MultiPolygon, TS)
 	as not(bel(sell_proposal(_,_))) % We are not already selling something
-		, bel(getAreaOwnBuilding(_, Category, MultiPolygon, Area, TS), Area > 500
-		, TS \= 'PENDING_CONSTRUCTION'
+		, bel(getAreaOwnBuilding(_, Category, MultiPolygon, Area, TimeState), Area > 500
+		, TimeState \= 'PENDING_CONSTRUCTION'
 		, stakeholder(BuyerID, _)
 		, not(self(BuyerID)) % We cant sell to ourself.
 		, not(sell_denied(BuyerID, MultiPolygon))

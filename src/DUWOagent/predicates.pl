@@ -162,6 +162,7 @@ maxArea([[BuildingID,Area]|RestList],BuildingID,Area):-
 	maxArea(RestList, _, Max)
 	, Area > Max,!.
 
+% Gets the appropriate amount of floors for the desired area of a building.
 getFloors(Area, [9,10,11]):-
 	Area < 200.
 getFloors(Area, [7,8,9]):-
