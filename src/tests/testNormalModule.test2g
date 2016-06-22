@@ -1,10 +1,10 @@
-use "../DUWOtestAgent/normalMod"as module.
-use "../DUWOtestAgent/demolishMod"as module.
-use "../DUWOtestAgent/DUWOagent" as mas.
-use "../DUWOtestAgent/predicates" as knowledge.
-use "../DUWOtestAgent/actions" as actionspec.
-use "../DUWOtestAgent/perceptEvents" as module.
-use "../DUWOtestAgent/DUWO" as module.
+use "../DUWOagent/normalMod"as module.
+use "../DUWOagent/demolishMod"as module.
+use "../DUWOagent/DUWOagent" as mas.
+use "../DUWOagent/predicates" as knowledge.
+use "../DUWOagent/actions" as actionspec.
+use "../DUWOagent/perceptEvents" as module.
+use "../DUWOagent/DUWO" as module.
 
 
 timeout = 20.
